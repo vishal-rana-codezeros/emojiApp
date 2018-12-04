@@ -1,19 +1,28 @@
-var mongoose = require('mongoose')
-var express = require('express')
-var config_index = require('./lib/config/index')
-var app = express()
-var bodyparser = require('body-parser')
-var env = require('dotenv').config()
-app.use(bodyparser.json({ extended: true, limit: '50mb' }))
-app.use(bodyparser.urlencoded({ extended: true, limit: '50mb' }))
-require('./lib/routes')(app)
-
-mongoose.connect(config_index.URL, { userNewUrlParser: true })
-app.listen(config_index.port, () => {
-	console.log(`server started `)
-})
+var env = require('dotenv').config();
+const config = require('./lib/config');
 
 
+config.dbConfig(config.cfg, (err) => {
+	if (err) {
+		console.log(err)
+		return;
+
+	}
+	const express = require('express')
+	const app = express()
+	app.locals.rootDir = __dirname;
+	config.expressConfig(app, config.cfg.environment);
+	if (err) return res.json(err)
+	require("./lib/routes")(app);
+
+
+	app.listen(config.cfg.port, () => {
+		console.log(`Express server listening on ${config.cfg.port}, in ${config.cfg.TAG} mode`);
+	});
+
+
+
+});
 
 
 
