@@ -4,7 +4,7 @@
         "title": "emojiApp",
         "version": "0.0.1"
     },
-    "host": "66.70.179.133:8092",
+    "host": "192.168.0.194:8092",
     "basePath": "/emojiApp/v2/api",
     "consumes": [
         "application/json",
@@ -42,29 +42,15 @@
                         "schema": {
                             "type": "object",
                             "required": [
-                                "password",
-                                "deviceToken",
-                                "deviceType"
+                                "emailId",
+                                "password"
                             ],
                             "properties": {
                                 "emailId": {
                                     "type": "string"
                                 },
-                                "contactNumber": {
-                                    "type": "string"
-                                },
                                 "password": {
                                     "type": "string"
-                                },
-                                "deviceToken": {
-                                    "type": "string"
-                                },
-                                "deviceType": {
-                                    "type": "string",
-                                    "enum": [
-                                        "IOS",
-                                        "ANDROID"
-                                    ]
                                 }
                             }
                         }
@@ -272,7 +258,7 @@
             }
         },
         "/user/changePassword/{id}": {
-            "post": {
+            "put": {
                 "tags": [
                     "user"
                 ],
@@ -383,7 +369,7 @@
             }
         },
         "/user/resendPin/{id}": {
-            "post": {
+            "get": {
                 "tags": [
                     "user"
                 ],
@@ -414,7 +400,7 @@
             }
         },
         "/user/editProfile/{id}": {
-            "post": {
+            "put": {
                 "tags": [
                     "user"
                 ],
@@ -471,31 +457,27 @@
                 }
             }
         },
-        "/user/uploadPicture": {
+        "/user/imageUpload": {
             "post": {
                 "tags": [
                     "user"
                 ],
-                "summary": "Upload picture api",
+                "summary": "uploads an image",
+                "description": "",
+                "operationId": "uploadFile",
                 "consumes": [
-                    "application/json"
+                    "multipart/form-data"
                 ],
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "file": {
-                                    "type": "string"
-                                }
-                            }
-                        }
+                        "name": "img",
+                        "in": "formData",
+                        "description": "file to upload",
+                        "required": false,
+                        "type": "file"
                     }
                 ],
                 "responses": {
@@ -514,8 +496,8 @@
                 }
             }
         },
-        "/admin/viewAllUserData": {
-            "post": {
+        "/admin/getAllUser": {
+            "get": {
                 "tags": [
                     "admin"
                 ],
@@ -545,8 +527,46 @@
                 }
             }
         },
-        "/admin/editUserData/{id}": {
-            "post": {
+        "/admin/getOneUser/{id}": {
+            "get": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Get data of particular user",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "Token of particular user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Id of particular user",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucess",
+                        "schema": {
+                            "$ref": "#/definitions/Success"
+                        }
+                    },
+                    "400": {
+                        "description": "User not found.",
+                        "schema": {
+                            "$ref": "#/definitions/UserNotFound"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/updateUser/{id}": {
+            "put": {
                 "tags": [
                     "admin"
                 ],
@@ -569,15 +589,19 @@
                     {
                         "in": "body",
                         "name": "body",
-                        "required": true,
                         "schema": {
                             "type": "object",
-                            "required": [
-                                "userName",
-                                "image"
-                            ],
                             "properties": {
                                 "userName": {
+                                    "type": "string"
+                                },
+                                "fullName": {
+                                    "type": "string"
+                                },
+                                "contactNumber": {
+                                    "type": "string"
+                                },
+                                "emailId": {
                                     "type": "string"
                                 },
                                 "image": {
@@ -603,8 +627,8 @@
                 }
             }
         },
-        "/admin/DeleteUserData/{id}": {
-            "post": {
+        "/admin/deleteUser/{id}": {
+            "put": {
                 "tags": [
                     "admin"
                 ],
@@ -757,7 +781,7 @@
                 "responseMessage": {
                     "type": "string"
                 },
-                "url": {
+                "data": {
                     "type": "string"
                 }
             }
