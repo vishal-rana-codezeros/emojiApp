@@ -1,5 +1,5 @@
 const Config = {
-	URL: 'http://192.168.0.194:8092/emojiApp/v2/api'
+	URL: 'http://localhost:8092/emojiApp/v2/api'
 }
 
 export default Config;
