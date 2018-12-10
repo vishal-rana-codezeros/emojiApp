@@ -33,6 +33,12 @@ export const forgotPassword = (data) => {
 	}
 }
 
+export const recordCount =() => {	
+	return dispatch => {
+		return axios.get(`${Config.URL}/admin/recordCount`);
+	}
+}
+
 export const logout = () => {	
 	return dispatch => {
 		delete axios.defaults.headers.common['Authorization'];
