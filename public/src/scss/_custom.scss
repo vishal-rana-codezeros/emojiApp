@@ -1,9 +1,92 @@
 // Here you can add other styles
+// .primaryButton {
+//     background-color: #63c2de !important;
+// }
 .has-error {
-    color: red;
+    color: white;
     width: 100%;
 }
 
-.primaryButton {
-    background-color: #63c2de !important;
+
+.card {
+    background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
 }
+
+.profilecustom{
+    width: 70px
+}
+.logoLabelEffect{
+    color: #ff1a1a;
+    margin-top: 10px 
+}
+.loginButtonCss{
+    // background-color:  #ff1a1a;
+    background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
+
+}
+.forgotLinkCss{
+    color:  #ff1a1a
+}
+.forgotLinkCss:hover{
+    color:rgb(185, 3, 3)!important;
+}
+.btn-link:hover {
+    // color:  #ff1a1a;
+    text-decoration: underline;
+    background-color: transparent;
+    border-color: transparent;
+}
+.btn-primary:hover {
+    background-color:rgb(185, 3, 3)!important;
+    border-color:   #ff1a1a!important;
+}
+
+.sidebar{
+    background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
+}
+.nav-link:hover{
+    background: rgb(185, 3, 3)!important;
+}
+.sidebar .nav-link.active {
+    color: #fff;
+    background: rgb(185, 3, 3)!important;
+}
+.usercss{
+    border-color: rgb(185, 3, 3)!important;
+    background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
+}
+.labelcss:hover{
+    color: #ff1a1a!important;
+    background: white!important;
+}
+.button-primary{
+    background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
+}
+.logoutcss:hover{   
+    background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
+}
+    .sendcss{
+        background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
+    }
+    
+    nav > ol > :not(.active) > a {
+    
+    color: #ff1a1a!important;
+}
+
+.sidebar-minimized .sidebar .sidebar-minimizer {
+    background-color: rgb(185, 3, 3)!important;
+}
+
+.ReactTable .-pagination select:hover {
+    background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
+}
+.-btn:hover{
+    background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
+}
+// .searchcss{
+//     border-color:#ff1a1a!important;
+// }
+// .searchcss:hover{
+//     border-color: #ff1a1a!important;
+// }

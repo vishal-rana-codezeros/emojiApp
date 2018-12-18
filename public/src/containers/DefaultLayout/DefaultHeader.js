@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Badge, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink } from 'reactstrap';
 import PropTypes from 'prop-types';
-
+import { Login } from '../../views/Pages/Login/Login'
 import { AppAsideToggler, AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 import logo from '../../assets/img/brand/logo.svg'
 import sygnet from '../../assets/img/brand/sygnet.svg'
@@ -16,31 +16,51 @@ const propTypes = {
 const defaultProps = {};
 
 class DefaultHeader extends Component {
- 
+
+  componentWillMount() {
+    const { isAuthenticate } = this.props.Auth
+    if (!isAuthenticate) {
+      // <div>
+      //   <Login/>
+      // </div>
+    }
+  }
+
   onClickToLogout = (e) => {
     this.props.logout();
   }
 
   render() {
-
-    // eslint-disable-next-line
     const { children, ...attributes } = this.props;
-    
+
+    var { image, fullName } = JSON.parse(localStorage.getItem('user'));
+
+    // if(image==""){
+    //   return "";
+    // }
+
+
+
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
-        <AppNavbarBrand
+        {/* <AppNavbarBrand
+        />  */}
+
+        {/* <AppNavbarBrand
           full={{ src: logo, width: 89, height: 25, alt: 'CoreUI Logo' }}
           minimized={{ src: sygnet, width: 30, height: 30, alt: 'CoreUI Logo' }}
-        />
+        /> */}
         <AppSidebarToggler className="d-md-down-none" display="lg" />
+        <label className="logoLabelEffect"><b>Emoji Admin</b></label>
         <Nav className="ml-auto" navbar>
           <AppHeaderDropdown direction="down">
             <DropdownToggle nav>
-              <img src={'../../assets/img/avatars/6.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+              <h5 className="labelcss"><label >{fullName}</label></h5>
             </DropdownToggle>
             <DropdownMenu right style={{ right: 'auto' }}>
-              <DropdownItem onClick={this.onClickToLogout}><i className="fa fa-lock"></i> Logout</DropdownItem>
+              <DropdownItem><img src={image != "" ? image : `../../assets/img/avatars/default.png`} className="img-avatar profilecustom" alt={fullName ? fullName : ''} /></DropdownItem>
+              <DropdownItem className="logoutcss" onClick={this.onClickToLogout}><i className="fa fa-lock "></i> Logout</DropdownItem>
             </DropdownMenu>
           </AppHeaderDropdown>
         </Nav>
@@ -52,8 +72,8 @@ class DefaultHeader extends Component {
 DefaultHeader.propTypes = propTypes;
 DefaultHeader.defaultProps = defaultProps;
 
-const mapStateToProps  = (state) => ({
-  Auth : state.Auth
+const mapStateToProps = (state) => ({
+  Auth: state.Auth
 })
 
-export default connect(mapStateToProps, {logout})(DefaultHeader);
+export default connect(mapStateToProps, { logout })(DefaultHeader);

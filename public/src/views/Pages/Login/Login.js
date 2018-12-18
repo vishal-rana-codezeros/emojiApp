@@ -81,7 +81,9 @@ class Login extends Component {
 
   render() {
     const {errors} = this.state;
-    
+    const inlineStyle = {
+      color:"white"
+    }
     return (
       <div className="app flex-row align-items-center">
         <Container>
@@ -91,8 +93,8 @@ class Login extends Component {
                 {this.state.isLogin && <Card className="p-4">
                   <CardBody>
                     <Form onSubmit={this.onClickLogin}>
-                      <h1>Login</h1>
-                      <p className="text-muted">Sign In to your account</p>
+                      <h1 style={inlineStyle}>Login</h1>
+                      <p style={inlineStyle}>Sign In to your account</p>
                       {this.state.errors.header && <Alert color="danger">
                         {this.state.errors.header}
                       </Alert>}
@@ -116,10 +118,10 @@ class Login extends Component {
                       </InputGroup>
                       <Row>
                         <Col xs="6">
-                          <Button color="primary" className="px-4" onClick={this.onClickLogin}>Login</Button>
+                          <Button color="primary" className="px-4 loginButtonCss" onClick={this.onClickLogin}>Login</Button>
                         </Col>
                         <Col xs="6" className="text-right">
-                          <Button color="link" className="px-0" onClick={(e) => this.onChangeToForgotPassword(false)}>Forgot password?</Button>
+                          <Button color="link" className="px-0 forgotLinkCss" onClick={(e) => this.onChangeToForgotPassword(false)}>Forgot password?</Button>
                         </Col>
                       </Row>
                     </Form>
