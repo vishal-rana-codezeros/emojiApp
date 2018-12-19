@@ -4,7 +4,7 @@ info:
   version: "0.0.1"
   #192.168.0.194
   # 66.70.179.133
-host: "66.70.179.133:8092"
+host: "66.70.179.133:5001"
 basePath: "/emojiApp/v2/api"
 consumes:
 - "application/json"
@@ -425,11 +425,33 @@ paths:
   #           $ref: "#/definitions/ApiResponse"
     
               
-  "/admin/getAllUser":
+  # "/admin/getAllUser":
+  #     get:
+  #       tags:
+  #       - "admin"
+  #       summary: Get list of all users
+  #       parameters: 
+  #         - in: header
+  #           name: authorization
+  #           description: Token of particular user
+  #           required: true
+  #           type: string
+  #       responses:
+  #         "200":
+  #           description: "Sucess"
+  #           schema:
+  #             $ref: "#/definitions/Success"           
+  #         "400":
+  #           description: "User not found."
+  #           schema:
+  #             $ref: "#/definitions/UserNotFound"   
+   
+              
+  "/admin/recordCount":
       get:
         tags:
         - "admin"
-        summary: Get list of all users
+        summary: Get count of  users
         parameters: 
           - in: header
             name: authorization
@@ -440,11 +462,12 @@ paths:
           "200":
             description: "Sucess"
             schema:
-              $ref: "#/definitions/Success"           
+              $ref: "#/definitions/UserNotFound"           
           "400":
-            description: "User not found."
+            description: "No records."
             schema:
               $ref: "#/definitions/UserNotFound"       
+ 
  
   "/admin/getOneUser/{id}":
       get:
