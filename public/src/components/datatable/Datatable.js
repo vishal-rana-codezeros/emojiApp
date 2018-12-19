@@ -27,40 +27,7 @@ const Datatable = ({data, columns, onFetchData, pages, loading, filterable, sort
       </>
     );
   }
-//   Datatable.defaultProps={
-//     pages:1,
-//     columns:[{
-//       Header: 'Full Name',
-//       accessor: 'fullName', // String-based value accessors!
-//       width: 300
-//     }, {
-//       Header: 'Email Address',
-//       accessor: 'emailId',    
-//       width: 400
-//     }, {
-//       Header: 'Contact Number',
-//       accessor: 'contactNumber', // Custom value accessors!
-//       width: 300,
-//       style: { textAlign: "center" }
-//     }, {
-//       Header: 'Status', // Custom header components!
-//       id: "status",
-//       accessor: d => d.status=='ACTIVE'? (<Badge color="success">Active</Badge>):(<Badge color="secondary">Inactive</Badge>),
-//       width: 150,
-//       style: { textAlign: "center" }
-//     },
-//     {
-//       Header: "Action",
-//       Cell: row => (<>
-//            <IconButton aria-label="Delete">
-//              <EditIcon fontSize="small" /> 
-//            </IconButton>
-//            <DeleteConfirmDialog deleteId={row.row._original._id} onClick={this.onClickToDelete}/>
-//         </>),
-//       style: { textAlign: "center" }
-//     }
-//   ]
-// }
+  
 
   Datatable.propTypes = {
     onFetchData: PropTypes.func.isRequired

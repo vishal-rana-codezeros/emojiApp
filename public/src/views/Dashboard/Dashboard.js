@@ -25,6 +25,7 @@ import {
   Row,
   Table,
 } from 'reactstrap';
+import { red } from '@material-ui/core/colors';
 const styles = {
   root: {
     marginLeft: '70px'
@@ -45,12 +46,56 @@ const cardChartData1 = {
   datasets: [
     {
       label: 'My First dataset',
-      backgroundColor: brandPrimary,
-      borderColor: 'rgba(255,255,255,.55)',
+      backgroundColor: '#e44242',
+      borderColor: 'WHITE',
+      
       data: [65, 59, 84, 84, 51, 55, 40],
     },
   ],
 };
+const cardChartOpts1 = {
+  tooltips: {
+    enabled: false,
+    custom: CustomTooltips
+  },
+  maintainAspectRatio: false,
+  legend: {
+    display: false,
+  },
+  scales: {
+    xAxes: [
+      {
+        gridLines: {
+          color: 'transparent',
+          zeroLineColor: 'transparent',
+        },
+        ticks: {
+          fontSize: 2,
+          fontColor: 'transparent',
+        },
+
+      }],
+    yAxes: [
+      {
+        display: false,
+        ticks: {
+          display: false,
+          min: Math.min.apply(Math, cardChartData1.datasets[0].data) - 5,
+          max: Math.max.apply(Math, cardChartData1.datasets[0].data) + 5,
+        },
+      }],
+  },
+  elements: {
+    line: {
+      borderWidth: 1,
+    },
+    point: {
+      radius: 4,
+      hitRadius: 10,
+      hoverRadius: 4,
+    },
+  }
+}
 
 class Dashboard extends Component {
   constructor(props) {
@@ -79,8 +124,8 @@ class Dashboard extends Component {
     return (
       <div className="animated fadeIn ">
         <Row>
-          <Col xs="12" sm="6" lg="3">
-            <Card className="text-white bg-info">
+          <Col xs="12" sm="6" lg="4">
+            <Card className="text-white bg-info cardcss">
               <CardBody className="pb-0">
                 <ButtonGroup className="float-right">
                   <ButtonDropdown id='card1' isOpen={this.state.card1} toggle={() => { this.setState({ card1: !this.state.card1 }); }}>
@@ -92,14 +137,15 @@ class Dashboard extends Component {
                 <div className="text-value">Users</div>
                 <div>{this.state.userCount}</div>
               </CardBody>
-              <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
+              <div className="chart-wrapper mx-3" style={{ height: '90px' }}>
+                <Line data={cardChartData1} options={cardChartOpts1} height={70} />
               </div>
             </Card>
           </Col>
-        </Row>
-        <Row>
-          <Col xs="12" sm="6" lg="3">
-            <Card className="text-white bg-info">
+        {/* </Row>
+        <Row> */}
+          <Col xs="12" sm="6" lg="4">
+            <Card className="text-white bg-info cardcss">
               <CardBody className="pb-0">
                 <ButtonGroup className="float-right">
                   <ButtonDropdown id='card1' isOpen={this.state.card1} toggle={() => { this.setState({ card1: !this.state.card1 }); }}>
@@ -108,10 +154,51 @@ class Dashboard extends Component {
                     </DropdownToggle>
                   </ButtonDropdown>
                 </ButtonGroup>
-                <div className="text-value">coming soon</div>
-                <div>Stickers</div>
+                <div className="text-value">Stickers</div>
+                <div>coming soon</div>
               </CardBody>
-              <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
+              <div className="chart-wrapper mx-3" style={{ height: '90px' }}>
+                <Line data={cardChartData1} options={cardChartOpts1} height={70} />
+              </div>
+            </Card>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs="12" sm="6" lg="4">
+            <Card className="text-white bg-info cardcss">
+              <CardBody className="pb-0">
+                <ButtonGroup className="float-right">
+                  <ButtonDropdown id='card1' isOpen={this.state.card1} toggle={() => { this.setState({ card1: !this.state.card1 }); }}>
+                    <DropdownToggle caret className="p-0" color="transparent">
+                      <i className="icon-settings"></i>
+                    </DropdownToggle>
+                  </ButtonDropdown>
+                </ButtonGroup>
+                <div className="text-value">Keyboards</div>
+                <div>coming soon</div>
+              </CardBody>
+              <div className="chart-wrapper mx-3" style={{ height: '90px' }}>
+                <Line data={cardChartData1} options={cardChartOpts1} height={70} />
+              </div>
+            </Card>
+          </Col>
+        {/* </Row>
+        <Row> */}
+          <Col xs="12" sm="6" lg="4">
+            <Card className="text-white bg-info cardcss">
+              <CardBody className="pb-0">
+                <ButtonGroup className="float-right">
+                  <ButtonDropdown id='card1' isOpen={this.state.card1} toggle={() => { this.setState({ card1: !this.state.card1 }); }}>
+                    <DropdownToggle caret className="p-0" color="transparent">
+                      <i className="icon-settings"></i>
+                    </DropdownToggle>
+                  </ButtonDropdown>
+                </ButtonGroup>
+                <div className="text-value">Categories</div>
+                <div>coming soon</div>
+              </CardBody>
+              <div className="chart-wrapper mx-3" style={{ height: '90px' }}>
+                <Line data={cardChartData1} options={cardChartOpts1} height={70} />
               </div>
             </Card>
           </Col>

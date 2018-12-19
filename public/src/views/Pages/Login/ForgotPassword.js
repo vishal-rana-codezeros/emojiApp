@@ -78,8 +78,8 @@ class ForgotPassword extends Component {
         <Card className="p-4">
             <CardBody>
             {!this.state.isSendMail && <Form onSubmit={this.onClickLogin}>
-                <h1>Forgot Your Password?</h1>
-                <p className="text-muted">Enter your email to receive recovery information</p>
+                <h1 className="recoverycss">Forgot Your Password?</h1>
+                <p className="text-muted recoverycss">Enter your email to receive recovery information</p>
                 {this.state.errors.header && <Alert color="danger">
                     {this.state.errors.header}
                 </Alert>}

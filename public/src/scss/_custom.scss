@@ -25,7 +25,7 @@
 
 }
 .forgotLinkCss{
-    color:  #ff1a1a
+    color:  white
 }
 .forgotLinkCss:hover{
     color:rgb(185, 3, 3)!important;
@@ -84,9 +84,32 @@
 .-btn:hover{
     background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
 }
-// .searchcss{
-//     border-color:#ff1a1a!important;
+.tablecss{
+  background-image: linear-gradient(to bottom right,#e44242,white, )!important;
+}
+.cardcss{
+    background-image: linear-gradient(to bottom right,#e44242,white, )!important;
+    height: 250px!important;
+    width: 400px!important;
+    margin-right: 150px!important;
+    margin-left: 150px!important;
+    margin-top: 50px!important;
+    
+}
+.recoverycss{
+    color: white!important
+}
+.card.bg-info {
+    border-color: #e44242!important;
+}
+.headercss{
+    align-content: center!important
+}
+// .sideBarcss{
+//     color:blue!important
 // }
-// .searchcss:hover{
-//     border-color: #ff1a1a!important;
-// }
+.nav-item   {   
+    padding: 10px 0 10px -0;
+    font-size: 17px;
+    font-weight: 600;
+}

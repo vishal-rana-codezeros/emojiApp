@@ -5,6 +5,7 @@ import { getAllUser, deleteUser } from '../../action/user.action';
 import Datatable from '../../components/datatable/Datatable';
 import Datatablewithfilter from '../../components/datatable/Datatablewithfilter';
 import DeleteConfirmDialog from '../../components/common/DeleteConfirmDialog';
+import EditUser from '../../components/common/DeleteConfirmDialog';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 // import Griddle from 'griddle-react';
@@ -12,7 +13,7 @@ import EditIcon from '@material-ui/icons/Edit';
 class UsersModal extends Component {
   constructor(props) {
     super(props)
-   
+
     this.state = {
       tableData: [],
       pages: 1,
@@ -22,6 +23,7 @@ class UsersModal extends Component {
 
     this.onChangeToFetchTable = this.onChangeToFetchTable.bind(this);
     this.onClickToDelete = this.onClickToDelete.bind(this);
+    this.onClickToEdit = this.onClickToEdit.bind(this);
     this.onChangeToFilterValue = this.onChangeToFilterValue.bind(this);
     this.onChangeToFetchTablefiltere = this.onChangeToFetchTablefiltere.bind(this);
   }
@@ -35,6 +37,7 @@ class UsersModal extends Component {
 
 
   onChangeToFetchTable = (state, instance) => {
+    // console.log("action, tableState", action, tableState);
     this.setState({ loading: true })
     this.props.getAllUser(state.page, state.pageSize, state.sorted, state.filtered).then((res) => {
       if (res.data.code == 200) {
@@ -46,11 +49,11 @@ class UsersModal extends Component {
   }
   onChangeToFilterValue = (data) => {
     this.setState({ filter: data.target.value })
-    console.log("in changetofilter value",this.state.filter)
+    console.log("in changetofilter value", this.state.filter)
     return (<Datatablewithfilter data={this.state.tableData} onFetchData={this.onChangeToFetchTablefiltere} loading={this.state.loading} filter={this.state.filter} />)
   }
   onChangeToFetchTablefiltere = (state, instance) => {
-    console.log(" in onChangeToFetchTablefiltere",this.state)
+    console.log(" in onChangeToFetchTablefiltere", this.state)
     this.setState({ loading: true })
     this.props.getAllUserFilter(this.state.page, this.state.pageSize, this.state.sorted, this.state.filtered, this.state.filter).then((res) => {
       if (res.data) {
@@ -60,15 +63,19 @@ class UsersModal extends Component {
       }
     })
   }
-  
+
   onClickToDelete = (id) => {
-    // this.props.deleteUser(id)
+
+    console.log("id in delete", id)
     let someArray = this.state.tableData.slice(0, this.state.tableData.findIndex(x => x._id === id))
     console.log("someArray", someArray)
     // this.setState({tableData: someArray});
 
   }
-  
+  onClickToEdit = (id) => {
+    console.log("id in delete", id)
+    console.log("edit")
+  }
   render() {
     console.log("tableData", this.state.tableData);
     const colorWhite = {
@@ -78,18 +85,18 @@ class UsersModal extends Component {
       Header: 'Full Name',
       accessor: 'fullName', // String-based value accessors!
       width: 300,
-      style:{} 
+      style: {}
     }, {
       Header: 'Email Address',
       accessor: 'emailId',
       width: 400,
-      style:{} 
+      style: {}
 
     }, {
       Header: 'Contact Number',
       accessor: 'contactNumber', // Custom value accessors!
       width: 300,
-      style: { textAlign: "center" , }
+      style: { textAlign: "center", }
     }, {
       Header: 'Status', // Custom header components!
       id: "status",
@@ -101,29 +108,30 @@ class UsersModal extends Component {
       Header: "Action",
       Cell: row => (<>
         <IconButton aria-label="Delete" >
-          <EditIcon fontSize="small"  />
+          <EditIcon fontSize="small" />
         </IconButton>
         <DeleteConfirmDialog deleteId={row.row._original._id} onClick={this.onClickToDelete} />
+        {/* <EditUser deleteId={row.row._original._id} onClick={this.onClickToEdit} /> */}
       </>),
       style: { textAlign: "center", }
     }
     ]
 
-   
+
     const { tableData } = this.state;
 
     return (
-      <div className="tablecss" >
+      <div >
         <Row >
           <Col xs="12" lg="12">
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i> Users List
+            <Card className="tablecss" >
+              <CardHeader className="tablecss" style={{textAlign: 'center', fontSize:'20px',fontWeight:'600'}}>
+                 Users List
               </CardHeader>
               <input type="text" className="searchcss" name="search" placeholder="Search.." onChange={this.onChangeToFilterValue} ></input>
 
               <CardBody style={colorWhite}>
-                <Datatable data={tableData} columns={columns} onFetchData={this.onChangeToFetchTable} pages={this.state.pages} loading={this.state.loading} onChangeToFilterValue={this.onChangeToFilterValue} filter={this.state.filter}  style={colorWhite}/>
+                <Datatable data={tableData} columns={columns} onFetchData={this.onChangeToFetchTable} pages={this.state.pages} loading={this.state.loading} onChangeToFilterValue={this.onChangeToFilterValue} filter={this.state.filter} style={colorWhite} />
               </CardBody>
             </Card>
           </Col>

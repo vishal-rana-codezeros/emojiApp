@@ -14,6 +14,7 @@ export default {
       name: 'Keyboards',
       url: '/keyboards',
       icon: 'fa fa-keyboard-o',
+      className:"sideBarcss",
       children: [
         {
           name: 'Categories',

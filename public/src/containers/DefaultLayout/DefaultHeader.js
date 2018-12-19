@@ -8,6 +8,7 @@ import logo from '../../assets/img/brand/logo.svg'
 import sygnet from '../../assets/img/brand/sygnet.svg'
 import { logout } from '../../action/auth.action';
 import { connect } from 'react-redux';
+import {withRouter} from "react-router"
 
 const propTypes = {
   children: PropTypes.node,
@@ -20,9 +21,7 @@ class DefaultHeader extends Component {
   componentWillMount() {
     const { isAuthenticate } = this.props.Auth
     if (!isAuthenticate) {
-      // <div>
-      //   <Login/>
-      // </div>
+      this.props.history.push('/Login');
     }
   }
 
@@ -33,13 +32,18 @@ class DefaultHeader extends Component {
   render() {
     const { children, ...attributes } = this.props;
 
-    var { image, fullName } = JSON.parse(localStorage.getItem('user'));
+    const { isAuthenticate } = this.props.Auth
+    if (!isAuthenticate) {
+      this.props.history.push('/Login');
+    }
+
+    
+
+    var { image, fullName } = localStorage.getItem('user')?JSON.parse(localStorage.getItem('user')):{};
 
     // if(image==""){
     //   return "";
     // }
-
-
 
     return (
       <React.Fragment>
@@ -59,7 +63,7 @@ class DefaultHeader extends Component {
               <h5 className="labelcss"><label >{fullName}</label></h5>
             </DropdownToggle>
             <DropdownMenu right style={{ right: 'auto' }}>
-              <DropdownItem><img src={image != "" ? image : `../../assets/img/avatars/default.png`} className="img-avatar profilecustom" alt={fullName ? fullName : ''} /></DropdownItem>
+              <DropdownItem><img src={image? image : `../../assets/img/avatars/default.png`} className="img-avatar profilecustom" alt={fullName ? fullName : ''} /></DropdownItem>
               <DropdownItem className="logoutcss" onClick={this.onClickToLogout}><i className="fa fa-lock "></i> Logout</DropdownItem>
             </DropdownMenu>
           </AppHeaderDropdown>
@@ -76,4 +80,4 @@ const mapStateToProps = (state) => ({
   Auth: state.Auth
 })
 
-export default connect(mapStateToProps, { logout })(DefaultHeader);
+export default withRouter(connect(mapStateToProps, { logout })(DefaultHeader));
