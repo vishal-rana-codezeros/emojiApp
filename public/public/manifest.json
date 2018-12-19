@@ -1,11 +1,11 @@
 {
-  "short_name": "CoreUI-React",
-  "name": "CoreUI-React sample",
+  "short_name": "Emoji App",
+  "name": "Emoji App",
   "icons": [
     {
-      "src": "./assets/img/favicon.png",
+      "src": "/assets/img/avatars/8.jpg",
       "sizes": "100x100",
-      "type": "image/png"
+      "type": "image/jpg"
     }
   ],
   "start_url": ".",

@@ -24,12 +24,12 @@ export default {
       ]
     },
     {
-      name: 'AboutUs',
+      name: 'About Us',
       url: '/AboutUs',
       icon: 'fa fa-group'
     },
     {
-      name: 'ContactUs',
+      name: 'Contact Us',
       url: '/ContactUs',
       icon: 'fa fa-volume-control-phone'
     }
