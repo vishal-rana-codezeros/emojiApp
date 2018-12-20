@@ -8,7 +8,7 @@ const changeAction = string => ({
 });
 
 export const getAllUser = (page, pageSize, sorted, filtered) => {
-	console.log("getalluser called")
+	// console.log("getalluser called")
     return dispatch => {
     	return axios.get(`${API.URL}/admin/getAllUser?page=${page}&size=${pageSize}`);
 	}
@@ -16,7 +16,7 @@ export const getAllUser = (page, pageSize, sorted, filtered) => {
 }
 
 export const getAllUserFilter = (page, pageSize, sorted, filtered,filter) => {
-	console.log("withfilterAPI called")
+	// console.log("withfilterAPI called")
     return dispatch => {
     	return axios.get(`${API.URL}/admin/getAllUser?page=${page}&size=${pageSize}&filter=${filter}`);
 	}
@@ -31,6 +31,6 @@ export const deleteUser = (page, pageSize, sorted, filtered) => {
 
 export const Login = data => {
 	return dispatch => {
-		console.log(data);
+		// console.log(data);
 	}
 }

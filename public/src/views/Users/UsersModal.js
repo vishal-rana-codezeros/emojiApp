@@ -43,7 +43,7 @@ class UsersModal extends Component {
       if (res.data.code == 200) {
         const { total, limit } = res.data.data;
         this.setState({ tableData: res.data.data.docs, pages: Math.ceil(total / limit), loading: false })
-        console.log("resdata===========================>", res.data.data.docs)
+        // console.log("resdata===========================>", res.data.data.docs)
       }
     })
   }
@@ -66,18 +66,18 @@ class UsersModal extends Component {
 
   onClickToDelete = (id) => {
 
-    console.log("id in delete", id)
+    // console.log("id in delete", id)
     let someArray = this.state.tableData.slice(0, this.state.tableData.findIndex(x => x._id === id))
     console.log("someArray", someArray)
     // this.setState({tableData: someArray});
 
   }
   onClickToEdit = (id) => {
-    console.log("id in delete", id)
-    console.log("edit")
+    // console.log("id in delete", id)
+    // console.log("edit")
   }
   render() {
-    console.log("tableData", this.state.tableData);
+    // console.log("tableData", this.state.tableData);
     const colorWhite = {
       // color: "white"
     }
