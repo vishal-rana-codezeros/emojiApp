@@ -87,14 +87,9 @@
 .tablecss{
   background-image: linear-gradient(to bottom right,#e44242,white, )!important;
 }
-.cardcss{
-    background-image: linear-gradient(to bottom right,#e44242,white, )!important;
-    height: 250px!important;
-    width: 400px!important;
-    margin-right: 150px!important;
-    margin-left: 150px!important;
-    margin-top: 50px!important;
-    
+.cardcss {
+    background-image: -webkit-linear-gradient(top left, #e44242, white) !important;
+    background-image: linear-gradient(to bottom right, #e44242, white) !important;
 }
 .recoverycss{
     color: white!important
@@ -116,4 +111,28 @@
 .searchcss{
     margin-top: 10px;
     margin-left: 10px;
+}
+.editFormcss
+{
+    margin-left: 10%!important;
+    justify-content: flex-start!important;
+}
+.modal-content{
+    background-image: linear-gradient(to bottom right, #e44242, white) !important;
+}
+.card-footer{
+    background-image: linear-gradient(to bottom right, #e44242, white) !important;
+}
+.editbtncss{
+    margin-left: 20%!important
+}
+.input-group{
+    margin-top: 3%!important
+}
+.labelcss{
+    color: white!important;
+}
+
+.card-body > div >div > div > div > svg {
+    display: none !important;
 }
