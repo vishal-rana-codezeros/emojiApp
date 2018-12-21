@@ -17,8 +17,8 @@ config.dbConfig(config.cfg, (err) => {
 	require("./lib/routes")(app);
 
 
-	app.listen(config.cfg.port, () => {
-		console.log(`Express server listening on ${config.cfg.port}, in ${config.cfg.TAG} mode`);
+	app.listen(process.env.PORT, () => {
+		console.log(`Express server listening on ${process.env.PORT}, in ${config.cfg.TAG} mode`);
 	});
 
 
