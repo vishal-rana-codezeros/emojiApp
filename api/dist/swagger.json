@@ -4,7 +4,7 @@
         "title": "emojiApp",
         "version": "0.0.1"
     },
-    "host": "192.168.0.194:5001",
+    "host": "66.70.179.133:5001",
     "basePath": "/emojiApp/v2/api",
     "consumes": [
         "application/json",
@@ -489,37 +489,6 @@
                     },
                     "400": {
                         "description": "internal server error",
-                        "schema": {
-                            "$ref": "#/definitions/UserNotFound"
-                        }
-                    }
-                }
-            }
-        },
-        "/admin/getAllUser": {
-            "get": {
-                "tags": [
-                    "admin"
-                ],
-                "summary": "Get list of all users",
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "authorization",
-                        "description": "Token of particular user",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Sucess",
-                        "schema": {
-                            "$ref": "#/definitions/Success"
-                        }
-                    },
-                    "400": {
-                        "description": "User not found.",
                         "schema": {
                             "$ref": "#/definitions/UserNotFound"
                         }
