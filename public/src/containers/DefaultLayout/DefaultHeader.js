@@ -60,7 +60,7 @@ class DefaultHeader extends Component {
         <Nav className="ml-auto" navbar>
           <AppHeaderDropdown direction="down">
             <DropdownToggle nav>
-              <h5 className="labelcss"><label >{fullName}</label></h5>
+              <h5 className="adminNamecss"><label >{fullName}</label></h5>
             </DropdownToggle>
             <DropdownMenu right style={{ right: 'auto' }}>
               <DropdownItem><img src={image? image : `../../assets/img/avatars/default.png`} className="img-avatar profilecustom" alt={fullName ? fullName : ''} /></DropdownItem>

@@ -51,6 +51,12 @@
     color: #fff;
     background: rgb(185, 3, 3)!important;
 }
+.nav-dropdown{
+    background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
+}
+.sidebar .nav-link{
+    background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
+}
 .usercss{
     border-color: rgb(185, 3, 3)!important;
     background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
@@ -107,6 +113,7 @@
     padding: 10px 0 10px -0;
     font-size: 17px;
     font-weight: 600;
+    
 }
 .searchcss{
     margin-top: 10px;
@@ -132,7 +139,26 @@
 .labelcss{
     color: white!important;
 }
-
-.card-body > div >div > div > div > svg {
-    display: none !important;
+.adminNamecss{
+    color:red!important;
 }
+.adminNamecss:hover{
+    // color:red!important;
+    background-color: #fff!important
+}
+// .card-body > div >div > div > div > svg {
+//     display: none !important;
+// }
+.MUIDataTableToolbar-left-33{
+    position: relative;
+    left: 46%;
+    background-color: white;
+    z-index: 9;
+   
+}
+
+.card-body > div > div > div > div {
+    width: 48%;
+    float: right;
+}
+    
