@@ -45,7 +45,7 @@ const cardChartData1 = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
   datasets: [
     {
-      label: 'My First dataset',
+      label: 'users',
       backgroundColor: '#e44242',
       borderColor: 'WHITE',
       

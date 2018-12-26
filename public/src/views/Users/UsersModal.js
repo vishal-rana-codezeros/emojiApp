@@ -8,7 +8,7 @@ import EditUser from '../../components/common/EditUser';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
-
+import ActiveConfirmDialog from '../../components/common/ActiveConfirmDialog'
 
 
 class UsersModal extends Component {
@@ -18,7 +18,7 @@ class UsersModal extends Component {
     this.state = {
       tableData: [],
       page: 0,
-      pageSize: 20,
+      pageSize: 10,
       count: '',
       loading: false,
       filter: ''
@@ -34,30 +34,30 @@ class UsersModal extends Component {
   }
 
   getUser = () => {
-    const { page, pageSize } = this.state;
-    this.props.getAllUser(page, pageSize).then((res) => {
 
+    const { page, pageSize } = this.state;    
+    this.props.getAllUser(page, pageSize).then((res) => {
       if (res.status == 200) {
         const { total, docs } = res.data.data;
         // console.log("docs", docs)
         let tableData = [];
-        docs.map(x => tableData.push([x.fullName, x.emailId, x.contactNumber, x.status,
+        docs.map(x => tableData.push([x.fullName, x.emailId,x.userName, x.contactNumber, x.status,
         (<>          
           <EditUser getUser={this.getUser.bind(this)} editId={x._id} />
           
           {x.status == 'ACTIVE' && <DeleteConfirmDialog deleteId={x._id} onClick={this.onClickToDelete} />}
-          {x.status == 'INACTIVE' && <RemoveRedEyeIcon onClick={(e) => {this.onClickToActive(x._id)}} />}
+          {x.status == 'INACTIVE' && < ActiveConfirmDialog activeId={x._id} onClick={(e) => {this.onClickToActive(x._id)}} />} 
+          {/* {x.status == 'INACTIVE' && <RemoveRedEyeIcon  activeId={x._id} onClick={(e) => {this.onClickToActive(x._id)}} />} */}
 
         </>)
         ]))
-
-        this.setState({ tableData: tableData, count: total })
+        
+        this.setState({ tableData, count: total, page:page, pageSize:pageSize })
       }
     })
   }
 
   onClickToDelete = (id) => {
-    console.log("id", id)
     this.props.deleteUser(id).then((res) => {
       if (res.status == 200) {
         this.getUser()
@@ -66,7 +66,6 @@ class UsersModal extends Component {
 
   }
   onClickToActive = (id) => {
-    console.log("activeid", id)
     this.props.activeUser(id).then((res) => {
       if (res.status == 200) {
         this.getUser()
@@ -81,18 +80,19 @@ class UsersModal extends Component {
 
       if (res.data.code == 200) {
         const { total, docs, code } = res.data.data;
-        // console.log("total, docs, code", total, docs, code);
+        // console.log("data",res.data.data);
         let tableData = [];
-        docs.map(x => tableData.push([x.fullName, x.emailId, x.contactNumber, x.status,
+        docs.map(x => tableData.push([x.fullName, x.emailId,x.userName, x.contactNumber, x.status,
         (<>
           <EditUser getUser={this.getUser.bind(this)} editId={x._id} onClick={this.onClickToEdit} />
           
           {x.status == 'ACTIVE' && <DeleteConfirmDialog deleteId={x._id} onClick={this.onClickToDelete} />}
-          {x.status == 'INACTIVE' && <RemoveRedEyeIcon onClick={(e) => {this.onClickToActive(x._id)}} />} 
+          {x.status == 'INACTIVE' && <ActiveConfirmDialog  activeId={x._id} onClick={(e) => {this.onClickToActive(x._id)}} />} 
         </>)
         ]))
 
-        this.setState({ tableData, count: total })
+        this.setState({ tableData, count: total, page:page, pageSize:rowsPerPage })
+        // console.log("tabledata",this.state.tableData);
       } else {
         this.setState({ tableData: [] })
       }
@@ -110,7 +110,7 @@ class UsersModal extends Component {
               </CardHeader>
 
               <CardBody>
-                <Datatable data={this.state.tableData} onFetchData={this.onChangeToFetchTable.bind(this)} pages={this.state.pages} />
+                <Datatable data={this.state.tableData} onFetchData={this.onChangeToFetchTable.bind(this)} page={this.state.page} pageSize={this.state.pageSize} count={this.state.count} />
               </CardBody>
             </Card>
           </Col>

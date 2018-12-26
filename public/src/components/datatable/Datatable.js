@@ -5,8 +5,8 @@ import 'react-table/react-table.css';
 import PropTypes from 'prop-types';
 import '../../index.css'
 
-const Datatable = ({ data, columns, onFetchData, pages }) => {
-  // console.log("data=============>", data)
+const Datatable = ({ data, columns, onFetchData, page,pageSize,count}) => {
+  
   const options = {
     serverSide: true,
     display: false,
@@ -15,18 +15,24 @@ const Datatable = ({ data, columns, onFetchData, pages }) => {
     print:false,
     filter:false,
     viewColumns:false,
+    page:page,
+    rowsPerPage:pageSize,
+    count:count,
+    // defaultPageSize:10,
     onTableChange: (action, tableState) => {
       onFetchData(action, tableState)
     }
   };
 
+  console.log("page,pageSize", page,pageSize);
 
   return (
     <MUIDataTable
       data={data}
-      columns={["Full Name ", "Email Id","Contact Number","Status","Action"]}
-      className="-striped -highlight"
+      columns={["Full Name ", "Email Id","User Name","Contact Number","Status","Action"]}
+      // className="-striped -highlight"
       options={options}
+      className="tablecss"
     />
   );
 }
