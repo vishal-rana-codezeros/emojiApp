@@ -4,7 +4,7 @@ info:
   version: "0.0.1"
   #192.168.0.194
   # 66.70.179.133
-host: "66.70.179.133:5001"
+host: "192.168.0.194:5001"
 basePath: "/emojiApp/v2/api"
 consumes:
 - "application/json"
@@ -568,9 +568,180 @@ paths:
             schema:
               $ref: "#/definitions/UserNotFound"
                 
+  "/admin/activeUser/{id}":
+      put:
+        tags:
+        - "admin"
+        summary: Request for activate user 
+        parameters: 
+          - in: header
+            name: authorization
+            description: Token of particular user
+            required: true
+            type: string
+          - in: path
+            name: id
+            description: Id of particular user
+            required: true
+            type: string
+        responses:
+          "200":
+            description: "User Activated Successfully"
+            schema:
+              $ref: "#/definitions/UserNotFound"
+          "400":
+            description: "Invalid user"
+            schema:
+              $ref: "#/definitions/UserNotFound"
+              
+  "/admin/countMaleUserData":
+      get:
+        tags:
+        - "admin"
+        summary: Request for countMale users 
+        parameters: 
+          - in: header
+            name: authorization
+            description: Token of particular user
+            required: true
+            type: string
+         
+        responses:
+          "200":
+            description: "Count of Male user's records are"
+            schema:
+              $ref: "#/definitions/UserNotFound"
+          "500":
+            description: "Interval server error"
+            schema:
+              $ref: "#/definitions/UserNotFound"
+              
+                           
+  "/admin/countFemaleUserData":
+      get:
+        tags:
+        - "admin"
+        summary: Request for countFemale users 
+        parameters: 
+          - in: header
+            name: authorization
+            description: Token of particular user
+            required: true
+            type: string
+         
+        responses:
+          "200":
+            description: "Count of female user's records  are"
+            schema:
+              $ref: "#/definitions/UserNotFound"
+          "500":
+            description: "Interval server error"
+            schema:
+              $ref: "#/definitions/UserNotFound"
+                 
+                     
+  "/admin/addAboutusPage/{id}":
+      post:
+        tags:
+        - "admin"
+        summary:  add cms pages request
+        parameters: 
+          - in: header
+            name: authorization
+            description: Token of particular admin
+            required: true
+            type: string
+          - in: path
+            name: id
+            description: Id of particular admin
+            required: true
+            type: string
+          - in: body
+            name: admin
+            description: add about us page.
+            schema:
+              type: object
+             
+               
+              properties:
+                title:
+                    type: string
                 
+                description:
+                    type: string
+        responses:
+          "200":
+            description: "Successfully Added"
+            schema:
+              $ref: "#/definitions/UserNotFound"
+          "400":
+            description: "Invalid user"
+            schema:
+              $ref: "#/definitions/UserNotFound"
+         
+  "/admin/updateAboutusPage/{id}":
+      put:
+        tags:
+        - "admin"
+        summary: Edit cms page request
+        parameters: 
+          - in: header
+            name: authorization
+            description: Token of particular admin
+            required: true
+            type: string
+          - in: path
+            name: id
+            description: Id of particular cms page
+            required: true
+            type: string
+          - in: body
+            name: body
             
-                   
+            schema:
+              type: object
+             
+                
+                
+              properties:
+                title:
+                    type: string
+                description:
+                    type: string
+               
+                    
+        responses:
+          "200":
+            description: "Succesfully edited"
+            schema:
+              $ref: "#/definitions/UserNotFound"
+          "400":
+            description: "Invalid user"
+            schema:
+              $ref: "#/definitions/UserNotFound"
+    
+  "/admin/getAboutusPage":
+      get:
+        tags:
+        - "admin"
+        summary: Get list of about us pages.
+        parameters: 
+          - in: header
+            name: authorization
+            description: Token of particular admin
+            required: true
+            type: string
+        responses:
+          "200":
+            description: "Sucess"
+            schema:
+              $ref: "#/definitions/UserNotFound"           
+          "400":
+            description: "User not found."
+            schema:
+              $ref: "#/definitions/UserNotFound"   
+              
+                             
 definitions:  
   loginResponse:
     type: "object"
