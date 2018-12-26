@@ -87,7 +87,8 @@ paths:
                     type: string
                 password:
                     type: string
-                
+                gender:
+                    type: string
                 deviceToken:
                     type: string
                 deviceType:
