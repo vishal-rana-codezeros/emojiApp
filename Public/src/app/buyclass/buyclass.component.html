@@ -1,0 +1,48 @@
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" routerLink="/registerdata">My-Profile</a>
+
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" routerLink="/buyclass">Buyclass</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" routerLink="/welcome">Generate class</a>
+    </li>
+
+</ul>
+
+<table class="table table-hover">
+    <thead>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+
+                    <td><b>Tutorial_Id</b></td>
+                    <!-- <td><b>Teacher_Id</b></td> -->
+                    <td><b>Created_By</b></td>
+                    <td><b>Tutorial_Name</b></td>
+                    <td><b>Tutorial_Price</b></td>
+
+                    <td colspan="2"><b>Actions</b></td>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let uint of adunits; let i=index">
+                    <!-- <tr> -->
+                    <td>{{uint._id }}{{i}}</td>
+                    <!-- <td>{{ uint.t_id }}</td> -->
+                    <td>{{ uint.teacher_name }}</td>
+                    <td>{{ uint.t_name }}</td>
+                    <td>{{ uint.t_price }}</td>
+
+                    <!-- <td><a [routerLink]="['/buyclass', uint._id]" class="btn btn-primary" (ngSubmit)="onSubmit()">PURCHASE</a></td> -->
+                    <td><button type="button" [routerLink]="" class="btn btn-primary " (click)="onClick(uint._id)"
+                            [disabled]="uint.hasFile">PURCHASE</button></td>
+                    <!-- <div *ngif=(data.class.indexOf(data1._id)>=0)  [ngStyle]="{'background-color': buttonColor}">Tutorial_Id is required</div> -->
+
+                    <!-- <td><a [routerLink]="" class="btn btn-danger">DELETE</a> -->
+                </tr>
+            </tbody>
+        </table>

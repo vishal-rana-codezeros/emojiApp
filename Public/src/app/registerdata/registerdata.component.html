@@ -1,0 +1,36 @@
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" routerLink="/registerdata">Dashboard</a>
+
+    </li>
+
+</ul>
+<table class="table table-hover">
+    <thead align="center">
+        <tr>
+            <td><b>Contact-list</b></td>
+            <td><a class="btn btn-success" (click)="groupCreate()">CreateGroup</a></td>
+        </tr>
+    </thead>
+
+    <tbody align="center">
+        <tr>
+
+        <tr *ngFor="let user of datalist">
+
+            <td><a class="btn btn-primary btn-lg" (click)="connect(user)">{{ user.userName }}</a></td>
+
+        </tr>
+
+    </tbody>
+
+    <tbody align="center">
+  <tr>
+
+    <tr *ngFor="let user of datalist1">
+         <td><a class="btn btn-primary btn-lg" (click)="connect1(user._id)">{{ user.groupName }}</a></td>
+    </tr>
+
+    </tbody>
+    
+</table>

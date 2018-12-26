@@ -1,0 +1,81 @@
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a   class="nav-link" routerLink="/registerdata">My-Profile</a>
+   
+    </li>
+    <li class="nav-item">
+        <a  class="nav-link" routerLink="/buyclass">Buyclass</a>
+    </li>
+     <li class="nav-item">
+      <a class="nav-link"  routerLink="/welcome">Generate class</a>
+    </li>
+   
+  </ul>
+  
+
+<!-- <button class="btn btn-success" routerLink='/login' style="margin-left: 10px">Log out</button>
+<button class="btn btn-success"  style="margin-left: 10px" >Update</button>
+<button class="
+btn btn-success"  style="margin-left: 10px">Delete Record</button> -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+   
+  <div class="container">
+      <div class="card bg-info">  
+          <h5 class="card-header info-color white-text text-center py-4" >
+              <h4 class="text-center text-white">Generate_Class</h4>
+        </h5>
+        </div>
+        <div class="card-body px-lg-5 pt-0">
+            <br><br> 
+<form [formGroup]="Generate_Class" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="t_id">Tutorial_Id:</label>
+      <input mapInput="text" formControlName="t_id" class="form-control" placeholder="Enter Id" [ngClass]="{'is-valid':submitted && f.t_id.errors}">
+      <div *ngIf="submitted && f.t_id.errors" class="err-lbl">
+        <div *ngIf="f.t_id.errors.required">Tutorial_Id is required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="teacher_name">Created By:</label>
+      <input mapInput="text" formControlName="teacher_name" class="form-control" placeholder="Created By" [ngClass]="{'is-valid':submitted && f.teacher_name.errors}">
+      <div *ngIf="submitted && f.teacher_name.errors" class="err-lbl">
+        <div *ngIf="f.teacher_name.errors.required">Created By is required</div>
+      </div>
+    </div>
+    <div class="form-group">
+        <label for="t_name">Tutorial_Name:</label>
+        <input mapInput="text" formControlName="t_name" class="form-control" placeholder="Enter Tutorial_Name" [ngClass]="{'is-valid':submitted && f.t_name.errors}">
+        <div *ngIf="submitted && f.t_name.errors" class="err-lbl">
+          <div *ngIf="f.t_name.errors.required">Tutorial_Name is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="t_price">Tutorial_Price:</label>
+        <input mapInput="text" formControlName="t_price" class="form-control" placeholder="Enter Tutorial_Price" [ngClass]="{'is-valid':submitted && f.t_price.errors}">
+        <div *ngIf="submitted && f.t_price.errors" class="err-lbl">
+          <div *ngIf="f.t_price.errors.required">Tutorial_Price is required</div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <button class="btn btn-primary">Generate</button>&nbsp;&nbsp;
+        <!-- <button type="reset" value="Reset" class="btn btn-danger"  routerLink="/registerdata">Cancle</button><br/> -->
+        <!-- <button  routerLink="/registerdata">Cancle</button><br/> -->
+        
+      
+      </div>
+      </form>
+      </div></div>
+      </body>
+      </html>
