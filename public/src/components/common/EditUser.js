@@ -31,7 +31,6 @@ class EditUser extends React.Component {
   toggle = () => {
     this.setState({ open: !this.state.open }, () => {
       if (this.state.open) {
-        // console.log("id in edit",this.props)
         this.props.getOneUser(this.props.editId).then((res) => {
 
           if (res.status == 200) {
@@ -92,6 +91,7 @@ class EditUser extends React.Component {
   }
 
   render() {
+  
     let { errors } = this.state
     return (
       <>
