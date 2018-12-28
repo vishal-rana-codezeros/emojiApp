@@ -23,6 +23,8 @@ config.dbConfig(config.cfg, (err) => {
 		console.log(`Express server listening on ${config.cfg.port}, in ${config.cfg.TAG} mode`);
 	});
 
+
+
 	const io = socket.listen(server)
 	require('./lib/socket/socketHandler')(io)
 

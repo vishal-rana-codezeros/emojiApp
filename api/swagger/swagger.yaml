@@ -446,6 +446,41 @@ paths:
   #           schema:
   #             $ref: "#/definitions/UserNotFound"   
    
+  "/admin/getAllUser":
+      get:
+        tags:
+        - "admin"
+        summary: Get list of all users
+        parameters: 
+          - in: header
+            name: authorization
+            description: Token of particular user
+            required: true
+            type: string
+          - in: query
+            name: page
+            description: number of pages 
+            required: true
+            type: number
+          - in: query
+            name: size
+            description: size of page
+            required: true
+            type: number
+          - in: query
+            name: filter
+            description: request for filtering data
+            type: string
+        responses:
+          "200":
+            description: "Sucess"
+            schema:
+              $ref: "#/definitions/Success"           
+          "400":
+            description: "No records."
+            schema:
+              $ref: "#/definitions/UserNotFound"   
+   
               
   "/admin/recordCount":
       get:
@@ -594,50 +629,8 @@ paths:
             schema:
               $ref: "#/definitions/UserNotFound"
               
-  "/admin/countMaleUserData":
-      get:
-        tags:
-        - "admin"
-        summary: Request for countMale users 
-        parameters: 
-          - in: header
-            name: authorization
-            description: Token of particular user
-            required: true
-            type: string
-         
-        responses:
-          "200":
-            description: "Count of Male user's records are"
-            schema:
-              $ref: "#/definitions/UserNotFound"
-          "500":
-            description: "Interval server error"
-            schema:
-              $ref: "#/definitions/UserNotFound"
-              
-                           
-  "/admin/countFemaleUserData":
-      get:
-        tags:
-        - "admin"
-        summary: Request for countFemale users 
-        parameters: 
-          - in: header
-            name: authorization
-            description: Token of particular user
-            required: true
-            type: string
-         
-        responses:
-          "200":
-            description: "Count of female user's records  are"
-            schema:
-              $ref: "#/definitions/UserNotFound"
-          "500":
-            description: "Interval server error"
-            schema:
-              $ref: "#/definitions/UserNotFound"
+  
+ 
                  
                      
   "/admin/addAboutusPage/{id}":
