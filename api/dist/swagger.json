@@ -4,7 +4,7 @@
         "title": "emojiApp",
         "version": "0.0.1"
     },
-    "host": "66.70.179.133:5001",
+    "host": "localhost:5001",
     "basePath": "/emojiApp/v2/api",
     "consumes": [
         "application/json",
