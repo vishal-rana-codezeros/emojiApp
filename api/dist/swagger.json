@@ -811,6 +811,60 @@
                 }
             }
         },
+        "/admin/addKeyboard/{id}": {
+            "post": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "add cms pages request",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "Token of particular admin",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Id of particular admin",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "admin",
+                        "description": "add about us page.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "title": {
+                                    "type": "string"
+                                },
+                                "description": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully Added",
+                        "schema": {
+                            "$ref": "#/definitions/UserNotFound"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid user",
+                        "schema": {
+                            "$ref": "#/definitions/UserNotFound"
+                        }
+                    }
+                }
+            }
+        },
         "/admin/updateAboutusPage/{id}": {
             "put": {
                 "tags": [
