@@ -58,10 +58,13 @@ class AboutUs extends Component {
   }
 
   getAbout = () => {
+    console.log("calling about us")
     this.props.getAboutusPage().then((res) => {
+      console.log(res)
       if (res.status == 200) {
-        if (res.data.data[0]) {
-          const { _id, title, description} = res.data.data[0]?res.data.data[0]:{};
+        if (res.data.data) {
+          console.log(res.data)
+          const { _id, title, description} = res.data.data?res.data.data:{};
           this.setState({ id: _id, title, description })
         }
       }
