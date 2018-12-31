@@ -13,7 +13,8 @@
     "body-parser": "^1.18.3",
     "cloudinary": "^1.13.2",
     "cors": "^2.8.5",
-    "dotenv": "^6.1.0",
+    "dotenv": "^6.2.0",
+    "draftjs-to-markdown": "^0.5.1",
     "express": "^4.16.4",
     "generate-password": "^1.4.1",
     "lodash": "^4.17.11",
@@ -22,6 +23,7 @@
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
     "nodemailer": "^4.6.8",
+    "react-draft-wysiwyg": "^1.12.15",
     "secure-pin": "^1.0.14",
     "swagger": "^0.7.5",
     "twilio": "^3.23.2"
