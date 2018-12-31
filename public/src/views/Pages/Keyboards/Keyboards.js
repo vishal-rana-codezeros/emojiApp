@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {withStyles} from '@material-ui/core'
-
+import Categories from './Categories'
+import DeleteKeyboard from '../../../components/Keyboard/DeleteKeyboard';
 const styles={
   root:{
     marginLeft:'70px'
@@ -15,7 +16,7 @@ class Keyboards extends Component {
 
     return (
       <div className="animated fadeIn ">
-       Coming Soon
+      <Categories></Categories>
       </div>
     );
   }
