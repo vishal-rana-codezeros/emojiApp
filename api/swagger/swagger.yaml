@@ -655,18 +655,12 @@ paths:
             schema:
               type: object
              
-               
               properties:
-                keyboardName:
+                title:
                     type: string
-                category:
-                    type: string
-                createdBy:
-                  type: string 
-                KeyboardType:
-                    type: string
-                cost:
-                    type: number
+                
+                description:
+                    type: string   
                     
         responses:
           "200":
@@ -699,13 +693,19 @@ paths:
             schema:
               type: object
              
-               
-              properties:
-                title:
-                    type: string
                 
-                description:
+              properties:
+                keyboardName:
                     type: string
+                category:
+                    type: string
+                createdBy:
+                  type: string 
+                KeyboardType:
+                    type: string
+                cost:
+                    type: number 
+             
         responses:
           "200":
             description: "Successfully Added"

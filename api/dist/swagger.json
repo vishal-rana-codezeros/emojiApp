@@ -785,20 +785,11 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "keyboardName": {
+                                "title": {
                                     "type": "string"
                                 },
-                                "category": {
+                                "description": {
                                     "type": "string"
-                                },
-                                "createdBy": {
-                                    "type": "string"
-                                },
-                                "KeyboardType": {
-                                    "type": "string"
-                                },
-                                "cost": {
-                                    "type": "number"
                                 }
                             }
                         }
@@ -848,11 +839,20 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "title": {
+                                "keyboardName": {
                                     "type": "string"
                                 },
-                                "description": {
+                                "category": {
                                     "type": "string"
+                                },
+                                "createdBy": {
+                                    "type": "string"
+                                },
+                                "KeyboardType": {
+                                    "type": "string"
+                                },
+                                "cost": {
+                                    "type": "number"
                                 }
                             }
                         }
