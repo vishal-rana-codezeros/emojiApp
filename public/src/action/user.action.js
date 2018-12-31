@@ -52,19 +52,14 @@ export const getAboutusPage= (data) => {
 export const addAboutusPage =(data) => {	
 	console.log("data in abtus",data)
 	const {_id } = JSON.parse(localStorage.getItem('user'));
-	console.log("description  in addaboutus=====================s",data.editorState)
-	//  dataa:{
-	// 	let title=data.title;
-	// 	let description=JSON.stringify(data.editorState)
-	// }
-	// console.log("data in about us",dataa)
+	console.log("description  in addaboutus=====================",data)
 	return dispatch => {
 		return axios.post(`${API.URL}/admin/addAboutusPage/${_id}`,data);
 	}
 }
 
 export const updateAboutusPage =(data) => {	
-	console.log("data in abtus",data)
+	console.log("data in abtus",data.id)
 	
 	return dispatch => {
 		return axios.put(`${API.URL}/admin/updateAboutusPage/${data.id}`,data);

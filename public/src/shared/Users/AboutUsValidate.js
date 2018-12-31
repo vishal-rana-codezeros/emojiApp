@@ -5,14 +5,12 @@ const validation = (data) => {
 
     let errors = {};
 
-    let { title, description } = data;
+    let { description } = data;
 
-    if (isEmpty(title)) {
-        errors.title = "Please enter title";
+    if (isEmpty(description)) {
+        errors.description = "Please enter description";
     }
-    // if (isEmpty(description)) {
-    //     errors.description = "Please Enter description";
-    // }
+   
     
     return {
         isValid: lodash.isEmpty(errors),
