@@ -21,12 +21,12 @@ config.dbConfig(config.cfg, (err) => {
 
 
 
-var server= 	app.listen(process.env.PORT, () => {
+	var server = app.listen(process.env.PORT, () => {
 		console.log(`Express server listening on ${process.env.PORT}, in ${config.cfg.TAG}`);
 
-});
-const io = socket.listen(server)	
-require('./lib/socket/socketHandler')(io)
+	});
+	const io = socket.listen(server)
+	require('./lib/socket/socketHandler')(io)
 
 
 });
