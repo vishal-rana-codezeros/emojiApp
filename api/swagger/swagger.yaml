@@ -657,11 +657,17 @@ paths:
              
                
               properties:
-                title:
+                keyboardName:
                     type: string
-                
-                description:
+                category:
                     type: string
+                createdBy:
+                  type: string 
+                KeyboardType:
+                    type: string
+                cost:
+                    type: number
+                    
         responses:
           "200":
             description: "Successfully Added"
