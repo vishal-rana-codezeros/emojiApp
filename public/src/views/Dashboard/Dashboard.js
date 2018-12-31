@@ -48,7 +48,7 @@ const cardChartData1 = {
       label: 'users',
       backgroundColor: '#e44242',
       borderColor: 'WHITE',
-      
+
       data: [65, 59, 84, 84, 51, 55, 40],
     },
   ],
@@ -101,20 +101,20 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userCount: 0
+      userCount: 0,
+      male: 0,
+      female: 0
     };
   }
 
   componentWillMount() {
     this.props.recordCount(this.state).then(res => {
-      if (res.data.code) {
-        // console.log("if part data",res.data)
-        this.setState({ userCount: res.data.data })
-        // console.log("userCount",this.state.userCount
-      } else {
-        //  console.log("else part")
-      }
-    });
+        if (res.data.code) {
+          this.setState({ userCount: res.data.data.totalCounts ,male:res.data.data.maleCounts,female:res.data.data.femalCounts})
+        } else {
+        }
+      });
+
   }
 
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
@@ -134,15 +134,27 @@ class Dashboard extends Component {
                     </DropdownToggle>
                   </ButtonDropdown>
                 </ButtonGroup>
-                <div className="text-value">Users</div>
-                <div>{this.state.userCount}</div>
+                <Row>
+                  <Col>
+                    <div className="text-value">Users</div>
+                    <div>{this.state.userCount}</div>
+                  </Col>
+                  <Col>
+                    <div className="text-value">Male</div>
+                    <div>{this.state.male}</div>
+                  </Col>
+                  <Col>
+                    <div className="text-value">Female</div>
+                    <div>{this.state.female}</div>
+                  </Col>
+                </Row>
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: '90px' }}>
                 <Line data={cardChartData1} options={cardChartOpts1} height={70} />
               </div>
             </Card>
           </Col>
-        {/* </Row>
+          {/* </Row>
         <Row> */}
           <Col xs="12" sm="6" lg="4">
             <Card className="text-white bg-info cardcss">
@@ -182,7 +194,7 @@ class Dashboard extends Component {
               </div>
             </Card>
           </Col>
-        {/* </Row>
+          {/* </Row>
         <Row> */}
           <Col xs="12" sm="6" lg="4">
             <Card className="text-white bg-info cardcss">
@@ -203,10 +215,10 @@ class Dashboard extends Component {
             </Card>
           </Col>
         </Row>
-        </div>
+      </div>
     );
   }
 }
 
-export default connect(null, { recordCount })(withStyles(styles)(Dashboard));
+export default connect(null, { recordCount})(withStyles(styles)(Dashboard));
 

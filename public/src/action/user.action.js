@@ -6,7 +6,7 @@ const changeAction = string => ({
   	type : ACTION_TYPE,
 	action_value: string
 });
-
+var dataa=""
 export const getAllUser = (page, pageSize, filtered="") => {
 	// console.log("getalluser called")
     return dispatch => {
@@ -15,13 +15,7 @@ export const getAllUser = (page, pageSize, filtered="") => {
 	
 }
 
-// export const getAllUserFilter = (page, pageSize, sorted, filtered,filter) => {
-// 	// console.log("withfilterAPI called")
-//     return dispatch => {
-//     	return axios.get(`${API.URL}/admin/getAllUser?page=${page}&size=${pageSize}&filter=${filter}`);
-// 	}
-	
-// }
+
 
 export const deleteUser = (id) => {
     return dispatch => {
@@ -36,8 +30,6 @@ export const getOneUser = (id) => {
 }
 
 export const updateUser = (id,data) => {
-	// console.log("data in api====>",data)
-	// console.log("id in api",id)
     return dispatch => {
     	return axios.put(`${API.URL}/admin/updateUser/${id}`,data);
     }
@@ -50,5 +42,26 @@ export const activeUser = (id) => {
 export const Login = data => {
 	return dispatch => {
 		// console.log(data);
+	}
+}
+export const getAboutusPage= (data) => {	
+	return dispatch => {
+		return axios.get(`${API.URL}/admin/getAboutusPage`);
+	}
+}
+export const addAboutusPage =(data) => {	
+	console.log("data in abtus",data)
+	const {_id } = JSON.parse(localStorage.getItem('user'));
+	console.log("description  in addaboutus=====================",data)
+	return dispatch => {
+		return axios.post(`${API.URL}/admin/addAboutusPage/${_id}`,data);
+	}
+}
+
+export const updateAboutusPage =(data) => {	
+	console.log("data in abtus",data.id)
+	
+	return dispatch => {
+		return axios.put(`${API.URL}/admin/updateAboutusPage/${data.id}`,data);
 	}
 }
