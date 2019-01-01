@@ -528,8 +528,34 @@ paths:
           "400":
             description: "User not found."
             schema:
+              $ref: "#/definitions/UserNotFound"    
+                
+              
+  "/admin/getOneKeyboardDetails/{id}":
+      get:
+        tags:
+        - "admin"
+        summary: Get data of particular keyboard
+        parameters: 
+          - in: header
+            name: authorization
+            description: Token of particular admin
+            required: true
+            type: string
+          - in: path
+            name: id
+            description: Id of particular keyboard
+            required: true
+            type: string
+        responses:
+          "200":
+            description: "Sucess"
+            schema:
+              $ref: "#/definitions/Success"           
+          "400":
+            description: "User not found."
+            schema:
               $ref: "#/definitions/UserNotFound"       
- 
   "/admin/updateUser/{id}":
       put:
         tags:
@@ -616,20 +642,44 @@ paths:
             type: string
           - in: path
             name: id
-            description: Id of particular user
+            description: Id of particular keyboard
             required: true
             type: string
         responses:
           "200":
-            description: "User Activated Successfully"
+            description: "Activated Successfully"
+            schema:
+              $ref: "#/definitions/UserNotFound"
+          "400":
+            description: "Invalid keyboard"
+            schema:
+              $ref: "#/definitions/UserNotFound"
+              
+  "/admin/activeKeyboard/{id}":
+      put:
+        tags:
+        - "admin"
+        summary: Request for activeKeyboard 
+        parameters: 
+          - in: header
+            name: authorization
+            description: Token of particular admin
+            required: true
+            type: string
+          - in: path
+            name: id
+            description: Id of particular admin
+            required: true
+            type: string
+        responses:
+          "200":
+            description: "Keyboard Activated Successfully"
             schema:
               $ref: "#/definitions/UserNotFound"
           "400":
             description: "Invalid user"
             schema:
               $ref: "#/definitions/UserNotFound"
-              
-  
  
                  
                      
@@ -699,12 +749,14 @@ paths:
                     type: string
                 category:
                     type: string
-                createdBy:
-                  type: string 
                 KeyboardType:
                     type: string
                 cost:
-                    type: number 
+                    type: number
+                status:
+                    type: number
+                createdBy:
+                    type: number
              
         responses:
           "200":
@@ -756,7 +808,79 @@ paths:
             description: "Invalid user"
             schema:
               $ref: "#/definitions/UserNotFound"
-    
+              
+  "/admin/deleteKeyboard/{id}":
+      put:
+        tags:
+        - "admin"
+        summary:  deleteKeyboard request
+        parameters: 
+          - in: header
+            name: authorization
+            description: Token of particular user
+            required: true
+            type: string
+          - in: path
+            name: id
+            description: Id of keyboard
+            required: true
+            type: string
+        responses:
+          "200":
+            description: "Deleted successfully"
+            schema:
+              $ref: "#/definitions/UserNotFound"
+          "400":
+            description: "Invalid keyboard"
+            schema:
+              $ref: "#/definitions/UserNotFound"
+              
+  "/admin/updateKeyboardDetails/{id}":
+      put:
+        tags:
+        - "admin"
+        summary: Edit request for update keyboard
+        parameters: 
+          - in: header
+            name: authorization
+            description: Token of particular keyboard
+            required: true
+            type: string
+          - in: path
+            name: id
+            description: Id of particular cms page
+            required: true
+            type: string
+          - in: body
+            name: body
+            
+            schema:
+              type: object  
+              
+              properties:
+                keyboardName:
+                    type: string
+                category:
+                    type: string
+                KeyboardType:
+                    type: string
+                cost:
+                    type: string
+                status:
+                    type: string
+              
+               
+                    
+        responses:
+          "200":
+            description: "Succesfully edited"
+            schema:
+              $ref: "#/definitions/UserNotFound"
+          "400":
+            description: "Invalid keyboard"
+            schema:
+              $ref: "#/definitions/UserNotFound"
+              
   "/admin/getAboutusPage":
       get:
         tags:
@@ -778,7 +902,43 @@ paths:
             schema:
               $ref: "#/definitions/UserNotFound"   
               
-                             
+  "/admin/getAllKeyboardDetails":
+      get:
+        tags:
+        - "admin"
+        summary: Get list of all Keyboard
+        parameters: 
+          - in: header
+            name: authorization
+            description: Token of particular user
+            required: true
+            type: string
+          - in: query
+            name: page
+            description: number of pages 
+            required: true
+            type: number
+          - in: query
+            name: size
+            description: size of page
+            required: true
+            type: number
+          - in: query
+            name: filter
+            description: request for filtering data
+            type: string
+        responses:
+          "200":
+            description: "Sucess"
+            schema:
+              $ref: "#/definitions/Success"           
+          "400":
+            description: "No records."
+            schema:
+              $ref: "#/definitions/UserNotFound"   
+      
+              
+                                                        
 definitions:  
   loginResponse:
     type: "object"
