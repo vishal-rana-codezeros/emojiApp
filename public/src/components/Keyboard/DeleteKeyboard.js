@@ -23,7 +23,7 @@ class DeleteKeyboard extends React.Component {
   render() {
     return (
       <>
-        <IconButton aria-label="Delete">
+        <IconButton aria-label="Delete" onClick={this.toggle}>
           <DeleteIcon fontSize="small" />
         </IconButton>
         <Modal isOpen={this.state.open} toggle={this.toggle} className={this.props.className}>

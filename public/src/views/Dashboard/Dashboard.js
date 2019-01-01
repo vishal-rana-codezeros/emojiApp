@@ -25,7 +25,10 @@ import {
   Row,
   Table,
 } from 'reactstrap';
+import Spinner from '../../Spinner/Spinner'
 import { red } from '@material-ui/core/colors';
+// import OverlayLoader from 'react-overlay-loading/lib/OverlayLoader'
+
 const styles = {
   root: {
     marginLeft: '70px'
@@ -103,24 +106,30 @@ class Dashboard extends Component {
     this.state = {
       userCount: 0,
       male: 0,
-      female: 0
+      female: 0,
+      loading:false
     };
   }
-
+  
   componentWillMount() {
+    this.setState({loading: true})
     this.props.recordCount(this.state).then(res => {
         if (res.data.code) {
-          this.setState({ userCount: res.data.data.totalCounts ,male:res.data.data.maleCounts,female:res.data.data.femalCounts})
+          const {totalCounts, maleCounts, femalCounts} = res.data.data
+          this.setState({ userCount: totalCounts, male:maleCounts,female:femalCounts, loading: false})
         } else {
         }
       });
 
   }
 
-  loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
+  // loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   render() {
-
+    if (this.state.loading) {
+      return(<Spinner loading={this.state.loading}></Spinner>)
+    }
+  
     return (
       <div className="animated fadeIn ">
         <Row>

@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
 import ActiveConfirmDialog from '../../components/common/ActiveConfirmDialog'
-
+import Spinner from '../../Spinner/Spinner'
 
 class UsersModal extends Component {
   constructor(props) {
@@ -30,7 +30,9 @@ class UsersModal extends Component {
 
 
   componentWillMount() {
+    this.setState({ loading:true})
     this.getUser()
+    this.setState({ loading:false})
   }
 
   getUser = () => {
@@ -95,8 +97,12 @@ class UsersModal extends Component {
     })
   }
   render() {
-
+    if (this.state.loading) {
+      return(<Spinner loading={this.state.loading}></Spinner>)
+    }
     return (
+     
+    
       <div >
         <Row >
           <Col xs="12" lg="12">
