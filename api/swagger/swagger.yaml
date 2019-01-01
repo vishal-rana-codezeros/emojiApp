@@ -906,22 +906,37 @@ paths:
       get:
         tags:
         - "admin"
-        summary: Get list of KeyboardDetails.
+        summary: Get list of all Keyboard
         parameters: 
           - in: header
             name: authorization
-            description: Token of particular admin
+            description: Token of particular user
             required: true
+            type: string
+          - in: query
+            name: page
+            description: number of pages 
+            required: true
+            type: number
+          - in: query
+            name: size
+            description: size of page
+            required: true
+            type: number
+          - in: query
+            name: filter
+            description: request for filtering data
             type: string
         responses:
           "200":
             description: "Sucess"
             schema:
-              $ref: "#/definitions/UserNotFound"           
+              $ref: "#/definitions/Success"           
           "400":
-            description: "keyboard not found."
+            description: "No records."
             schema:
               $ref: "#/definitions/UserNotFound"   
+      
               
                                                         
 definitions:  
