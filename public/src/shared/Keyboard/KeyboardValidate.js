@@ -21,7 +21,7 @@ const KeyboardValidate = (data) => {
     
   if(keyboardType=="paid")
   {
-    if(isEmpty(cost)) {
+    if(!cost) {
 		errors.cost = "Please Enter Cost";
     }
   }

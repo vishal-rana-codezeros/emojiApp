@@ -180,7 +180,7 @@ class EditKeyboard extends React.Component {
                               <i className="fa fa-volume-control-phone"></i>
                             </InputGroupText> */}
                           </InputGroupAddon>
-                          <Input type="text" name="cost" value={this.state.cost} autoComplete="cost" onChange={this.onTextChange} />
+                          <Input type="number" name="cost" value={this.state.cost} autoComplete="cost" onChange={this.onTextChange} />
                           {errors.cost && <em className="has-error">{errors.cost}</em>}
                         </InputGroup>
                       </Form>
