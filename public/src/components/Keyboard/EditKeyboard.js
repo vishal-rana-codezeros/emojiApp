@@ -8,7 +8,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import { Modal, ModalBody, ModalFooter, ModalHeader, Button, Card, CardBody, CardFooter, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import InputLabel from '@material-ui/core/InputLabel';
 import validateInput from '../../shared/Keyboard/KeyboardValidate';
-
+import { withAlert } from 'react-alert'
+import Select from './Select'
 class EditKeyboard extends React.Component {
   constructor(props) {
     super(props)
@@ -22,20 +23,23 @@ class EditKeyboard extends React.Component {
       errors: {},
       isValid: false,
       isSubmit: false,
-      isLogin: true
+      isLogin: true,
+      categoryOptions: ['cat1', 'cat2', 'cat3','cat4','cat5'],
+      keyboardTypeOption:['free','paid']
     };
 
     this.onTextChange = this.onTextChange.bind(this)
     this.onClickToEdit = this.onClickToEdit.bind(this)
+    this.handleselect= this.handleselect.bind(this)
 
   }
   toggle = () => {
     this.setState({ open: !this.state.open }, () => {
       if (this.state.open) {
         this.props.getOneKeyboardDetails(this.props.editId).then((res) => {
-
+       
           if (res.status == 200) {
-            console.log("data in edit keyboard", res.data.data)
+            // console.log("data in edit keyboard", res.data.data)
             this.setState({ keyboardName: res.data.data.keyboardName,category: res.data.data.category, keyboardType: res.data.data.keyboardType, cost: res.data.data.cost })
           }
         })
@@ -49,7 +53,12 @@ class EditKeyboard extends React.Component {
     if (this.isValid(this.state)) {
       this.setState({ isSubmit: false });
       this.props.updateKeyboardDetails(this.props.editId, this.state).then((res) => {
-
+        // console.log("response in edit keyboard",res)
+        if(res.status == 400)
+        {
+          	// this.props.alert.show("name already exist")
+             console.log("already exist",res)
+          }
         if (res.status == 200) {
           this.props.getUser();
         }
@@ -77,6 +86,15 @@ class EditKeyboard extends React.Component {
     }
     
   }
+  handleselect = (event) => {
+    let value = event.target.value;
+    let name = event.target.name;
+    this.setState({ [event.target.name]: event.target.value }, () => {
+      if (this.state.isSubmit) {
+        this.isValid(this.state);
+      }
+    });
+};
 
   isValid = (data) => {
     let { isValid, errors } = validateInput(data);
@@ -125,7 +143,14 @@ class EditKeyboard extends React.Component {
                               <i className="icon-user"></i>
                             </InputGroupText> */}
                           </InputGroupAddon>
-                          <Input type="text" name="category" value={this.state.category} autoComplete="category" onChange={this.onTextChange} />
+                          <Select
+                            name={'category'}
+                            options={this.state.categoryOptions}
+                            value={this.state.category}
+                            placeholder={'Select category'}
+                            handlechange={this.handleselect}
+                          />
+                          {/* <Input type="text" name="category" value={this.state.category} autoComplete="category" onChange={this.onTextChange} /> */}
                           {errors.category && <em className="has-error">{errors.category}</em>}
                         </InputGroup>
                         <InputGroup className="mb-12">
@@ -135,7 +160,15 @@ class EditKeyboard extends React.Component {
                           <InputGroupAddon addonType="prepend">
                             {/* <InputGroupText>@</InputGroupText> */}
                           </InputGroupAddon>
-                          <Input type="text" name="keyboardType" value={this.state.keyboardType} autoComplete="keyboardType" onChange={this.onTextChange} />
+                          <Select
+                            name={'keyboardType'}
+                            options={this.state.keyboardTypeOption}
+                            value={this.state.keyboardType}
+                            placeholder={'Select keyboardType'}
+                            handlechange={this.handleselect}
+                          
+                          />
+                          {/* <Input type="text" name="keyboardType" value={this.state.keyboardType} autoComplete="keyboardType" onChange={this.onTextChange} /> */}
                           {errors.keyboardType && <em className="has-error">{errors.keyboardType}</em>}
                         </InputGroup>
                         <InputGroup className="mb-12">

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ACTION_TYPE } from '../reducers/reducer.types';
 import API from '../config';
-
+import { withAlert } from 'react-alert'
 const changeAction = string => ({
   	type : ACTION_TYPE,
 	action_value: string
@@ -102,8 +102,9 @@ export const updateKeyboardDetails = (id,data) => {
 	console.log("id in update",id)
 	console.log("data in update",data)
     return dispatch => {
-    	return axios.put(`${API.URL}/admin/updateKeyboardDetails/${id}`,data);
-    }
+    	return axios.put(`${API.URL}/admin/updateKeyboardDetails/${id}`,data)
+	  }
+    
 }
 //add keyboard
 export const addKeyboard =(data) => {	

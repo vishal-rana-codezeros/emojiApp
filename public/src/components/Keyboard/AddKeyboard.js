@@ -7,7 +7,7 @@ import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 import { Modal, ModalBody, ModalFooter, ModalHeader, Button, Card, CardBody, CardFooter, Col, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row, Container, ButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap';
 import InputLabel from '@material-ui/core/InputLabel';
 import validateInput from '../../shared/Keyboard/KeyboardValidate';
-
+import Select from './Select'
 class AddKeyboard extends React.Component {
   constructor(props) {
     super(props)
@@ -23,18 +23,20 @@ class AddKeyboard extends React.Component {
       isSubmit: false,
       isLogin: true,
       dropdownOpen: false,
-      value : "Home"
+      value: "Home",
+      categoryOptions: ['cat1', 'cat2', 'cat3','cat4','cat5'],
+      keyboardTypeOption:['free','paid']
     };
-
+  
     this.onTextChange = this.onTextChange.bind(this)
     this.onClickToAdd = this.onClickToAdd.bind(this)
-
+    this.handleselect= this.handleselect.bind(this)
   }
   toggle = () => {
     this.setState({ open: !this.state.open }, () => {
 
     });
-    
+
   };
 
   onClickToAdd = (e) => {
@@ -71,6 +73,15 @@ class AddKeyboard extends React.Component {
     }
 
   }
+  handleselect = (event) => {
+    let value = event.target.value;
+    let name = event.target.name;
+    this.setState({ [event.target.name]: event.target.value }, () => {
+      if (this.state.isSubmit) {
+        this.isValid(this.state);
+      }
+    });
+};
 
   isValid = (data) => {
     let { isValid, errors } = validateInput(data);
@@ -119,7 +130,14 @@ class AddKeyboard extends React.Component {
                               <i className="icon-user"></i>
                             </InputGroupText> */}
                           </InputGroupAddon>
-                          <Input type="text" name="category" value={this.state.category} autoComplete="category" onChange={this.onTextChange} />
+                          <Select
+                            name={'category'}
+                            options={this.state.categoryOptions}
+                            value={this.state.category}
+                            placeholder={'Select category'}
+                            handlechange={this.handleselect}
+                          />
+                          {/* <Input type="text" name="category" value={this.state.category} autoComplete="category" onChange={this.onTextChange} /> */}
                           {errors.category && <em className="has-error">{errors.category}</em>}
                         </InputGroup>
                         <InputGroup className="mb-12">
@@ -129,7 +147,14 @@ class AddKeyboard extends React.Component {
                           <InputGroupAddon addonType="prepend">
                             {/* <InputGroupText>@</InputGroupText> */}
                           </InputGroupAddon>
-                          <Input type="text" name="keyboardType" value={this.state.keyboardType} autoComplete="keyboardType" onChange={this.onTextChange} />
+                          <Select
+                            name={'keyboardType'}
+                            options={this.state.keyboardTypeOption}
+                            value={this.state.keyboardType}
+                            placeholder={'Select keyboardType'}
+                            handlechange={this.handleselect}
+                          />
+                          {/* <Input type="text" name="keyboardType" value={this.state.keyboardType} autoComplete="keyboardType" onChange={this.onTextChange} /> */}
                           {errors.keyboardType && <em className="has-error">{errors.keyboardType}</em>}
                         </InputGroup>
                         <InputGroup className="mb-12">
@@ -143,6 +168,7 @@ class AddKeyboard extends React.Component {
                           </InputGroupAddon>
                           <Input type="text" name="cost" value={this.state.cost} autoComplete="cost" onChange={this.onTextChange} />
                           {errors.cost && <em className="has-error">{errors.cost}</em>}
+
                         </InputGroup>
                       </Form>
                     </CardBody>
