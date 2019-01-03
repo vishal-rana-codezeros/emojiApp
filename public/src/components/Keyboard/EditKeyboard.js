@@ -105,8 +105,9 @@ class EditKeyboard extends React.Component {
   }
 
   render() {
-  
+
     let { errors } = this.state
+
     return (
       <>
         <IconButton aria-label="Edit"  onClick={this.toggle}>
@@ -180,7 +181,7 @@ class EditKeyboard extends React.Component {
                               <i className="fa fa-volume-control-phone"></i>
                             </InputGroupText> */}
                           </InputGroupAddon>
-                          <Input type="number" name="cost" value={this.state.cost} autoComplete="cost" onChange={this.onTextChange} />
+                          <Input type="number" name="cost" value={this.state.cost} autoComplete="cost" onChange={this.onTextChange} disabled={this.state.keyboardType=='free'}/>
                           {errors.cost && <em className="has-error">{errors.cost}</em>}
                         </InputGroup>
                       </Form>

@@ -166,7 +166,7 @@ class AddKeyboard extends React.Component {
                               <i className="fa fa-volume-control-phone"></i>
                             </InputGroupText> */}
                           </InputGroupAddon>
-                          <Input type="Number" name="cost" value={this.state.cost} autoComplete="cost" onChange={this.onTextChange} />
+                          <Input type="Number" name="cost" value={this.state.cost} autoComplete="cost" onChange={this.onTextChange} disabled={this.state.keyboardType=='free'} />
                           {errors.cost && <em className="has-error">{errors.cost}</em>}
 
                         </InputGroup>

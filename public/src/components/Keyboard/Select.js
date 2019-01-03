@@ -3,7 +3,7 @@ import React from 'react';
 const Select = (props) => {
     // console.log(props)
     return (
-        <div className="form-group">
+        <div className="form-group" style={{width: '100%'}}>
             <label className="form-label">{props.title}</label>
             <select
                 id={props.name}
