@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, CardBody, CardHeader, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 import IconButton from '@material-ui/core/IconButton';
-import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
+import Cached from '@material-ui/icons/Cached';
 
 class ActiveKeyboard extends React.Component {
   state = {
@@ -23,8 +23,8 @@ class ActiveKeyboard extends React.Component {
   render() {
     return (
       <>
-        <IconButton aria-label="Delete">
-          <RemoveRedEyeIcon fontSize="small" />
+        <IconButton aria-label="Delete"  onClick={this.toggle}>
+          <Cached fontSize="small" />
         </IconButton>
         <Modal isOpen={this.state.open} toggle={this.toggle} className={this.props.className}>
             <ModalHeader toggle={this.toggle}>Active Keyboard</ModalHeader>

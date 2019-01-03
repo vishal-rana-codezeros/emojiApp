@@ -1,16 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getOneKeyboardDetails, updateKeyboardDetails } from '../../action/user.action';
-// import { Card, CardBody, CardHeader, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
+import { addKeyboard } from '../../action/user.action';
 import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
-import { Modal, ModalBody, ModalFooter, ModalHeader, Button, Card, CardBody, CardFooter, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
+import { Modal, ModalBody, ModalFooter, ModalHeader, Button, Card, CardBody, CardFooter, Col, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row, Container, ButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap';
 import InputLabel from '@material-ui/core/InputLabel';
 import validateInput from '../../shared/Keyboard/KeyboardValidate';
-import { withAlert } from 'react-alert'
 import Select from './Select'
-class EditKeyboard extends React.Component {
+class AddKeyboard extends React.Component {
   constructor(props) {
     super(props)
 
@@ -24,41 +22,30 @@ class EditKeyboard extends React.Component {
       isValid: false,
       isSubmit: false,
       isLogin: true,
+      dropdownOpen: false,
+      value: "Home",
       categoryOptions: ['cat1', 'cat2', 'cat3','cat4','cat5'],
       keyboardTypeOption:['free','paid']
     };
-
+  
     this.onTextChange = this.onTextChange.bind(this)
-    this.onClickToEdit = this.onClickToEdit.bind(this)
+    this.onClickToAdd = this.onClickToAdd.bind(this)
     this.handleselect= this.handleselect.bind(this)
-
   }
   toggle = () => {
     this.setState({ open: !this.state.open }, () => {
-      if (this.state.open) {
-        this.props.getOneKeyboardDetails(this.props.editId).then((res) => {
-       
-          if (res.status == 200) {
-            // console.log("data in edit keyboard", res.data.data)
-            this.setState({ keyboardName: res.data.data.keyboardName,category: res.data.data.category, keyboardType: res.data.data.keyboardType, cost: res.data.data.cost })
-          }
-        })
-      }
+
     });
+
   };
 
-  onClickToEdit = (e) => {
+  onClickToAdd = (e) => {
     e.preventDefault();
     this.setState({ isSubmit: true });
     if (this.isValid(this.state)) {
       this.setState({ isSubmit: false });
-      this.props.updateKeyboardDetails(this.props.editId, this.state).then((res) => {
-        // console.log("response in edit keyboard",res)
-        if(res.status == 400)
-        {
-          	// this.props.alert.show("name already exist")
-             console.log("already exist",res)
-          }
+      this.props.addKeyboard(this.state).then((res) => {
+
         if (res.status == 200) {
           this.props.getUser();
         }
@@ -70,13 +57,13 @@ class EditKeyboard extends React.Component {
   }
   onTextChange(event) {
 
-      if (event.target.value === '' ) {
-        this.setState({ [event.target.name]: event.target.value }, () => {
-          if (this.state.isSubmit) {
-            this.isValid(this.state);
-          }
-        });
-      }
+    if (event.target.value === '') {
+      this.setState({ [event.target.name]: event.target.value }, () => {
+        if (this.state.isSubmit) {
+          this.isValid(this.state);
+        }
+      });
+    }
     else {
       this.setState({ [event.target.name]: event.target.value }, () => {
         if (this.state.isSubmit) {
@@ -84,7 +71,7 @@ class EditKeyboard extends React.Component {
         }
       });
     }
-    
+
   }
   handleselect = (event) => {
     let value = event.target.value;
@@ -107,14 +94,13 @@ class EditKeyboard extends React.Component {
   render() {
 
     let { errors } = this.state
-
     return (
       <>
-        <IconButton aria-label="Edit"  onClick={this.toggle}>
-          <EditIcon fontSize="small" />
+        <IconButton aria-label="Edit" onClick={this.toggle}>
+          <AddCircleOutline fontSize="large" />
         </IconButton>
         <Modal isOpen={this.state.open}>
-          <ModalHeader toggle={this.toggle}>Edit Keyboard</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Add Keyboard</ModalHeader>
           <ModalBody>
             <Container>
               <Row>
@@ -122,7 +108,7 @@ class EditKeyboard extends React.Component {
                   <Card className="mx-4">
                     <CardBody className="p-4">
                       <Form>
-                      
+
                         <InputGroup className="mb-12">
                           <InputGroup className="mb-12">
                             <InputLabel className="labelcss">Name</InputLabel>
@@ -136,7 +122,7 @@ class EditKeyboard extends React.Component {
                           {errors.keyboardName && <em className="has-error">{errors.keyboardName}</em>}
                         </InputGroup>
                         <InputGroup className="mb-12">
-                        <InputGroup className="mb-12">
+                          <InputGroup className="mb-12">
                             <InputLabel className="labelcss">Category</InputLabel>
                           </InputGroup>
                           <InputGroupAddon addonType="prepend">
@@ -155,7 +141,7 @@ class EditKeyboard extends React.Component {
                           {errors.category && <em className="has-error">{errors.category}</em>}
                         </InputGroup>
                         <InputGroup className="mb-12">
-                        <InputGroup className="mb-12">
+                          <InputGroup className="mb-12">
                             <InputLabel className="labelcss" className="labelcss">Type</InputLabel>
                           </InputGroup>
                           <InputGroupAddon addonType="prepend">
@@ -167,13 +153,12 @@ class EditKeyboard extends React.Component {
                             value={this.state.keyboardType}
                             placeholder={'Select keyboardType'}
                             handlechange={this.handleselect}
-                          
                           />
                           {/* <Input type="text" name="keyboardType" value={this.state.keyboardType} autoComplete="keyboardType" onChange={this.onTextChange} /> */}
                           {errors.keyboardType && <em className="has-error">{errors.keyboardType}</em>}
                         </InputGroup>
                         <InputGroup className="mb-12">
-                        <InputGroup className="mb-12">
+                          <InputGroup className="mb-12">
                             <InputLabel className="labelcss">Cost</InputLabel>
                           </InputGroup>
                           <InputGroupAddon addonType="prepend">
@@ -181,15 +166,16 @@ class EditKeyboard extends React.Component {
                               <i className="fa fa-volume-control-phone"></i>
                             </InputGroupText> */}
                           </InputGroupAddon>
-                          <Input type="number" name="cost" value={this.state.cost} autoComplete="cost" onChange={this.onTextChange} disabled={this.state.keyboardType=='free'}/>
+                          <Input type="Number" name="cost" value={this.state.cost} autoComplete="cost" onChange={this.onTextChange} disabled={this.state.keyboardType=='free'} />
                           {errors.cost && <em className="has-error">{errors.cost}</em>}
+
                         </InputGroup>
                       </Form>
                     </CardBody>
                     <CardFooter className="p-12">
                       <Row>
                         <Button className="editbtncss" color="secondary" onClick={this.toggle}>Cancel</Button>
-                        <Button color="danger" className="editbtncss" onClick={this.onClickToEdit}>Save</Button>
+                        <Button color="danger" className="editbtncss" onClick={this.onClickToAdd}>Add</Button>
                       </Row>
                     </CardFooter>
                   </Card>
@@ -202,5 +188,5 @@ class EditKeyboard extends React.Component {
     );
   }
 }
-export default connect(null, { getOneKeyboardDetails, updateKeyboardDetails })(EditKeyboard);
+export default connect(null, { addKeyboard })(AddKeyboard);
 

@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import { Badge, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
 import { connect } from 'react-redux';
-import { getAllUser, deleteUser, getOneUser, updateUser, activeUser } from '../../../action/user.action';
+import { getAllKeyboardDetails, deleteKeyboard, getOneKeyboardDetails, updateUser, activeKeyboard } from '../../../action/user.action';
 import Datatable from './KeyboardDatatable';
 import DeleteKeyboard from '../../../components/Keyboard/DeleteKeyboard';
 import EditUser from '../../../components/Keyboard/EditKeyboard';
+import ViewKeyboard from '../../../components/Keyboard/ViewKeyboard';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import ActiveConfirmDialog from '../../../components/Keyboard/ActiveKeyboard'
 import Button from '@material-ui/core/Button';
-
+import AddKeyboard from '../../../components/Keyboard/AddKeyboard';
+import Spinner from '../../../Spinner/Spinner'
 
 class Categories extends Component {
   constructor(props) {
@@ -25,78 +27,89 @@ class Categories extends Component {
       filter: ''
     }
 
-    // this.onClickToDelete = this.onClickToDelete.bind(this);
-    // this.onClickToActive = this.onClickToActive.bind(this);
+    this.onClickToDelete = this.onClickToDelete.bind(this);
+    this.onClickToActive = this.onClickToActive.bind(this);
+
   }
 
 
   componentWillMount() {
-    // this.getUser()
+    this.setState({ loading:true})
+    this.getUser()
+    this.setState({ loading:false})
   }
 
-  // getUser = () => {
+  getUser = () => {
 
-  //   const { page, pageSize } = this.state;
-  //   this.props.getAllUser(page, pageSize).then((res) => {
-  //     if (res.status == 200) {
-  //       const { total, docs } = res.data.data;
-  //       console.log("docs in users", docs)
-  //       let tableData = [];
-  //       docs.map(x => tableData.push([x.fullName, x.emailId, x.userName, x.contactNumber, x.status,
-  //       (<>
-  //         <EditUser getUser={this.getUser.bind(this)} editId={x._id} />
+    const { page, pageSize } = this.state;
+    this.props.getAllKeyboardDetails(page, pageSize).then((res) => {
+      if (res.status == 200) {
+        const { total, docs } = res.data.data;
+        console.log("keyboards in getuser", docs)
+        let tableData = [];
+        docs.map(x => tableData.push([x.keyboardName,x.category, x.keyboardType,x.cost, x.status,
+        (<>
+          <EditUser getUser={this.getUser.bind(this)} editId={x._id} />
+          
+          {x.status == 'ACTIVE' && <DeleteKeyboard deleteId={x._id} onClick={this.onClickToDelete} />}
+          {x.status == 'ACTIVE' && <ViewKeyboard viewId={x._id}/>}
+          {x.status == 'INACTIVE' && < ActiveConfirmDialog activeId={x._id} onClick={(e) => { this.onClickToActive(x._id) }} />}
+        </>)
+        ]))
 
-  //         {x.status == 'ACTIVE' && <DeleteKeyboard deleteId={x._id} onClick={this.onClickToDelete} />}
-  //         {x.status == 'INACTIVE' && < ActiveConfirmDialog activeId={x._id} onClick={(e) => { this.onClickToActive(x._id) }} />}
-  //       </>)
-  //       ]))
+        this.setState({ tableData, count: total, page: page, pageSize: pageSize })
+      }
+    })
+  }
 
-  //       this.setState({ tableData, count: total, page: page, pageSize: pageSize })
-  //     }
-  //   })
-  // }
+  onClickToDelete = (id) => {
+    this.props.deleteKeyboard(id).then((res) => {
+      if (res.status == 200) {
+        this.getUser()
+      }
+    })
 
-  // onClickToDelete = (id) => {
-  //   this.props.deleteUser(id).then((res) => {
-  //     if (res.status == 200) {
-  //       // this.getUser()
-  //     }
-  //   })
+  }
+  onClickToActive = (id) => {
+    this.props.activeKeyboard(id).then((res) => {
+      if (res.status == 200) {
+        this.getUser()
+      }
+    })
 
-  // }
-  // onClickToActive = (id) => {
-  //   this.props.activeUser(id).then((res) => {
-  //     if (res.status == 200) {
-  //       // this.getUser()
-  //     }
-  //   })
+  }
 
-  // }
-  // onChangeToFetchTable(action, tableState) {
-  //   let { page, rowsPerPage, searchText } = tableState
+  onChangeToFetchTable(action, tableState) {
+    // this.getUser()
+    console.log("in onChangeToFetchTable")
+    let { page, rowsPerPage, searchText,pageSize } = tableState
+    
+    this.props.getAllKeyboardDetails(page,rowsPerPage,searchText ? searchText : "").then((res) => {
 
-  //   this.props.getAllUser(page, rowsPerPage, searchText ? searchText : "").then((res) => {
+      if (res.data.code == 200) {
+        const { total, docs, code } = res.data.data;
+        
+        console.log("data in table chang",docs)
+        let tableData = [];
+      docs.map(x => tableData.push([x.keyboardName,x.category, x.keyboardType,x.cost, x.status,
+        (<>
+          <EditUser getUser={this.getUser.bind(this)} editId={x._id} onClick={this.onClickToEdit} />
 
-  //     if (res.data.code == 200) {
-  //       const { total, docs, code } = res.data.data;
-  //       let tableData = [];
-  //       docs.map(x => tableData.push([x.fullName, x.emailId, x.userName, x.contactNumber, x.status,
-  //       (<>
-  //         <EditUser getUser={this.getUser.bind(this)} editId={x._id} onClick={this.onClickToEdit} />
-
-  //         {x.status == 'ACTIVE' && <DeleteKeyboard deleteId={x._id} onClick={this.onClickToDelete} />}
-  //         {x.status == 'INACTIVE' && <ActiveConfirmDialog activeId={x._id} onClick={(e) => { this.onClickToActive(x._id) }} />}
-  //       </>)
-  //       ]))
-
-  //       this.setState({ tableData, count: total, page: page, pageSize: rowsPerPage })
-  //     } else {
-  //       this.setState({ tableData: [] })
-  //     }
-  //   })
-  // }
+          {x.status == 'ACTIVE' && <DeleteKeyboard deleteId={x._id} onClick={this.onClickToDelete} />}
+           {x.status == 'ACTIVE' && <ViewKeyboard viewId={x._id}/>}
+          {x.status == 'INACTIVE' && <ActiveConfirmDialog activeId={x._id} onClick={(e) => { this.onClickToActive(x._id) }} />}
+        </>)
+        ]))
+        this.setState({ tableData, count: total, page: page, pageSize: rowsPerPage })
+      } else {
+        this.setState({ tableData: [] })
+      }
+    })
+  }
   render() {
-
+    if (this.state.loading) {
+      return(<Spinner loading={this.state.loading}></Spinner>)
+    }
     return (
       <div >
         <Row >
@@ -104,16 +117,13 @@ class Categories extends Component {
             <Card className="tablecss" >
               <CardHeader className="tablecss" style={{ textAlign: 'center', fontSize: '20px', fontWeight: '600' }}>
                 Keyboards List 
-                <Button color="primary" style={{position: 'relative', left: '42%'}}>
-                    Add New
-                </Button>
+                {/* <style:"margin-left: 5672% !important"> */}
+               <>
+                <AddKeyboard getUser={this.getUser.bind(this)}/>
+                  </>
               </CardHeader>
-              {/* <CardHeader className="tablecss" style={{ textAlign: 'left', fontSize: '20px', fontWeight: '600' }}>
-              <button style="margin-left:30px;">Add</button>
-              </CardHeader> */}
-              {/* <div> <button style="margin-left:30px;">Add</button></div> */}
               <CardBody>
-                <Datatable/>
+                <Datatable  data={this.state.tableData} onFetchData={this.onChangeToFetchTable.bind(this)} page={this.state.page} pageSize={this.state.pageSize} count={this.state.count}/>
               </CardBody>
             </Card>
           </Col>
@@ -123,7 +133,7 @@ class Categories extends Component {
   }
 }
 
-export default connect(null, { getAllUser, deleteUser, getOneUser, updateUser, activeUser })(Categories);
+export default connect(null, { getAllKeyboardDetails, deleteKeyboard, getOneKeyboardDetails, updateUser, activeKeyboard })(Categories);
 
 
 
