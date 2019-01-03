@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ACTION_TYPE } from '../reducers/reducer.types';
 import API from '../config';
-
+import { withAlert } from 'react-alert'
 const changeAction = string => ({
   	type : ACTION_TYPE,
 	action_value: string
@@ -60,8 +60,58 @@ export const addAboutusPage =(data) => {
 
 export const updateAboutusPage =(data) => {	
 	console.log("data in abtus",data.id)
-	
+	console.log("data in update",data)
 	return dispatch => {
 		return axios.put(`${API.URL}/admin/updateAboutusPage/${data.id}`,data);
+	}
+}
+//get keyboards
+
+export const getAllKeyboardDetails = (page, pageSize, filtered="") => {
+	// console.log("pageSize",pageSize)
+    return dispatch => {
+    	return axios.get(`${API.URL}/admin/getAllKeyboardDetails?page=${page}&size=${pageSize}&filter=${filtered}`);
+	}
+	
+}
+
+//delete keyboard
+export const deleteKeyboard = (id) => {
+    return dispatch => {
+    	return axios.put(`${API.URL}/admin/deleteKeyboard/${id}`);
+    }
+}
+
+//active keyboard
+export const activeKeyboard = (id) => {
+    return dispatch => {
+    	return axios.put(`${API.URL}/admin/activeKeyboard/${id}`);
+    }
+}
+
+//get one keyboard
+
+export const getOneKeyboardDetails = (id) => {
+    return dispatch => {
+    	return axios.get(`${API.URL}/admin/getOneKeyboardDetails/${id}`);
+    }
+}
+
+//update Keyboard
+export const updateKeyboardDetails = (id,data) => {
+	console.log("id in update",id)
+	console.log("data in update",data)
+    return dispatch => {
+    	return axios.put(`${API.URL}/admin/updateKeyboardDetails/${id}`,data)
+	  }
+    
+}
+//add keyboard
+export const addKeyboard =(data) => {	
+	console.log("data in add keyboard",data)
+	const {_id } = JSON.parse(localStorage.getItem('user'));
+	console.log("idddddddddddddddd",_id)
+	return dispatch => {
+		return axios.post(`${API.URL}/admin/addKeyboard/${_id}`,data);
 	}
 }

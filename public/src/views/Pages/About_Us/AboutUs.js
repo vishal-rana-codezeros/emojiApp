@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import CKEditor from "react-ckeditor-component";
-// import { EditorState } from 'draft-js';
-// import { Editor } from 'react-draft-wysiwyg';
-// import draftToHtml from 'draftjs-to-html'
-// import { convertFromHTML, ContentState, convertToRaw } from 'draft-js';
-// import '../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import Spinner from '../../../Spinner/Spinner'
 import { connect } from 'react-redux';
 import {
   Badge,
@@ -46,7 +42,8 @@ class AboutUs extends Component {
       id: "",
       errors: {},
       isValid: false,
-      isSubmit: false
+      isSubmit: false,
+      loading:false
     };
     this.onDescriptionChange = this.onDescriptionChange.bind(this)
     this.onClickToSave = this.onClickToSave.bind(this);
@@ -54,14 +51,19 @@ class AboutUs extends Component {
   }
 
   componentWillMount() {
-    this.getAbout();
+    this.setState({ loading:true})
+    this.getAbout()
+    this.setState({ loading:false})
   }
 
   getAbout = () => {
+    console.log("calling about us")
     this.props.getAboutusPage().then((res) => {
+      console.log(res)
       if (res.status == 200) {
-        if (res.data.data[0]) {
-          const { _id, title, description} = res.data.data[0]?res.data.data[0]:{};
+        if (res.data.data) {
+          console.log(res.data)
+          const { _id, title, description} = res.data.data?res.data.data:{};
           this.setState({ id: _id, title, description })
         }
       }
@@ -100,8 +102,11 @@ class AboutUs extends Component {
   render() {
     const { descriptionVal } = this.state;
     let { errors } = this.state
-    
+    if (this.state.loading) {
+      return(<Spinner loading={this.state.loading}></Spinner>)
+    }
     return (
+      
       <div className="aboutUsCss">
         <Row>
           <Col xs="12" md="12">
