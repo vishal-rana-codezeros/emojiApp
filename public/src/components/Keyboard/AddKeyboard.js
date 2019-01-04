@@ -36,7 +36,7 @@ class AddKeyboard extends React.Component {
     this.setState({ open: !this.state.open }, () => {
 
     });
-
+    this.setState({errors: {}})
   };
 
   onClickToAdd = (e) => {
@@ -45,14 +45,25 @@ class AddKeyboard extends React.Component {
     if (this.isValid(this.state)) {
       this.setState({ isSubmit: false });
       this.props.addKeyboard(this.state).then((res) => {
-
-        if (res.status == 200) {
+        // console.log("response in add keyboard",res.data.message)
+        if(res.data.code == 400)
+        {
+          this.setState({errors: {...this.state.errors,keyboardName: res.data.message}})
+          
+        }else {
+          this.setState({ 
+            open: !this.state.open,
+            keyboardName: '',
+            category: '',
+            cost: '',
+            keyboardType: '' 
+          });
           this.props.getUser();
         }
       })
       const { onClick, editId } = this.props;
 
-      this.setState({ open: !this.state.open });
+      // this.setState({ open: !this.state.open });
     }
   }
   onTextChange(event) {

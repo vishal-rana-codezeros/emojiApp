@@ -53,19 +53,15 @@ class EditKeyboard extends React.Component {
     if (this.isValid(this.state)) {
       this.setState({ isSubmit: false });
       this.props.updateKeyboardDetails(this.props.editId, this.state).then((res) => {
-        // console.log("response in edit keyboard",res)
-        if(res.status == 400)
+        if(res.data.code == 400)
         {
-          	// this.props.alert.show("name already exist")
-             console.log("already exist",res)
-          }
-        if (res.status == 200) {
+          this.setState({errors: {...this.state.errors,keyboardName: res.data.message}})
+        } else {
+          this.setState({ open: !this.state.open });
           this.props.getUser();
         }
       })
       const { onClick, editId } = this.props;
-
-      this.setState({ open: !this.state.open });
     }
   }
   onTextChange(event) {
@@ -107,7 +103,7 @@ class EditKeyboard extends React.Component {
   render() {
 
     let { errors } = this.state
-
+    // console.log("errors", errors);
     return (
       <>
         <IconButton aria-label="Edit"  onClick={this.toggle}>
