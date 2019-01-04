@@ -657,6 +657,44 @@
                 }
             }
         },
+        "/admin/getOneCategoryData/{id}": {
+            "get": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Get data of particular category",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "Token of particular admin",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Id of particular category",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucess",
+                        "schema": {
+                            "$ref": "#/definitions/Success"
+                        }
+                    },
+                    "400": {
+                        "description": "User not found.",
+                        "schema": {
+                            "$ref": "#/definitions/UserNotFound"
+                        }
+                    }
+                }
+            }
+        },
         "/admin/updateUser/{id}": {
             "put": {
                 "tags": [
@@ -833,6 +871,44 @@
                 }
             }
         },
+        "/admin/activeCategory/{id}": {
+            "put": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Request for activeCategory",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "Token of particular admin",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Id of particular admin",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Activated Successfully",
+                        "schema": {
+                            "$ref": "#/definitions/UserNotFound"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid user",
+                        "schema": {
+                            "$ref": "#/definitions/UserNotFound"
+                        }
+                    }
+                }
+            }
+        },
         "/admin/addAboutusPage/{id}": {
             "post": {
                 "tags": [
@@ -953,6 +1029,57 @@
                 }
             }
         },
+        "/admin/addCategory/{id}": {
+            "post": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "addCategory request",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "Token of particular admin",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Id of particular admin",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "admin",
+                        "description": "add about us page.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "category": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Added Sucessfully",
+                        "schema": {
+                            "$ref": "#/definitions/UserNotFound"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid user",
+                        "schema": {
+                            "$ref": "#/definitions/UserNotFound"
+                        }
+                    }
+                }
+            }
+        },
         "/admin/updateAboutusPage/{id}": {
             "put": {
                 "tags": [
@@ -1006,6 +1133,56 @@
                 }
             }
         },
+        "/admin/updateCategory/{id}": {
+            "put": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Edit category Details request",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "Token of particular admin",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Id of particular added category",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "category": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Succesfully edited",
+                        "schema": {
+                            "$ref": "#/definitions/UserNotFound"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid user",
+                        "schema": {
+                            "$ref": "#/definitions/UserNotFound"
+                        }
+                    }
+                }
+            }
+        },
         "/admin/deleteKeyboard/{id}": {
             "put": {
                 "tags": [
@@ -1037,6 +1214,44 @@
                     },
                     "400": {
                         "description": "Invalid keyboard",
+                        "schema": {
+                            "$ref": "#/definitions/UserNotFound"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/deleteCategory/{id}": {
+            "put": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "deleteCategory request",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "Token of particular admin",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Id of category",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted successfully",
+                        "schema": {
+                            "$ref": "#/definitions/UserNotFound"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid category",
                         "schema": {
                             "$ref": "#/definitions/UserNotFound"
                         }
@@ -1148,6 +1363,57 @@
                         "in": "header",
                         "name": "authorization",
                         "description": "Token of particular user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "description": "number of pages",
+                        "required": true,
+                        "type": "number"
+                    },
+                    {
+                        "in": "query",
+                        "name": "size",
+                        "description": "size of page",
+                        "required": true,
+                        "type": "number"
+                    },
+                    {
+                        "in": "query",
+                        "name": "filter",
+                        "description": "request for filtering data",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucess",
+                        "schema": {
+                            "$ref": "#/definitions/Success"
+                        }
+                    },
+                    "400": {
+                        "description": "No records.",
+                        "schema": {
+                            "$ref": "#/definitions/UserNotFound"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/getAllCategory": {
+            "get": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Get list of all Category",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "Token of particular admin",
                         "required": true,
                         "type": "string"
                     },
