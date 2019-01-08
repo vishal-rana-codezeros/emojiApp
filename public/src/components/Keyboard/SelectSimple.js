@@ -1,10 +1,9 @@
 import React from 'react';
 
-const Select = (props) => {
-    console.log("------------------------------props.options",props.options)
-    console.log("props=====>",props)
+const SelectSimple = (props) => {
+    console.log("------------------------------",props.options)
 
-    // return false
+  
     return (
         <div className="form-group" style={{width: '100%'}}>
             <label className="form-label">{props.title}</label>
@@ -20,10 +19,10 @@ const Select = (props) => {
                 {props.options.map(options => {
                     return (
                         <option
-                            key={options.id} 
-                            value={options.id}
-                            label={options.value}
-                        >
+                            key={options}
+                            value={options}
+                            label={options}
+                        >{options}
 
                         </option>
 
@@ -34,4 +33,4 @@ const Select = (props) => {
         </div>
     );
 }
-export default Select;
+export default SelectSimple;

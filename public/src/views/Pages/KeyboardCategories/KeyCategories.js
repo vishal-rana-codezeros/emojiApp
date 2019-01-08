@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {withStyles} from '@material-ui/core'
-
+import Categoirsmain from './Categoriesmain'
 const styles={
   root:{
     marginLeft:'70px'
@@ -15,7 +15,7 @@ class KeyCategories extends Component {
 
     return (
       <div className="animated fadeIn ">
-       Coming Soon
+       <Categoirsmain/>
       </div>
     );
   }

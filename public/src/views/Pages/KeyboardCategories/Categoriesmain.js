@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import { Badge, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
 import { connect } from 'react-redux';
-import { getAllKeyboardDetails, deleteKeyboard, getOneKeyboardDetails, updateUser, activeKeyboard, getAllCategory } from '../../../action/user.action';
-import Datatable from './KeyboardDatatable';
-import DeleteKeyboard from '../../../components/Keyboard/DeleteKeyboard';
-import EditUser from '../../../components/Keyboard/EditKeyboard';
-import ViewKeyboard from '../../../components/Keyboard/ViewKeyboard';
+import { getAllCategory, deleteCategory, getOneCategoryData, updateUser, activeCategory} from '../../../action/user.action';
+import Datatable from './CategoriesDatatable';
+import DeleteCategory from '../../../components/Categories/DeleteCategory';
+import EditUser from '../../../components/Categories/UpdateCategory';
+import ViewKeyboard from '../../../components/Categories/ViewCategory';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
-import ActiveConfirmDialog from '../../../components/Keyboard/ActiveKeyboard'
+import ActiveConfirmDialog from '../../../components/Categories/Activecategory'
 import Button from '@material-ui/core/Button';
-import AddKeyboard from '../../../components/Keyboard/AddKeyboard';
+import AddCategory from '../../../components/Categories/AddCategory';
 import Spinner from '../../../Spinner/Spinner'
-
-class Categories extends Component {
+class Categoriesmain extends Component {
   constructor(props) {
     super(props)
 
@@ -42,18 +41,17 @@ class Categories extends Component {
   getUser = () => {
 
    const{page,pageSize}=this.state;
-    this.props.getAllKeyboardDetails(page, pageSize).then((res) => {
+    this.props.getAllCategory(page, pageSize).then((res) => {
       if (res.status == 200) {
         const { total, docs } = res.data.data;
 
         let tableData = [];
-        // console.log("response================>",res.data.data.details)
-        // // return false;
-        res.data.data.details.map(x => tableData.push([x.keyboardName, x.categoryName, x.keyboardType, x.cost, x.status,
+
+        docs.map(x => tableData.push([ x.category, x.status,
         (<>
           <EditUser getUser={this.getUser.bind(this)} editId={x._id} />
 
-          {x.status == 'ACTIVE' && <DeleteKeyboard deleteId={x._id} onClick={this.onClickToDelete} />}
+          {x.status == 'ACTIVE' && <DeleteCategory deleteId={x._id} onClick={this.onClickToDelete} />}
           {x.status == 'ACTIVE' && <ViewKeyboard viewId={x._id} />}
           {x.status == 'INACTIVE' && < ActiveConfirmDialog activeId={x._id} onClick={(e) => { this.onClickToActive(x._id) }} />}
         </>)
@@ -65,7 +63,7 @@ class Categories extends Component {
   }
 
   onClickToDelete = (id) => {
-    this.props.deleteKeyboard(id).then((res) => {
+    this.props.deleteCategory(id).then((res) => {
       if (res.status == 200) {
         this.getUser()
       }
@@ -73,7 +71,7 @@ class Categories extends Component {
 
   }
   onClickToActive = (id) => {
-    this.props.activeKeyboard(id).then((res) => {
+    this.props.activeCategory(id).then((res) => {
       if (res.status == 200) {
         this.getUser()
       }
@@ -86,18 +84,18 @@ class Categories extends Component {
     console.log("in onChangeToFetchTable")
     let { page, rowsPerPage, searchText, pageSize } = tableState
     // return false;
-    this.props.getAllKeyboardDetails(page, rowsPerPage, searchText ? searchText : "").then((res) => {
+    this.props.getAllCategory(page, rowsPerPage, searchText ? searchText : "").then((res) => {
 
       if (res.data.code == 200) {
         const { total, docs, code } = res.data.data;
 
         console.log("data in table chang", docs)
         let tableData = [];
-        docs.map(x => tableData.push([x.keyboardName, x.categoryName, x.keyboardType, x.cost, x.status,
+        docs.map(x => tableData.push([ x.category, x.status,
         (<>
           <EditUser getUser={this.getUser.bind(this)} editId={x._id} onClick={this.onClickToEdit} />
 
-          {x.status == 'ACTIVE' && <DeleteKeyboard deleteId={x._id} onClick={this.onClickToDelete} />}
+          {x.status == 'ACTIVE' && <DeleteCategory deleteId={x._id} onClick={this.onClickToDelete} />}
           {x.status == 'ACTIVE' && <ViewKeyboard viewId={x._id} />}
           {x.status == 'INACTIVE' && <ActiveConfirmDialog activeId={x._id} onClick={(e) => { this.onClickToActive(x._id) }} />}
         </>)
@@ -118,10 +116,9 @@ class Categories extends Component {
           <Col xs="12" lg="12">
             <Card className="tablecss" >
               <CardHeader className="tablecss" style={{ textAlign: 'center', fontSize: '20px', fontWeight: '600' }}>
-                Keyboards List
-                {/* <style:"margin-left: 5672% !important"> */}
+              Categories List
                 <>
-                  <AddKeyboard getUser={this.getUser.bind(this)} />
+                  <AddCategory getUser={this.getUser.bind(this)} />
                 </>
               </CardHeader>
               <CardBody>
@@ -135,7 +132,7 @@ class Categories extends Component {
   }
 }
 
-export default connect(null, { getAllKeyboardDetails, deleteKeyboard, getOneKeyboardDetails, updateUser, activeKeyboard, getAllCategory })(Categories);
+export default connect(null, { getAllCategory, deleteCategory, getOneCategoryData, updateUser, activeCategory, getAllCategory })(Categoriesmain);
 
 
 

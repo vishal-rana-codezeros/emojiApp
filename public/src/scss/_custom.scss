@@ -67,6 +67,9 @@
 .button-primary{
     background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
 }
+.btn-primary{
+    background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
+}
 .logoutcss:hover{   
     background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
 }
@@ -192,9 +195,32 @@ table >thead>tr>th{
     font-size: 25px !important;
     margin-right: 10px !important;
 }
-// .nav-item > .nav-link{
-//     background: #fff!important;
-// }
+
 .adminNamecss{
     background: #fff!important;
 }
+
+.card-body{
+    color:white !important
+}
+.text-muted{
+    color: #fff !important;
+}
+
+.sub-menu{
+   
+}
+.sidebar .nav-dropdown-items .nav-item > a{
+    font-size: 15px;
+    padding-left: 40px !important;
+}
+.addButtonCss{
+    float:right;
+    margin-top: -11px!important;
+}
+
+// .card-body>.ForgotPassword-SuccessCard-8>.btn-primary{
+//     color: #fff !important;
+//         background-color:#e44242!important;
+//         border-color: #20a8d8 !important;
+// }

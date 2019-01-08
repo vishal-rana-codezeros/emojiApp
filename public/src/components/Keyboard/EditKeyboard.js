@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getOneKeyboardDetails, updateKeyboardDetails } from '../../action/user.action';
+import { getOneKeyboardDetails, updateKeyboardDetails,getAllCategory } from '../../action/user.action';
 // import { Card, CardBody, CardHeader, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
@@ -9,6 +9,7 @@ import { Modal, ModalBody, ModalFooter, ModalHeader, Button, Card, CardBody, Car
 import InputLabel from '@material-ui/core/InputLabel';
 import validateInput from '../../shared/Keyboard/KeyboardValidate';
 import { withAlert } from 'react-alert'
+import SelectSimple from './SelectSimple';
 import Select from './Select'
 class EditKeyboard extends React.Component {
   constructor(props) {
@@ -24,8 +25,10 @@ class EditKeyboard extends React.Component {
       isValid: false,
       isSubmit: false,
       isLogin: true,
-      categoryOptions: ['cat1', 'cat2', 'cat3','cat4','cat5'],
-      keyboardTypeOption:['free','paid']
+      categoryOptions: [],
+      keyboardTypeOption:['free','paid'],
+      page: 0,
+      pageSize: 10
     };
 
     this.onTextChange = this.onTextChange.bind(this)
@@ -46,6 +49,17 @@ class EditKeyboard extends React.Component {
       }
     });
   };
+  componentWillMount() {
+    const { page, pageSize } = this.state;
+    this.props.getAllCategory(page, pageSize).then((res) => {
+      if (res.status == 200) {
+        console.log("categories===>", res.data.data.docs)
+        const { docs } = res.data.data
+        const { categoryOptions } = this.state
+        docs.map(x => categoryOptions.push({ id: x._id, value: x.categoryName }))
+      }
+    })
+  }
 
   onClickToEdit = (e) => {
     e.preventDefault();
@@ -157,14 +171,14 @@ class EditKeyboard extends React.Component {
                           <InputGroupAddon addonType="prepend">
                             {/* <InputGroupText>@</InputGroupText> */}
                           </InputGroupAddon>
-                          {/* <Select
+                          <SelectSimple
                             name={'keyboardType'}
                             options={this.state.keyboardTypeOption}
                             value={this.state.keyboardType}
                             placeholder={'Select keyboardType'}
                             handlechange={this.handleselect}
                           
-                          /> */}
+                          />
                           {/* <Input type="text" name="keyboardType" value={this.state.keyboardType} autoComplete="keyboardType" onChange={this.onTextChange} /> */}
                           {errors.keyboardType && <em className="has-error">{errors.keyboardType}</em>}
                         </InputGroup>
@@ -198,5 +212,5 @@ class EditKeyboard extends React.Component {
     );
   }
 }
-export default connect(null, { getOneKeyboardDetails, updateKeyboardDetails })(EditKeyboard);
+export default connect(null, { getOneKeyboardDetails, updateKeyboardDetails,getAllCategory})(EditKeyboard);
 

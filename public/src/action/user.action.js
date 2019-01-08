@@ -117,11 +117,47 @@ export const addKeyboard =(data) => {
 }
 
 //get categories
-// getAllCategory
 
 export const getAllCategory = (page, pageSize) => {
     return dispatch => {
     	return axios.get(`${API.URL}/admin/getAllCategory?page=${page}&size=${pageSize}`);
 	}
 	
+}
+
+//addCategory
+export const addCategory =(data) => {	
+	console.log("data in addCategory============>",data)
+	const {_id } = JSON.parse(localStorage.getItem('user'));
+	console.log("idddddddddddddddd",_id)
+	return dispatch => {
+		return axios.post(`${API.URL}/admin/addCategory/${_id}`,data);
+	}
+}
+//delete category
+export const deleteCategory = (id) => {
+    return dispatch => {
+    	return axios.put(`${API.URL}/admin/deleteCategory/${id}`);
+    }
+}
+//active category
+export const activeCategory = (id) => {
+    return dispatch => {
+    	return axios.put(`${API.URL}/admin/activeCategory/${id}`);
+    }
+}
+//getone category getOneCategoryData
+export const getOneCategoryData = (id) => {
+    return dispatch => {
+    	return axios.get(`${API.URL}/admin/getOneCategoryData/${id}`);
+    }
+}
+//update category
+export const updateCategory = (id,data) => {
+	console.log("id in updateCategory",id)
+	console.log("data in updateCategory",data)
+    return dispatch => {
+    	return axios.put(`${API.URL}/admin/updateCategory/${id}`,data)
+	  }
+    
 }

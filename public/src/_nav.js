@@ -3,12 +3,12 @@ export default {
     {
       name: 'Dashboard',
       url: '/dashboard',
-      icon: 'icon-speedometer'
+      icon: 'cui-dashboard'
     },
     {
       name: 'Users',
       url: '/users',
-      icon: 'fa fa-user-o'
+      icon: 'fa fa-group'
     },
     {
       name: 'Keyboards',
@@ -31,7 +31,7 @@ export default {
     {
       name: 'About Us',
       url: '/AboutUs',
-      icon: 'fa fa-group'
+      icon: 'icon-user'
     },
     {
       name: 'Contact Us',

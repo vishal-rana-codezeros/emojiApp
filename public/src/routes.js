@@ -14,11 +14,11 @@ const routes = [
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/users', name: 'Users', component: Users },
   { path: '/add-user', name: 'Users', component: UserForm },
-  {path:'/keyboards', name: 'Keyboards', component:Keyboards},
+  {path:'/keyboards', exact:true, name: 'Keyboards', component:Keyboards},
   {path:'/AboutUs', name: 'AboutUs', component:AboutUs},
   {path:'/ContactUs', name: 'ContactUs', component:ContactUs },
-  {path:'/keyboards/categories', name: 'KeyCategories', component:KeyCategories },
-  {path:'/keyboards/keyboards', name: 'Categories', component:Categories }
+  {path:'/keyboards/categories', name: 'categories', component:KeyCategories },
+  {path:'/keyboards/keyboards', name: 'keyboard', component:Categories }
 ];
 
 export default routes;

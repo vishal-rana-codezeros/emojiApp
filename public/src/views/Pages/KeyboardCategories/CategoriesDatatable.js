@@ -7,7 +7,7 @@ import '../../../index.css'
 import EditUser from '../../../components/Keyboard/EditKeyboard';
 import DeleteKeyboard from '../../../components/Keyboard/DeleteKeyboard';
 import ActiveConfirmDialog from '../../../components/Keyboard/ActiveKeyboard'
-const KeyboardDatatable = ({ data, columns, onFetchData, page,pageSize,count})  => {
+const CategoriesDatatable = ({ data, columns, onFetchData, page,pageSize,count})  => {
   
   const options = {
     serverSide: true,
@@ -20,8 +20,8 @@ const KeyboardDatatable = ({ data, columns, onFetchData, page,pageSize,count})  
     page:page,
     rowsPerPage:pageSize,
     count:count,
-    showResponsive:true,
-    // defaultPageSize:10,
+    responsive:"scroll",
+    resizableColumns:false,
     onTableChange: (action, tableState) => {
       onFetchData(action, tableState)
     }
@@ -31,7 +31,7 @@ const KeyboardDatatable = ({ data, columns, onFetchData, page,pageSize,count})  
  return (
     <MUIDataTable
       data={data}
-      columns={["Name ", "Category","Type","Cost","Status","Action"]}
+      columns={["Category","Status","Action"]}
       // className="-striped -highlight"
       options={options}
       className="tablecss"
@@ -40,8 +40,8 @@ const KeyboardDatatable = ({ data, columns, onFetchData, page,pageSize,count})  
 }
 
 
-KeyboardDatatable.propTypes = {
+CategoriesDatatable.propTypes = {
   onFetchData: PropTypes.func.isRequired
 };
 
-export default KeyboardDatatable;
+export default CategoriesDatatable;
