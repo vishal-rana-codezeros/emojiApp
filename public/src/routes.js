@@ -8,7 +8,7 @@ const Keyboards = React.lazy(() => import('./views/Pages/Keyboards/Keyboards'));
 const AboutUs=React.lazy(() => import('./views/Pages/About_Us/AboutUs')); 
 const ContactUs=React.lazy(() => import('./views/Pages/Contact_Us/ContactUs')); 
 const Categories = React.lazy(() => import('./views/Pages/Keyboards/Categories')); 
-
+const KeyCategories = React.lazy(() => import('./views/Pages/KeyboardCategories/KeyCategories')); 
 const routes = [
   { path: '/', exact: true, name: 'Home', component: DefaultLayout },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
@@ -17,7 +17,8 @@ const routes = [
   {path:'/keyboards', name: 'Keyboards', component:Keyboards},
   {path:'/AboutUs', name: 'AboutUs', component:AboutUs},
   {path:'/ContactUs', name: 'ContactUs', component:ContactUs },
-  {path:'/Keyboards/Categories', name: 'Categories', component:Categories }
+  {path:'/keyboards/categories', name: 'KeyCategories', component:KeyCategories },
+  {path:'/keyboards/keyboards', name: 'Categories', component:Categories }
 ];
 
 export default routes;

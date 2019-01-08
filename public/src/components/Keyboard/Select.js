@@ -1,7 +1,9 @@
 import React from 'react';
 
 const Select = (props) => {
-    // console.log(props)
+    console.log("------------------------------",props.options)
+
+    return false
     return (
         <div className="form-group" style={{width: '100%'}}>
             <label className="form-label">{props.title}</label>
@@ -17,9 +19,9 @@ const Select = (props) => {
                 {props.options.map(options => {
                     return (
                         <option
-                            key={options}
-                            value={options}
-                            label={options}
+                            key={options.id}
+                            value={options.id}
+                            label={options.value}
                         >{options}
 
                         </option>

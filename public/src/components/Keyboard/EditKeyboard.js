@@ -157,14 +157,14 @@ class EditKeyboard extends React.Component {
                           <InputGroupAddon addonType="prepend">
                             {/* <InputGroupText>@</InputGroupText> */}
                           </InputGroupAddon>
-                          <Select
+                          {/* <Select
                             name={'keyboardType'}
                             options={this.state.keyboardTypeOption}
                             value={this.state.keyboardType}
                             placeholder={'Select keyboardType'}
                             handlechange={this.handleselect}
                           
-                          />
+                          /> */}
                           {/* <Input type="text" name="keyboardType" value={this.state.keyboardType} autoComplete="keyboardType" onChange={this.onTextChange} /> */}
                           {errors.keyboardType && <em className="has-error">{errors.keyboardType}</em>}
                         </InputGroup>

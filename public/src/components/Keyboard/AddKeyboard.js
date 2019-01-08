@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addKeyboard } from '../../action/user.action';
+import { addKeyboard,getAllCategory} from '../../action/user.action';
 import IconButton from '@material-ui/core/IconButton';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 import { Modal, ModalBody, ModalFooter, ModalHeader, Button, Card, CardBody, CardFooter, Col, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row, Container, ButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap';
 import InputLabel from '@material-ui/core/InputLabel';
 import validateInput from '../../shared/Keyboard/KeyboardValidate';
-import Select from './Select'
+import Select from './Select';
+import ImageUploader from 'react-images-upload';
 class AddKeyboard extends React.Component {
   constructor(props) {
     super(props)
@@ -18,16 +19,19 @@ class AddKeyboard extends React.Component {
       category: '',
       cost: '',
       keyboardType: '',
+      imgSrc:[],
       errors: {},
       isValid: false,
       isSubmit: false,
       isLogin: true,
       dropdownOpen: false,
       value: "Home",
-      categoryOptions: ['cat1', 'cat2', 'cat3','cat4','cat5'],
-      keyboardTypeOption:['free','paid']
+      categoryOptions: [],
+      keyboardTypeOption:['free','paid'],
+      page: 0,
+      pageSize: 10,
     };
-  
+   
     this.onTextChange = this.onTextChange.bind(this)
     this.onClickToAdd = this.onClickToAdd.bind(this)
     this.handleselect= this.handleselect.bind(this)
@@ -38,6 +42,37 @@ class AddKeyboard extends React.Component {
     });
     this.setState({errors: {}})
   };
+
+
+  componentWillMount(){
+    const { page, pageSize } = this.state;
+    this.props.getAllCategory(page,pageSize).then((res) => {
+      if (res.status == 200) {
+        console.log("categories===>",res.data.data.docs)
+        const{docs}=res.data.data
+        const{categoryOptions}=this.state
+        docs.map(x => categoryOptions.push({id: x._id, value: x.category}))
+      }
+    })
+  }
+  // getInitialState(){
+  //   return{file: []}
+  // }
+  // _onChange(e){
+  //   console.log("image=======================>",e)
+  //   // Assuming only image
+  //   var file = this.refs.file.files[0];
+  //   var reader = new FileReader();
+  //   var url = reader.readAsDataURL(file);
+  
+  //    reader.onloadend = function (e) {
+  //       this.setState({
+  //           imgSrc: [reader.result]
+  //       })
+  //     }.bind(this);
+  //   console.log(url) // Would see a path?
+  //   // TODO: concat files
+  // }
 
   onClickToAdd = (e) => {
     e.preventDefault();
@@ -158,13 +193,13 @@ class AddKeyboard extends React.Component {
                           <InputGroupAddon addonType="prepend">
                             {/* <InputGroupText>@</InputGroupText> */}
                           </InputGroupAddon>
-                          <Select
+                          {/* <Select
                             name={'keyboardType'}
                             options={this.state.keyboardTypeOption}
                             value={this.state.keyboardType}
                             placeholder={'Select keyboardType'}
                             handlechange={this.handleselect}
-                          />
+                          /> */}
                           {/* <Input type="text" name="keyboardType" value={this.state.keyboardType} autoComplete="keyboardType" onChange={this.onTextChange} /> */}
                           {errors.keyboardType && <em className="has-error">{errors.keyboardType}</em>}
                         </InputGroup>
@@ -181,6 +216,25 @@ class AddKeyboard extends React.Component {
                           {errors.cost && <em className="has-error">{errors.cost}</em>}
 
                         </InputGroup>
+                        {/* <InputGroup className="mb-12">
+                          <InputGroup className="mb-12">
+                            <InputLabel className="labelcss" className="labelcss">Stickers</InputLabel>
+                          </InputGroup>
+                          <InputGroupAddon addonType="prepend">
+                          
+                          </InputGroupAddon>
+                         
+                                              <input 
+                                                ref="file" 
+                                                type="file" 
+                                                name="user[image]" 
+                                                multiple="true"
+                                                onChange={this._onChange}/>
+                                            
+                                            <img src={this.state.imgSrc} />
+
+                         
+                        </InputGroup> */}
                       </Form>
                     </CardBody>
                     <CardFooter className="p-12">
@@ -199,5 +253,5 @@ class AddKeyboard extends React.Component {
     );
   }
 }
-export default connect(null, { addKeyboard })(AddKeyboard);
+export default connect(null, { addKeyboard,getAllCategory})(AddKeyboard);
 

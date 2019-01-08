@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Badge, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
 import { connect } from 'react-redux';
-import { getAllKeyboardDetails, deleteKeyboard, getOneKeyboardDetails, updateUser, activeKeyboard } from '../../../action/user.action';
+import { getAllKeyboardDetails, deleteKeyboard, getOneKeyboardDetails, updateUser, activeKeyboard, getAllCategory } from '../../../action/user.action';
 import Datatable from './KeyboardDatatable';
 import DeleteKeyboard from '../../../components/Keyboard/DeleteKeyboard';
 import EditUser from '../../../components/Keyboard/EditKeyboard';
@@ -34,25 +34,26 @@ class Categories extends Component {
 
 
   componentWillMount() {
-    this.setState({ loading:true})
+    this.setState({ loading: true })
     this.getUser()
-    this.setState({ loading:false})
+    this.setState({ loading: false })
   }
 
   getUser = () => {
 
-    const { page, pageSize } = this.state;
+   const{page,pageSize}=this.state;
     this.props.getAllKeyboardDetails(page, pageSize).then((res) => {
       if (res.status == 200) {
         const { total, docs } = res.data.data;
-        // console.log("keyboards in getuser", docs)
+
         let tableData = [];
-        docs.map(x => tableData.push([x.keyboardName,x.category, x.keyboardType,x.cost, x.status,
+
+        docs.map(x => tableData.push([x.keyboardName, x.category, x.keyboardType, x.cost, x.status,
         (<>
           <EditUser getUser={this.getUser.bind(this)} editId={x._id} />
-          
+
           {x.status == 'ACTIVE' && <DeleteKeyboard deleteId={x._id} onClick={this.onClickToDelete} />}
-          {x.status == 'ACTIVE' && <ViewKeyboard viewId={x._id}/>}
+          {x.status == 'ACTIVE' && <ViewKeyboard viewId={x._id} />}
           {x.status == 'INACTIVE' && < ActiveConfirmDialog activeId={x._id} onClick={(e) => { this.onClickToActive(x._id) }} />}
         </>)
         ]))
@@ -82,21 +83,21 @@ class Categories extends Component {
   onChangeToFetchTable(action, tableState) {
     // this.getUser()
     console.log("in onChangeToFetchTable")
-    let { page, rowsPerPage, searchText,pageSize } = tableState
-    
-    this.props.getAllKeyboardDetails(page,rowsPerPage,searchText ? searchText : "").then((res) => {
+    let { page, rowsPerPage, searchText, pageSize } = tableState
+
+    this.props.getAllKeyboardDetails(page, rowsPerPage, searchText ? searchText : "").then((res) => {
 
       if (res.data.code == 200) {
         const { total, docs, code } = res.data.data;
-        
-        console.log("data in table chang",docs)
+
+        console.log("data in table chang", docs)
         let tableData = [];
-      docs.map(x => tableData.push([x.keyboardName,x.category, x.keyboardType,x.cost, x.status,
+        docs.map(x => tableData.push([x.keyboardName, x.category, x.keyboardType, x.cost, x.status,
         (<>
           <EditUser getUser={this.getUser.bind(this)} editId={x._id} onClick={this.onClickToEdit} />
 
           {x.status == 'ACTIVE' && <DeleteKeyboard deleteId={x._id} onClick={this.onClickToDelete} />}
-           {x.status == 'ACTIVE' && <ViewKeyboard viewId={x._id}/>}
+          {x.status == 'ACTIVE' && <ViewKeyboard viewId={x._id} />}
           {x.status == 'INACTIVE' && <ActiveConfirmDialog activeId={x._id} onClick={(e) => { this.onClickToActive(x._id) }} />}
         </>)
         ]))
@@ -108,7 +109,7 @@ class Categories extends Component {
   }
   render() {
     if (this.state.loading) {
-      return(<Spinner loading={this.state.loading}></Spinner>)
+      return (<Spinner loading={this.state.loading}></Spinner>)
     }
     return (
       <div >
@@ -116,14 +117,14 @@ class Categories extends Component {
           <Col xs="12" lg="12">
             <Card className="tablecss" >
               <CardHeader className="tablecss" style={{ textAlign: 'center', fontSize: '20px', fontWeight: '600' }}>
-                Keyboards List 
+                Keyboards List
                 {/* <style:"margin-left: 5672% !important"> */}
-               <>
-                <AddKeyboard getUser={this.getUser.bind(this)}/>
-                  </>
+                <>
+                  <AddKeyboard getUser={this.getUser.bind(this)} />
+                </>
               </CardHeader>
               <CardBody>
-                <Datatable  data={this.state.tableData} onFetchData={this.onChangeToFetchTable.bind(this)} page={this.state.page} pageSize={this.state.pageSize} count={this.state.count}/>
+                <Datatable data={this.state.tableData} onFetchData={this.onChangeToFetchTable.bind(this)} page={this.state.page} pageSize={this.state.pageSize} count={this.state.count} />
               </CardBody>
             </Card>
           </Col>
@@ -133,7 +134,7 @@ class Categories extends Component {
   }
 }
 
-export default connect(null, { getAllKeyboardDetails, deleteKeyboard, getOneKeyboardDetails, updateUser, activeKeyboard })(Categories);
+export default connect(null, { getAllKeyboardDetails, deleteKeyboard, getOneKeyboardDetails, updateUser, activeKeyboard, getAllCategory })(Categories);
 
 
 
@@ -154,28 +155,4 @@ export default connect(null, { getAllKeyboardDetails, deleteKeyboard, getOneKeyb
 
 
 
-// import React, { Component } from 'react';
-// import { connect } from 'react-redux';
-// import {withStyles} from '@material-ui/core'
-
-// const styles={
-//   root:{
-//     marginLeft:'70px'
-//   }
-  
-// }
-// class Categories extends Component {
-//   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
-
-//   render() {
-
-//     return (
-//       <div className="animated fadeIn ">
-//        Coming Soon
-//       </div>
-//     );
-//   }
-// }
-
-// export default  connect(null) (withStyles(styles)(Categories));
 

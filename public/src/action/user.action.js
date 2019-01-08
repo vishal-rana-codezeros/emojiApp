@@ -108,10 +108,20 @@ export const updateKeyboardDetails = (id,data) => {
 }
 //add keyboard
 export const addKeyboard =(data) => {	
-	console.log("data in add keyboard",data)
+	console.log("data in add keyboard============>",data)
 	const {_id } = JSON.parse(localStorage.getItem('user'));
 	console.log("idddddddddddddddd",_id)
 	return dispatch => {
 		return axios.post(`${API.URL}/admin/addKeyboard/${_id}`,data);
 	}
+}
+
+//get categories
+// getAllCategory
+
+export const getAllCategory = (page, pageSize) => {
+    return dispatch => {
+    	return axios.get(`${API.URL}/admin/getAllCategory?page=${page}&size=${pageSize}`);
+	}
+	
 }

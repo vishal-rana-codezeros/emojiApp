@@ -133,7 +133,7 @@ class Dashboard extends Component {
     return (
       <div className="animated fadeIn ">
         <Row>
-          <Col xs="12" sm="6" lg="4">
+          <Col xs="12" sm="12" lg="6">
             <Card className="text-white bg-info cardcss">
               <CardBody className="pb-0">
                 <ButtonGroup className="float-right">
@@ -163,9 +163,7 @@ class Dashboard extends Component {
               </div>
             </Card>
           </Col>
-          {/* </Row>
-        <Row> */}
-          <Col xs="12" sm="6" lg="4">
+          <Col xs="12" sm="12" lg="6">
             <Card className="text-white bg-info cardcss">
               <CardBody className="pb-0">
                 <ButtonGroup className="float-right">
@@ -185,7 +183,7 @@ class Dashboard extends Component {
           </Col>
         </Row>
         <Row>
-          <Col xs="12" sm="6" lg="4">
+          <Col xs="12" sm="12" lg="6">
             <Card className="text-white bg-info cardcss">
               <CardBody className="pb-0">
                 <ButtonGroup className="float-right">
@@ -203,9 +201,8 @@ class Dashboard extends Component {
               </div>
             </Card>
           </Col>
-          {/* </Row>
-        <Row> */}
-          <Col xs="12" sm="6" lg="4">
+        
+          <Col xs="12" sm="12" lg="6">
             <Card className="text-white bg-info cardcss">
               <CardBody className="pb-0">
                 <ButtonGroup className="float-right">

@@ -17,8 +17,13 @@ export default {
       className:"sideBarcss",
       children: [
         {
+          name: 'Keyboards',
+          url: '/keyboards/keyboards',
+          icon: 'icon-puzzle',
+        },
+        {
           name: 'Categories',
-          url: '/Keyboards/Categories',
+          url: '/keyboards/categories',
           icon: 'icon-puzzle',
         },
       ]

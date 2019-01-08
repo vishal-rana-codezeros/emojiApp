@@ -95,6 +95,7 @@
 .cardcss {
     background-image: -webkit-linear-gradient(top left, #e44242, white) !important;
     background-image: linear-gradient(to bottom right, #e44242, white) !important;
+    height: 350px !important;
 }
 .recoverycss{
     color: white!important
@@ -135,9 +136,12 @@
 }
 .labelcss{
     color: white!important;
+    margin-top: -1px !important;
 }
 .adminNamecss{
     color:red!important;
+    margin-right: 49px !important;
+    margin-top: 14px !important;
 }
 .adminNamecss:hover{
     // color:red!important;
@@ -174,4 +178,23 @@
 }
 form-group > .form-group dropdown{
     width:100% !important;
+}
+
+table >thead>tr>th{
+    font-weight: bold !important;
+    font-size: medium !important;
+    
+}
+.dropdown{
+    margin-top: -16px !important
+}
+.nav-item > .nav-link > .nav-icon{
+    font-size: 25px !important;
+    margin-right: 10px !important;
+}
+// .nav-item > .nav-link{
+//     background: #fff!important;
+// }
+.adminNamecss{
+    background: #fff!important;
 }
