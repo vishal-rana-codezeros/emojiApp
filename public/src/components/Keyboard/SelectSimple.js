@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SelectSimple = (props) => {
-    console.log("------------------------------",props.options)
+    // console.log("------------------------------",props.options)
 
   
     return (

@@ -47,7 +47,7 @@ class Categoriesmain extends Component {
 
         let tableData = [];
 
-        docs.map(x => tableData.push([ x.category, x.status,
+        docs.map(x => tableData.push([ x.categoryName, x.status,
         (<>
           <EditUser getUser={this.getUser.bind(this)} editId={x._id} />
 
@@ -91,7 +91,7 @@ class Categoriesmain extends Component {
 
         console.log("data in table chang", docs)
         let tableData = [];
-        docs.map(x => tableData.push([ x.category, x.status,
+        docs.map(x => tableData.push([ x.categoryName, x.status,
         (<>
           <EditUser getUser={this.getUser.bind(this)} editId={x._id} onClick={this.onClickToEdit} />
 

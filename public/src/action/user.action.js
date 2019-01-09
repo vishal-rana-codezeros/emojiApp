@@ -108,9 +108,9 @@ export const updateKeyboardDetails = (id,data) => {
 }
 //add keyboard
 export const addKeyboard =(data) => {	
-	console.log("data in add keyboard============>",data)
+	console.log("data in add keyboard===============================s=====>",data)
 	const {_id } = JSON.parse(localStorage.getItem('user'));
-	console.log("idddddddddddddddd",_id)
+	// console.log("idddddddddddddddd",_id)
 	return dispatch => {
 		return axios.post(`${API.URL}/admin/addKeyboard/${_id}`,data);
 	}
@@ -127,9 +127,9 @@ export const getAllCategory = (page, pageSize) => {
 
 //addCategory
 export const addCategory =(data) => {	
-	console.log("data in addCategory============>",data)
+	// console.log("data in addCategory============>",data)
 	const {_id } = JSON.parse(localStorage.getItem('user'));
-	console.log("idddddddddddddddd",_id)
+	// console.log("idddddddddddddddd",_id)
 	return dispatch => {
 		return axios.post(`${API.URL}/admin/addCategory/${_id}`,data);
 	}
@@ -154,8 +154,8 @@ export const getOneCategoryData = (id) => {
 }
 //update category
 export const updateCategory = (id,data) => {
-	console.log("id in updateCategory",id)
-	console.log("data in updateCategory",data)
+	// console.log("id in updateCategory",id)
+	// console.log("data in updateCategory",data)
     return dispatch => {
     	return axios.put(`${API.URL}/admin/updateCategory/${id}`,data)
 	  }

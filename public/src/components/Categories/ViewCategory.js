@@ -24,7 +24,7 @@ class ViewCategory extends React.Component {
 
           if (res.status == 200) {
             console.log("data in view category", res.data.data)
-            this.setState({category: res.data.data.category })
+            this.setState({category: res.data.data.categoryName })
           }
         })
       }

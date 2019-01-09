@@ -43,7 +43,7 @@ class AboutUs extends Component {
       errors: {},
       isValid: false,
       isSubmit: false,
-      loading:false
+      loading: false
     };
     this.onDescriptionChange = this.onDescriptionChange.bind(this)
     this.onClickToSave = this.onClickToSave.bind(this);
@@ -51,9 +51,9 @@ class AboutUs extends Component {
   }
 
   componentWillMount() {
-    this.setState({ loading:true})
+    this.setState({ loading: true })
     this.getAbout()
-    this.setState({ loading:false})
+    this.setState({ loading: false })
   }
 
   getAbout = () => {
@@ -63,7 +63,7 @@ class AboutUs extends Component {
       if (res.status == 200) {
         if (res.data.data) {
           console.log(res.data)
-          const { _id, title, description} = res.data.data?res.data.data:{};
+          const { _id, title, description } = res.data.data ? res.data.data : {};
           this.setState({ id: _id, title, description })
         }
       }
@@ -71,17 +71,17 @@ class AboutUs extends Component {
   }
 
   onDescriptionChange(evt) {
-      var newContent = evt.editor.getData();
+    var newContent = evt.editor.getData();
 
-      this.setState({
-        description: newContent
-      })
+    this.setState({
+      description: newContent
+    })
   }
 
   onClickToSave = (e) => {
-    const {id} = this.state;
+    const { id } = this.state;
     this.setState({ isSubmit: true });
-    if(!id) {
+    if (!id) {
       this.state.descption = this.state.editorState
       this.props.addAboutusPage(this.state).then((res) => {
         this.setState({ isSubmit: false });
@@ -103,18 +103,18 @@ class AboutUs extends Component {
     const { descriptionVal } = this.state;
     let { errors } = this.state
     if (this.state.loading) {
-      return(<Spinner loading={this.state.loading}></Spinner>)
+      return (<Spinner loading={this.state.loading}></Spinner>)
     }
     return (
-      
-      <div className="aboutUsCss">
+
+      <div>
         <Row>
           <Col xs="12" md="12">
-            <Card>
-              <CardHeader>
-                <strong>About Us</strong>
+            <Card >
+              <CardHeader className="aboutUsCss">
+                About Us
               </CardHeader>
-              <CardBody className="aboutUsCss">
+              <CardBody className="aboutUsColor">
                 <Form action="" method="post" encType="multipart/form-data" className="form-horizontal">
                   <FormGroup row>
                     <Col md="3">
@@ -137,14 +137,17 @@ class AboutUs extends Component {
 
                 </Form>
               </CardBody>
-              <CardFooter>
 
-                {this.state.id && <Button type="submit" size="sm" color="success" onClick={this.onClickToSave}><i className="fa fa-dot-circle-o"></i> Update</Button>}
-                {!this.state.id && <Button type="submit" size="sm" color="success" onClick={this.onClickToSave}><i className="fa fa-dot-circle-o"></i> Save</Button>}
-                <Button type="reset" size="sm" color="danger" onClick={this.onReset}><i className="fa fa-ban"></i> Reset</Button>
+              <CardFooter className="p-12">
+                <Row > 
+                  {this.state.id && <Button type="submit" size="sm" color="success" onClick={this.onClickToSave}><i className="fa fa-dot-circle-o"></i> Update</Button>}
+                  {!this.state.id && <Button type="submit" size="sm" color="success" onClick={this.onClickToSave}><i className="fa fa-dot-circle-o"></i> Save</Button>}
+                  <Button type="reset" size="sm" color="danger" onClick={this.onReset}><i className="fa fa-ban "></i> Reset</Button>
+                </Row>
               </CardFooter>
+             
             </Card>
-
+            {/* className="editbtncss"  */}
           </Col>
 
         </Row>
@@ -181,29 +184,4 @@ export default connect(null, { addAboutusPage, getAboutusPage, updateAboutusPage
 
 
 
-
-// import React, { Component } from 'react';
-// import { connect } from 'react-redux';
-// import {withStyles} from '@material-ui/core'
-
-// const styles={
-//   root:{
-//     marginLeft:'70px'
-//   }
-
-// }
-// class AboutUs extends Component {
-//   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
-
-//   render() {
-
-//     return (
-//       <div className="animated fadeIn ">
-//        Coming Soon
-//       </div>
-//     );
-//   }
-// }
-
-// export default  connect(null) (withStyles(styles)(AboutUs));
 

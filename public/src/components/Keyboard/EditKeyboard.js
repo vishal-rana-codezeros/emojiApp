@@ -11,6 +11,8 @@ import validateInput from '../../shared/Keyboard/KeyboardValidate';
 import { withAlert } from 'react-alert'
 import SelectSimple from './SelectSimple';
 import Select from './Select'
+import ImageUploader from 'react-images-upload';
+import axios from 'axios';
 class EditKeyboard extends React.Component {
   constructor(props) {
     super(props)
@@ -18,8 +20,10 @@ class EditKeyboard extends React.Component {
     this.state = {
       open: false,
       keyboardName: '',
-      category: '',
+      categoryName: '',
       cost: '',
+      image:[],
+      imgSrc:[],
       keyboardType: '',
       errors: {},
       isValid: false,
@@ -30,7 +34,7 @@ class EditKeyboard extends React.Component {
       page: 0,
       pageSize: 10
     };
-
+    this.onDrop = this.onDrop.bind(this);
     this.onTextChange = this.onTextChange.bind(this)
     this.onClickToEdit = this.onClickToEdit.bind(this)
     this.handleselect= this.handleselect.bind(this)
@@ -43,7 +47,7 @@ class EditKeyboard extends React.Component {
        
           if (res.status == 200) {
             // console.log("data in edit keyboard", res.data.data)
-            this.setState({ keyboardName: res.data.data.keyboardName,category: res.data.data.category, keyboardType: res.data.data.keyboardType, cost: res.data.data.cost })
+            this.setState({ keyboardName: res.data.data.keyboardName,categoryName: res.data.data.categoryName, keyboardType: res.data.data.keyboardType, cost: res.data.data.cost })
           }
         })
       }
@@ -61,12 +65,27 @@ class EditKeyboard extends React.Component {
     })
   }
 
-  onClickToEdit = (e) => {
+  onDrop(imgSrc) {
+    this.setState({
+      imgSrc
+    });
+  }
+  onClickToEdit = async(e) => {
     e.preventDefault();
     this.setState({ isSubmit: true });
+    const {imgSrc} = this.state;
+
+    const formData = new FormData();    
+    imgSrc.map(img => {
+      formData.append("img", img);
+    })
+
+    var data =  await axios.post('http://66.70.179.133:5001/emojiApp/v2/api/user/imageUpload', formData);
+    
+    this.state.image = data.data.data;
     if (this.isValid(this.state)) {
       this.setState({ isSubmit: false });
-      this.props.updateKeyboardDetails(this.props.editId, this.state).then((res) => {
+      await this.props.updateKeyboardDetails(this.props.editId, this.state).then((res) => {
         if(res.data.code == 400)
         {
           this.setState({errors: {...this.state.errors,keyboardName: res.data.message}})
@@ -155,14 +174,14 @@ class EditKeyboard extends React.Component {
                             </InputGroupText> */}
                           </InputGroupAddon>
                           <Select
-                            name={'category'}
+                            name={'categoryName'}
                             options={this.state.categoryOptions}
-                            value={this.state.category}
-                            placeholder={'Select category'}
+                            value={this.state.categoryName}
+                            placeholder={'Select categoryName'}
                             handlechange={this.handleselect}
                           />
-                          {/* <Input type="text" name="category" value={this.state.category} autoComplete="category" onChange={this.onTextChange} /> */}
-                          {errors.category && <em className="has-error">{errors.category}</em>}
+                          {/* <Input type="text" name="categoryName" value={this.state.categoryName} autoComplete="categoryName" onChange={this.onTextChange} /> */}
+                          {errors.categoryName && <em className="has-error">{errors.categoryName}</em>}
                         </InputGroup>
                         <InputGroup className="mb-12">
                         <InputGroup className="mb-12">
@@ -194,6 +213,23 @@ class EditKeyboard extends React.Component {
                           <Input type="number" name="cost" value={this.state.cost} autoComplete="cost" onChange={this.onTextChange} disabled={this.state.keyboardType=='free'}/>
                           {errors.cost && <em className="has-error">{errors.cost}</em>}
                         </InputGroup>
+                        <InputGroup className="mb-12">
+                          <InputGroup className="mb-12">
+                            <InputLabel className="labelcss" className="labelcss">Stickers</InputLabel>
+                          </InputGroup>
+                          <InputGroupAddon addonType="prepend">
+
+                          </InputGroupAddon>
+                            <ImageUploader
+                              value={this.state.imgSrc}
+                                withIcon={true}
+                                buttonText='Choose images'
+                                onChange={this.onDrop}
+                                imgExtension={['.jpg', '.gif', '.png', '.gif','.jpeg']}
+                                maxFileSize={5242880}
+                                withPreview={true}
+                              />
+                              </InputGroup>
                       </Form>
                     </CardBody>
                     <CardFooter className="p-12">

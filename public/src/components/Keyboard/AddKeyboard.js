@@ -52,7 +52,7 @@ class AddKeyboard extends React.Component {
     const { page, pageSize } = this.state;
     this.props.getAllCategory(page, pageSize).then((res) => {
       if (res.status == 200) {
-        console.log("categories===>", res.data.data.docs)
+        // console.log("categories===>", res.data.data.docs)
         const { docs } = res.data.data
         const { categoryOptions } = this.state
         docs.map(x => categoryOptions.push({ id: x._id, value: x.categoryName }))
@@ -67,40 +67,40 @@ class AddKeyboard extends React.Component {
     });
   }
 
-  onClickToAdd = (e) => {
+  onClickToAdd = async (e) => {
     e.preventDefault();
     this.setState({ isSubmit: true });
     const {imgSrc} = this.state;
 
     const formData = new FormData();    
-    imgSrc.map(file => {
-      formData.append("file", file);
+    imgSrc.map(img => {
+      formData.append("img", img);
     })
 
-    axios.post('http://192.168.0.194:5001/emojiApp/v2/api/user/imageUpload',imgSrc, formData,{
-        // headers: { "Content-Type": "application/x-www-form-urlencoded" }, 
-    }).then((res) => {
-      console.log("response===========>",res)
-    });
+    var data = await axios.post('http://66.70.179.133:5001/emojiApp/v2/api/user/imageUpload', formData);
+    
+    this.state.image = data.data.data;
 
     if (this.isValid(this.state)) {
       this.setState({ isSubmit: false });
+      // return false;
+      await this.props.addKeyboard(this.state).then((res, err) => {
+        console.log("res, err", res, err);
+        console.log("request in add keyboard=============image============>",this.state.image)
+        if (res.data.code == 400) {
+          this.setState({ errors: { ...this.state.errors, keyboardName: res.data.message } })
 
-      // this.props.addKeyboard(this.state).then((res) => {
-      //   if (res.data.code == 400) {
-      //     this.setState({ errors: { ...this.state.errors, keyboardName: res.data.message } })
-
-      //   } else {
-      //     this.setState({
-      //       open: !this.state.open,
-      //       keyboardName: '',
-      //       category: '',
-      //       cost: '',
-      //       keyboardType: ''
-      //     });
-      //     this.props.getUser();
-      //   }
-      // })
+        } else {
+          this.setState({
+            open: !this.state.open,
+            keyboardName: '',
+            category: '',
+            cost: '',
+            keyboardType: ''
+          });
+          this.props.getUser();
+        }
+      })
       const { onClick, editId } = this.props;
     }
   }
