@@ -937,9 +937,6 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "title": {
-                                    "type": "string"
-                                },
                                 "description": {
                                     "type": "string"
                                 }
@@ -994,7 +991,7 @@
                                 "keyboardName": {
                                     "type": "string"
                                 },
-                                "category": {
+                                "categoryName": {
                                     "type": "string"
                                 },
                                 "KeyboardType": {
@@ -1057,7 +1054,7 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "category": {
+                                "categoryName": {
                                     "type": "string"
                                 }
                             }
@@ -1160,7 +1157,7 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "category": {
+                                "categoryName": {
                                     "type": "string"
                                 }
                             }
@@ -1276,7 +1273,7 @@
                     {
                         "in": "path",
                         "name": "id",
-                        "description": "Id of particular cms page",
+                        "description": "Id of particular keyboard",
                         "required": true,
                         "type": "string"
                     },
@@ -1289,7 +1286,7 @@
                                 "keyboardName": {
                                     "type": "string"
                                 },
-                                "category": {
+                                "categoryName": {
                                     "type": "string"
                                 },
                                 "KeyboardType": {

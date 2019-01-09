@@ -742,8 +742,7 @@ paths:
               type: object
              
               properties:
-                title:
-                    type: string
+               
                 
                 description:
                     type: string   
@@ -783,7 +782,7 @@ paths:
               properties:
                 keyboardName:
                     type: string
-                category:
+                categoryName:
                     type: string
                 KeyboardType:
                     type: string
@@ -828,7 +827,7 @@ paths:
              
                 
               properties:
-                category:
+                categoryName:
                     type: string
               
         responses:
@@ -896,7 +895,7 @@ paths:
             schema:
               type: object
               properties:
-               category:
+               categoryName:
                     type: string
         responses:
           "200":
@@ -973,7 +972,7 @@ paths:
             type: string
           - in: path
             name: id
-            description: Id of particular cms page
+            description: Id of particular keyboard 
             required: true
             type: string
           - in: body
@@ -985,7 +984,7 @@ paths:
               properties:
                 keyboardName:
                     type: string
-                category:
+                categoryName:
                     type: string
                 KeyboardType:
                     type: string
