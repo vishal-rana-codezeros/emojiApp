@@ -45,7 +45,7 @@ class Categories extends Component {
     this.props.getAllKeyboardDetails(page, pageSize).then((res) => {
       if (res.status == 200) {
         const { total, docs } = res.data.data;
-        console.log("keyboards in getuser", docs)
+        // console.log("keyboards in getuser", docs)
         let tableData = [];
         docs.map(x => tableData.push([x.keyboardName,x.category, x.keyboardType,x.cost, x.status,
         (<>

@@ -1,14 +1,12 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import ReactDOM from 'react-dom';
+import { shallow, mount, render } from 'enzyme';
+import Login from './Login';
 
-import Login from '../Login';
+describe('Login Component render', () => {
 
-describe('Login', () => {
-  let wrapper;
-
-  it('wraps content in a div with .notificationsFrame class', () => {
-    wrapper = shallow(<Login />);
-    expect(wrapper.find(this.setState.errors).length).toEqual(1);
-    // expect(wrapper.find('errors').length).toEqual(0);
-  })
-})
+  it('login renders without crashing', () => {
+    const div = document.createElement('div');
+    ReactDOM.render(<Login />, div);
+  });
+});
