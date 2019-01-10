@@ -35,8 +35,8 @@ describe("(2)login", function () {
     chai.request(app)
       .post('/login')
       .send({
-        "emailId": "prem.makvana@codezeros.com",
-        "password": "123@a"
+        "emailId": "admin@emojiapp.com",
+        "password": "123@aa"
       })
       .end(function (err, res) {
         console.log("res", JSON.parse(res.text));
@@ -51,7 +51,7 @@ describe("(3)getAllUser", function () {
   it("getAllUser", function (done) {
     chai.request(app1)
       .get('/getAllUser?page=0&size=2&filter=prem')
-      .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjMmRkZDczZGM5YTlkMTM1OTRjZGJkNSIsImlhdCI6MTU0NjUxMTE4NCwiZXhwIjoxNTQ2NTk3NTg0fQ.sFYhH83WyTPjri5cGMlWCZlfamIsAspz45m0POecypM')
+      .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjMzU4YjVlNDYzYjA0MWUzZDRlYTUwYiIsImlhdCI6MTU0NzAzOTI3MSwiZXhwIjoxNTQ3MTI1NjcxfQ.jMIAq7bGzrgZTkGKtZCg1oTCZ-4hGLJ9jVoKzjuCYYY')
       .end(function (err, res) {
         console.log("res", JSON.parse(res.text));
         expect(res.statusCode).to.equal(200);
@@ -64,8 +64,8 @@ describe("(3)getAllUser", function () {
 describe("(4)getOneUser", function () {
   it("getOneUser", function (done) {
     chai.request(app1)
-      .get('/getOneUser/5c2de095917d4e1947d2fc12')
-      .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjMmRkZDczZGM5YTlkMTM1OTRjZGJkNSIsImlhdCI6MTU0NjUxMTE4NCwiZXhwIjoxNTQ2NTk3NTg0fQ.sFYhH83WyTPjri5cGMlWCZlfamIsAspz45m0POecypM')
+      .get('/getOneUser/5c35e3f13939c8277178a04c')
+      .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjMzU4YjVlNDYzYjA0MWUzZDRlYTUwYiIsImlhdCI6MTU0NzAzOTI3MSwiZXhwIjoxNTQ3MTI1NjcxfQ.jMIAq7bGzrgZTkGKtZCg1oTCZ-4hGLJ9jVoKzjuCYYY')
       .end(function (err, res) {
         console.log("res", JSON.parse(res.text));
         expect(res.statusCode).to.equal(200);
@@ -81,7 +81,7 @@ describe("(5)updateUser", function () {
   it("updateUser", function (done) {
     chai.request(app1)
       .put('/updateUser/5c2de095917d4e1947d2fc12')
-      .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjMmRkZDczZGM5YTlkMTM1OTRjZGJkNSIsImlhdCI6MTU0NjUxMTE4NCwiZXhwIjoxNTQ2NTk3NTg0fQ.sFYhH83WyTPjri5cGMlWCZlfamIsAspz45m0POecypM')
+      .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjMzU4YjVlNDYzYjA0MWUzZDRlYTUwYiIsImlhdCI6MTU0NzAzOTI3MSwiZXhwIjoxNTQ3MTI1NjcxfQ.jMIAq7bGzrgZTkGKtZCg1oTCZ-4hGLJ9jVoKzjuCYYY')
       .send({
         "userName": "Romil",
         "fullName": "Romil sinha",
@@ -269,6 +269,20 @@ describe("(17)getOneKeyboardDetails", function () {
   });
 
 });
+
+describe("(12)addCategory", function () {
+  it("addCategory", function (done) {
+    chai.request(app1)
+      .post('/addCategory/5c358b5e463b041e3d4ea50b')
+      .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjMzQ2ZjA4NzU2YTc2MTI4NTY1ZjMxNiIsImlhdCI6MTU0Njk0MDI4OSwiZXhwIjoxNTQ3MDI2Njg5fQ.Gmn8M2TQQzGUDoB45PTKG7Z3G-j6XG2VVTqlVbdEog4')
+      .end(function (err, res) {
+        // console.log("res", JSON.parse(res.text));
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+  });
+});
+
 
 describe("(18)verifyAccount", function () {
   it("verifyAccount", function (done) {
