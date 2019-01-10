@@ -566,7 +566,30 @@ paths:
           "400":
             description: "User not found."
             schema:
-              $ref: "#/definitions/UserNotFound"       
+              $ref: "#/definitions/UserNotFound" 
+  
+  "/admin/getActiveCatList":
+      get:
+        tags:
+        - "admin"
+        summary: Get data of Active category only
+        parameters: 
+          - in: header
+            name: authorization
+            description: Token of particular admin
+            required: true
+            type: string
+        
+        responses:
+          "200":
+            description: "Sucess"
+            schema:
+              $ref: "#/definitions/Success"           
+          "400":
+            description: "User not found."
+            schema:
+              $ref: "#/definitions/UserNotFound"      
+              
   "/admin/updateUser/{id}":
       put:
         tags:
