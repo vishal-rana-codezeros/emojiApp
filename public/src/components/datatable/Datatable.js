@@ -18,6 +18,7 @@ const Datatable = ({ data, columns, onFetchData, page,pageSize,count}) => {
     page:page,
     rowsPerPage:pageSize,
     count:count,
+    responsive:"scroll",
     // defaultPageSize:10,
     onTableChange: (action, tableState) => {
       onFetchData(action, tableState)

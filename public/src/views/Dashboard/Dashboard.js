@@ -4,7 +4,8 @@ import { recordCount } from '../../action/auth.action'
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core'
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
-import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities'
+import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
+
 import {
   Badge,
   Button,
@@ -27,6 +28,7 @@ import {
 } from 'reactstrap';
 import Spinner from '../../Spinner/Spinner'
 import { red } from '@material-ui/core/colors';
+import { Login } from '../../action/user.action';
 // import OverlayLoader from 'react-overlay-loading/lib/OverlayLoader'
 
 const styles = {
@@ -114,10 +116,15 @@ class Dashboard extends Component {
   componentWillMount() {
     this.setState({loading: true})
     this.props.recordCount(this.state).then(res => {
-        if (res.data.code) {
+        if (res.data.code==200) {
           const {totalCounts, maleCounts, femalCounts} = res.data.data
           this.setState({ userCount: totalCounts, male:maleCounts,female:femalCounts, loading: false})
-        } else {
+        } else
+         {
+           console.log("this.props",this.props);
+           this.props.history.push('/Login');
+        //  <LoginPage/>
+         
         }
       });
 

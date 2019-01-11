@@ -161,3 +161,10 @@ export const updateCategory = (id,data) => {
 	  }
     
 }
+//getActiveCatList
+export const getActiveCatList = () => {
+    return dispatch => {
+    	return axios.get(`${API.URL}/admin/getActiveCatList`);
+	}
+	
+}

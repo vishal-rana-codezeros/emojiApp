@@ -15,7 +15,7 @@ class UpdateCategory extends React.Component {
 
     this.state = {
       open: false,
-      category: '',
+      categoryName: '',
       errors: {},
       isValid: false,
       isSubmit: false,
@@ -34,7 +34,7 @@ class UpdateCategory extends React.Component {
        
           if (res.status == 200) {
             // console.log("data in edit keyboard", res.data.data)
-            this.setState({category: res.data.data.category})
+            this.setState({categoryName: res.data.data.categoryName})
           }
         })
       }
@@ -49,7 +49,7 @@ class UpdateCategory extends React.Component {
       this.props.updateCategory(this.props.editId, this.state).then((res) => {
         if(res.data.code == 400)
         {
-          this.setState({errors: {...this.state.errors,category: res.data.message}})
+          this.setState({errors: {...this.state.errors,categoryName: res.data.message}})
         } else {
           this.setState({ open: !this.state.open });
           this.props.getUser();
@@ -104,7 +104,7 @@ class UpdateCategory extends React.Component {
           <EditIcon fontSize="small" />
         </IconButton>
         <Modal isOpen={this.state.open}>
-          <ModalHeader toggle={this.toggle}>Edit Keyboard</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Edit Category</ModalHeader>
           <ModalBody>
             <Container>
               <Row>
@@ -122,8 +122,8 @@ class UpdateCategory extends React.Component {
                             </InputGroupText> */}
                           </InputGroupAddon>
                           
-                          <Input type="text" name="category" value={this.state.category} autoComplete="category" onChange={this.onTextChange} />
-                          {errors.category && <em className="has-error">{errors.category}</em>}
+                          <Input type="text" name="categoryName" value={this.state.categoryName} autoComplete="categoryName" onChange={this.onTextChange} />
+                          {errors.categoryName && <em className="has-error">{errors.categoryName}</em>}
                         </InputGroup>
                       </Form>
                     </CardBody>

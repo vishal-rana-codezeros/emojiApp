@@ -13,7 +13,7 @@ class AddCategory extends React.Component {
 
     this.state = {
       open: false,
-      category: '',
+      categoryName: '',
       errors: {},
       isValid: false,
       isSubmit: false,
@@ -37,11 +37,11 @@ class AddCategory extends React.Component {
     if (this.isValid(this.state)) {
       this.setState({ isSubmit: false });
       this.props.addCategory(this.state).then((res) => {
-        console.log("response in add category",res)
+        console.log("response in add categoryName",res)
         
           this.setState({ 
             open: !this.state.open,
-            category: ''
+            categoryName: ''
           });
           this.props.getUser();
     
@@ -103,8 +103,8 @@ class AddCategory extends React.Component {
                           <InputGroupAddon addonType="prepend">
                           </InputGroupAddon>
                          
-                          <Input type="text" name="category" value={this.state.category} autoComplete="cost" onChange={this.onTextChange}  />
-                          {errors.category && <em className="has-error">{errors.category}</em>}
+                          <Input type="text" name="categoryName" value={this.state.categoryName} autoComplete="cost" onChange={this.onTextChange}  />
+                          {errors.categoryName && <em className="has-error">{errors.categoryName}</em>}
                         </InputGroup>
                       </Form>
                     </CardBody>

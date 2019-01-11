@@ -5,11 +5,11 @@ const KeyboardValidate = (data) => {
 	
 	let errors = {};
 	
-	let { category } = data;
+	let { categoryName } = data;
 
 	
-	if(isEmpty(category)) {
-		errors.category = "Please Enter Category";
+	if(isEmpty(categoryName)) {
+		errors.categoryName = "Please Enter Category";
     }
     
 

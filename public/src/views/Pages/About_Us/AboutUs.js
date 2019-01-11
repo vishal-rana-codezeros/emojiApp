@@ -117,11 +117,11 @@ class AboutUs extends Component {
               <CardBody className="aboutUsColor">
                 <Form action="" method="post" encType="multipart/form-data" className="form-horizontal">
                   <FormGroup row>
-                    <Col md="3">
+                    <Col xs="12" md="12">
                       <Label htmlFor="textarea-input"><strong>Content:</strong></Label>
                     </Col>
 
-                    <Col xs="12" md="9">
+                    <Col xs="12" md="12">
                       <div>
                         <CKEditor
                           activeClass="editorCss"

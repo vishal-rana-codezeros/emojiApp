@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addKeyboard, getAllCategory } from '../../action/user.action';
+import { addKeyboard, getAllCategory,getActiveCatList } from '../../action/user.action';
 import IconButton from '@material-ui/core/IconButton';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 import { Modal, ModalBody, ModalFooter, ModalHeader, Button, Card, CardBody, CardFooter, Col, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row, Container, ButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap';
@@ -19,7 +19,7 @@ class AddKeyboard extends React.Component {
     this.state = {
       open: false,
       keyboardName: '',
-      category: '',
+      categoryName: '',
       cost: '',
       image:[],
       keyboardType: '',
@@ -50,12 +50,13 @@ class AddKeyboard extends React.Component {
 
   componentWillMount() {
     const { page, pageSize } = this.state;
-    this.props.getAllCategory(page, pageSize).then((res) => {
+    this.props.getActiveCatList().then((res) => {
       if (res.status == 200) {
-        // console.log("categories===>", res.data.data.docs)
-        const { docs } = res.data.data
+        console.log("categories===>", res.data.data)
+        // return false;
+        const { data } = res.data
         const { categoryOptions } = this.state
-        docs.map(x => categoryOptions.push({ id: x._id, value: x.categoryName }))
+        data.map(x => categoryOptions.push({ id: x._id, value: x.categoryName }))
       }
     })
   }
@@ -77,13 +78,11 @@ class AddKeyboard extends React.Component {
       formData.append("img", img);
     })
 
-    var data = await axios.post('http://66.70.179.133:5001/emojiApp/v2/api/user/imageUpload', formData);
-    
-    this.state.image = data.data.data;
-
     if (this.isValid(this.state)) {
       this.setState({ isSubmit: false });
-      // return false;
+
+      var data = await axios.post('http://66.70.179.133:5001/emojiApp/v2/api/user/imageUpload', formData);
+      this.state.image = data.data.data;
       await this.props.addKeyboard(this.state).then((res, err) => {
         console.log("res, err", res, err);
         console.log("request in add keyboard=============image============>",this.state.image)
@@ -94,7 +93,7 @@ class AddKeyboard extends React.Component {
           this.setState({
             open: !this.state.open,
             keyboardName: '',
-            category: '',
+            categoryName: '',
             cost: '',
             keyboardType: ''
           });
@@ -143,6 +142,7 @@ class AddKeyboard extends React.Component {
   render() {
 
     let { errors } = this.state
+    console.log("errors",errors)
     return (
       <>
         <IconButton aria-label="Edit"className="addButtonCss"  onClick={this.toggle}>
@@ -175,14 +175,14 @@ class AddKeyboard extends React.Component {
                           <InputGroupAddon addonType="prepend">
                           </InputGroupAddon>
                           <Select
-                            name={'category'}
+                            name={'categoryName'}
                             options={this.state.categoryOptions}
-                            value={this.state.category}
-                            placeholder={'Select category'}
+                            value={this.state.categoryName}
+                            placeholder={'Select categoryName'}
                             handlechange={this.handleselect}
                           />
 
-                          {errors.category && <em className="has-error">{errors.category}</em>}
+                          {errors.categoryName && <em className="has-error">{errors.categoryName}</em>}
                         </InputGroup>
                         <InputGroup className="mb-12">
                           <InputGroup className="mb-12">
@@ -246,5 +246,5 @@ class AddKeyboard extends React.Component {
     );
   }
 }
-export default connect(null, { addKeyboard, getAllCategory })(AddKeyboard);
+export default connect(null, { addKeyboard, getAllCategory,getActiveCatList })(AddKeyboard);
 

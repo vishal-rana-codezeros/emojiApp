@@ -3,13 +3,15 @@
 //     background-color: #63c2de !important;
 // }
 .has-error {
-    color: white;
+    color: #ff1a1a;
     width: 100%;
 }
 
 
 .card {
-    background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
+    // background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
+    background: #fff!important;
+    color:#ff1a1a!important;
 }
 
 .profilecustom{
@@ -35,9 +37,15 @@
     background-color: transparent;
     border-color: transparent;
 }
+.btn-link{
+    color: #ff1a1a!important
+}
 .btn-primary:hover {
     background-color:rgb(185, 3, 3)!important;
     border-color:   #ff1a1a!important;
+}
+.recoverycss {
+color:red!important;
 }
 
 .sidebar{
@@ -48,6 +56,16 @@
 .nav-link:hover{
     background:red!important;
     color: #000;
+}
+.nav-link:hover > i {
+    background:red!important;
+    color:white;
+}
+.nav-link > i{
+    color: #ff1a1a!important
+}
+.nav-link > i.active{
+    color:white!important
 }
 .sidebar .nav-link.active {
     color: #fff !important;
@@ -98,17 +116,17 @@
     background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
 }
 .tablecss{
-  background-image: linear-gradient(to bottom right,#e44242,white, )!important;
+//   background-image: linear-gradient(to bottom right,#e44242,white, )!important;
+background: #fff!important;
 }
 .cardcss {
     // background-image: -webkit-linear-gradient(top left, #e44242, white) !important;
     // background-image: linear-gradient(to bottom right, #e44242, white) !important;
-    background-image: -webkit-linear-gradient(top left, #cc3434, #ff1a1a) !important;
+    // background-image: -webkit-linear-gradient(top left, #cc3434, #ff1a1a) !important;
+    background: #fff!important;
     height: 350px !important;
 }
-.recoverycss{
-    color: white!important
-}
+
 .card.bg-info {
     border-color: #e44242!important;
 }
@@ -132,10 +150,11 @@
     justify-content: flex-start!important;
 }
 .modal-content{
-    background-image: linear-gradient(to bottom right, #e44242, white) !important;
+    // background-image: linear-gradient(to bottom right, #e44242, white) !important;
+    background: #fff!important;
 }
 .card-footer{
-    background-image: linear-gradient(to bottom right, #e44242, white) !important;
+    // background-image: linear-gradient(to bottom right, #e44242, white) !important;
 }
 .editbtncss{
     margin-left: 20%!important
@@ -144,7 +163,7 @@
     margin-top: 3%!important
 }
 .labelcss{
-    color: white!important;
+    color:#ff1a1a!important;
     margin-top: -1px !important;
 }
 .adminNamecss{
@@ -207,7 +226,7 @@ table >thead>tr>th{
 }
 
 .card-body{
-    color:white !important
+    color:red !important
 }
 .text-muted{
     color: #fff !important;
@@ -219,6 +238,7 @@ table >thead>tr>th{
     padding-left: 40px !important;
 }
 .addButtonCss{
+    color:white!important;
     float:right;
     margin-top: -11px!important;
 }
@@ -238,8 +258,14 @@ table >thead>tr>th{
     color: white  ;
     background: #ff1a1a ;
 } 
+.sidebar .nav-dropdown.open .nav-link:hover > i {
+    color: white !important ;
+    background: #ff1a1a ;
+} 
 .card-header{
-    background-image: linear-gradient(to bottom right, #e44242, white) !important;
+    // background-image: linear-gradient(to bottom right, #e44242, white) !important;
+    background: #ff1a1a !important;
+    color:#fff
 }
 
 .aboutUsCss{
@@ -254,9 +280,54 @@ table >thead>tr>th{
     margin-left: 2%;
     margin-right: 3%;
 }
-.aboutUsColor{
-    background-image: linear-gradient(to bottom right, #e44242, white) !important;
+.input-group > .form-control:focus, .input-group > .custom-select:focus, .input-group > .custom-file .custom-file-input:focus ~ .custom-file-label{
+width:100%
 }
+
+
+.modal-header{
+    background: #ff1a1a!important;
+    color:#fff
+}
+.close:not(:disabled):not(.disabled){
+    color:#fff;
+}
+.btn-secondary{
+    background: #fff;
+    color:red;
+}
+.btn-secondary:hover{
+    background:#ff1a1a;
+    color:#fff;
+}
+.btn-danger{
+    background:#ff1a1a;
+    color:#fff;
+}
+.btn-danger:hover{
+    background: #fff;
+    color:red;
+}
+h1, .h1{
+    color: #ff1a1a!important;
+}
+
 .sidebar .sidebar-minimizer{
-display: none
+    background: #fff!important;
+    color:red!important;
+} 
+.sidebar .sidebar-minimizer:hover{
+    background:red!important;
+} 
+.sidebar-minimized .sidebar .sidebar-minimizer {
+ background: #ff1a1a!important;
+}
+.sidebar .nav-link.active .nav-icon {
+    color:white!important;
+}
+.sidebar .nav-link.hover .nav-icon {
+    color:white!important;
+}
+.sidebar .nav-link:hover .nav-icon {
+    color: #fff !important;
 }

@@ -2,7 +2,7 @@ import { isEmpty, isEmail } from 'validator';
 import lodash from 'lodash';
 
 const KeyboardValidate = (data) => {
-	
+	console.log("data",data)
 	let errors = {};
 	
 	let { keyboardName, categoryName, cost, keyboardType } = data;
@@ -11,7 +11,7 @@ const KeyboardValidate = (data) => {
 		errors.keyboardName = "Please enter Name";
 	}
 	
-	if(isEmpty(categoryName)) {
+	if(!categoryName) {
 		errors.categoryName = "Please Enter Category";
     }
     

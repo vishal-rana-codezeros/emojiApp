@@ -47,7 +47,7 @@ class Categories extends Component {
         const { total, details } = res.data.data[0];
 
         let tableData = [];
-        console.log("response================>",res.data.data[0].details)
+        // console.log("response================>",res.data.data[0].details)
         // return false;
         details.map(x => tableData.push([x.keyboardName, x.categoryName, x.keyboardType, x.cost, x.status,
         (<>
@@ -89,11 +89,11 @@ class Categories extends Component {
     this.props.getAllKeyboardDetails(page, rowsPerPage, searchText ? searchText : "").then((res) => {
 
       if (res.data.code == 200) {
-        const { total, docs, code } = res.data.data;
-
-        console.log("data in table chang", docs)
+        const { _id, details } = res.data.data[0];
+        const { total, page } = _id[0];        
         let tableData = [];
-        docs.map(x => tableData.push([x.keyboardName, x.categoryName, x.keyboardType, x.cost, x.status,
+        
+        details.map(x => tableData.push([x.keyboardName, x.categoryName, x.keyboardType, x.cost, x.status,
         (<>
           <EditUser getUser={this.getUser.bind(this)} editId={x._id} onClick={this.onClickToEdit} />
 
