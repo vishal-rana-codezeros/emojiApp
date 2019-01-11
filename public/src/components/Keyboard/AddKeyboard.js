@@ -1,58 +1,106 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addKeyboard } from '../../action/user.action';
+import { addKeyboard, getAllCategory,getActiveCatList } from '../../action/user.action';
 import IconButton from '@material-ui/core/IconButton';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 import { Modal, ModalBody, ModalFooter, ModalHeader, Button, Card, CardBody, CardFooter, Col, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row, Container, ButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap';
 import InputLabel from '@material-ui/core/InputLabel';
 import validateInput from '../../shared/Keyboard/KeyboardValidate';
-import Select from './Select'
+import Select from './Select';
+import SelectSimple from './SelectSimple';
+import ImageUploader from 'react-images-upload';
+import axios from 'axios';
+
+// var FileInput = require('./fileInput')
 class AddKeyboard extends React.Component {
   constructor(props) {
     super(props)
-
     this.state = {
       open: false,
       keyboardName: '',
-      category: '',
+      categoryName: '',
       cost: '',
+      image:[],
       keyboardType: '',
+      imgSrc: [],
       errors: {},
       isValid: false,
       isSubmit: false,
       isLogin: true,
       dropdownOpen: false,
       value: "Home",
-      categoryOptions: ['cat1', 'cat2', 'cat3','cat4','cat5'],
-      keyboardTypeOption:['free','paid']
+      categoryOptions: [],
+      keyboardTypeOption: ['free', 'paid'],
+      page: 0,
+      pageSize: 10,
     };
-  
+    this.onDrop = this.onDrop.bind(this);
     this.onTextChange = this.onTextChange.bind(this)
     this.onClickToAdd = this.onClickToAdd.bind(this)
-    this.handleselect= this.handleselect.bind(this)
+    this.handleselect = this.handleselect.bind(this)
   }
   toggle = () => {
     this.setState({ open: !this.state.open }, () => {
 
     });
-
+    this.setState({ errors: {} })
   };
 
-  onClickToAdd = (e) => {
+
+  componentWillMount() {
+    const { page, pageSize } = this.state;
+    this.props.getActiveCatList().then((res) => {
+      if (res.status == 200) {
+        console.log("categories===>", res.data.data)
+        // return false;
+        const { data } = res.data
+        const { categoryOptions } = this.state
+        data.map(x => categoryOptions.push({ id: x._id, value: x.categoryName }))
+      }
+    })
+  }
+
+
+  onDrop(imgSrc) {
+    this.setState({
+      imgSrc
+    });
+  }
+
+  onClickToAdd = async (e) => {
     e.preventDefault();
     this.setState({ isSubmit: true });
+    const {imgSrc} = this.state;
+
+    const formData = new FormData();    
+    imgSrc.map(img => {
+      formData.append("img", img);
+    })
+
     if (this.isValid(this.state)) {
       this.setState({ isSubmit: false });
-      this.props.addKeyboard(this.state).then((res) => {
 
-        if (res.status == 200) {
+      var data = await axios.post('http://66.70.179.133:5001/emojiApp/v2/api/user/imageUpload', formData);
+      this.state.image = data.data.data;
+      await this.props.addKeyboard(this.state).then((res, err) => {
+        console.log("res, err", res, err);
+        console.log("request in add keyboard=============image============>",this.state.image)
+        if (res.data.code == 400) {
+          this.setState({ errors: { ...this.state.errors, keyboardName: res.data.message } })
+
+        } else {
+          this.setState({
+            open: !this.state.open,
+            keyboardName: '',
+            categoryName: '',
+            cost: '',
+            keyboardType: ''
+          });
           this.props.getUser();
         }
       })
       const { onClick, editId } = this.props;
-
-      this.setState({ open: !this.state.open });
     }
   }
   onTextChange(event) {
@@ -81,7 +129,7 @@ class AddKeyboard extends React.Component {
         this.isValid(this.state);
       }
     });
-};
+  };
 
   isValid = (data) => {
     let { isValid, errors } = validateInput(data);
@@ -94,10 +142,11 @@ class AddKeyboard extends React.Component {
   render() {
 
     let { errors } = this.state
+    console.log("errors",errors)
     return (
       <>
-        <IconButton aria-label="Edit" onClick={this.toggle}>
-          <AddCircleOutline fontSize="large" />
+        <IconButton aria-label="Edit"className="addButtonCss"  onClick={this.toggle}>
+          <AddCircleOutline  fontSize="large" />
         </IconButton>
         <Modal isOpen={this.state.open}>
           <ModalHeader toggle={this.toggle}>Add Keyboard</ModalHeader>
@@ -114,9 +163,7 @@ class AddKeyboard extends React.Component {
                             <InputLabel className="labelcss">Name</InputLabel>
                           </InputGroup>
                           <InputGroupAddon addonType="prepend">
-                            {/* <InputGroupText>
-                              <i className="icon-user"></i>
-                            </InputGroupText> */}
+
                           </InputGroupAddon>
                           <Input type="text" name="keyboardName" autoComplete="Name" value={this.state.keyboardName} onChange={this.onTextChange}></Input>
                           {errors.keyboardName && <em className="has-error">{errors.keyboardName}</em>}
@@ -126,35 +173,31 @@ class AddKeyboard extends React.Component {
                             <InputLabel className="labelcss">Category</InputLabel>
                           </InputGroup>
                           <InputGroupAddon addonType="prepend">
-                            {/* <InputGroupText>
-                              <i className="icon-user"></i>
-                            </InputGroupText> */}
                           </InputGroupAddon>
                           <Select
-                            name={'category'}
+                            name={'categoryName'}
                             options={this.state.categoryOptions}
-                            value={this.state.category}
-                            placeholder={'Select category'}
+                            value={this.state.categoryName}
+                            placeholder={'Select categoryName'}
                             handlechange={this.handleselect}
                           />
-                          {/* <Input type="text" name="category" value={this.state.category} autoComplete="category" onChange={this.onTextChange} /> */}
-                          {errors.category && <em className="has-error">{errors.category}</em>}
+
+                          {errors.categoryName && <em className="has-error">{errors.categoryName}</em>}
                         </InputGroup>
                         <InputGroup className="mb-12">
                           <InputGroup className="mb-12">
                             <InputLabel className="labelcss" className="labelcss">Type</InputLabel>
                           </InputGroup>
                           <InputGroupAddon addonType="prepend">
-                            {/* <InputGroupText>@</InputGroupText> */}
+
                           </InputGroupAddon>
-                          <Select
+                          <SelectSimple
                             name={'keyboardType'}
                             options={this.state.keyboardTypeOption}
                             value={this.state.keyboardType}
                             placeholder={'Select keyboardType'}
                             handlechange={this.handleselect}
                           />
-                          {/* <Input type="text" name="keyboardType" value={this.state.keyboardType} autoComplete="keyboardType" onChange={this.onTextChange} /> */}
                           {errors.keyboardType && <em className="has-error">{errors.keyboardType}</em>}
                         </InputGroup>
                         <InputGroup className="mb-12">
@@ -162,13 +205,28 @@ class AddKeyboard extends React.Component {
                             <InputLabel className="labelcss">Cost</InputLabel>
                           </InputGroup>
                           <InputGroupAddon addonType="prepend">
-                            {/* <InputGroupText>
-                              <i className="fa fa-volume-control-phone"></i>
-                            </InputGroupText> */}
+
                           </InputGroupAddon>
-                          <Input type="Number" name="cost" value={this.state.cost} autoComplete="cost" onChange={this.onTextChange} disabled={this.state.keyboardType=='free'} />
+                          <Input type="Number" name="cost" value={this.state.cost} autoComplete="cost" onChange={this.onTextChange} disabled={this.state.keyboardType == 'free'} />
                           {errors.cost && <em className="has-error">{errors.cost}</em>}
 
+                        </InputGroup>
+                        <InputGroup className="mb-12">
+                          <InputGroup className="mb-12">
+                            <InputLabel className="labelcss" className="labelcss">Stickers</InputLabel>
+                          </InputGroup>
+                          <InputGroupAddon addonType="prepend">
+
+                          </InputGroupAddon>
+                          <ImageUploader
+                          value={this.state.imgSrc}
+                            withIcon={true}
+                            buttonText='Choose images'
+                            onChange={this.onDrop}
+                            imgExtension={['.jpg', '.gif', '.png', '.gif','.jpeg']}
+                            maxFileSize={5242880}
+                            withPreview={true}
+                          />
                         </InputGroup>
                       </Form>
                     </CardBody>
@@ -188,5 +246,5 @@ class AddKeyboard extends React.Component {
     );
   }
 }
-export default connect(null, { addKeyboard })(AddKeyboard);
+export default connect(null, { addKeyboard, getAllCategory,getActiveCatList })(AddKeyboard);
 

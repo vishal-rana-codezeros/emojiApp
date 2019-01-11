@@ -1,9 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import UsersModal from './UsersModal';
+import {shallow} from 'enzyme/build';
+import {userModal} from './UsersModal'
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<UsersModal/>, div);
-  ReactDOM.unmountComponentAtNode(div);
+
+it('mounts without crashing', () => {
+  const wrapper = shallow(<userModal />);
+  wrapper.unmount()
 });

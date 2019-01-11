@@ -1,9 +1,11 @@
+//  deleteCategory
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, CardBody, CardHeader, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 import IconButton from '@material-ui/core/IconButton';
-import Cached from '@material-ui/icons/Cached';
-class ActiveConfirmDialog extends React.Component {
+import DeleteIcon from '@material-ui/icons/Delete';
+
+class DeleteCategory extends React.Component {
   state = {
     open: false,
   };
@@ -12,10 +14,10 @@ class ActiveConfirmDialog extends React.Component {
     this.setState({ open: !this.state.open });
   };
 
-  onClickToActive = () => {
-      const {onClick, activeId} = this.props;
+  onClickToDelete = () => {
+      const {onClick, deleteId} = this.props;
       
-      onClick(activeId)
+      onClick(deleteId)
       this.setState({ open: !this.state.open });
   }
   
@@ -23,16 +25,16 @@ class ActiveConfirmDialog extends React.Component {
     return (
       <>
         <IconButton aria-label="Delete" onClick={this.toggle}>
-          <Cached fontSize="small" />
+          <DeleteIcon fontSize="small" />
         </IconButton>
         <Modal isOpen={this.state.open} toggle={this.toggle} className={this.props.className}>
-            <ModalHeader toggle={this.toggle}>Active User</ModalHeader>
+            <ModalHeader toggle={this.toggle}>Delete Category</ModalHeader>
             <ModalBody>
-                Are you sure you want to Active this user?
+                Are you sure you want to delete this Category?
             </ModalBody>
             <ModalFooter>
-                <Button color="secondary" onClick={this.toggle}>No</Button>
-                <Button color="danger" onClick={this.onClickToActive}>Yes</Button>
+                <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                <Button color="danger" onClick={this.onClickToDelete}>Delete</Button>
             </ModalFooter>
         </Modal>
       </>
@@ -40,4 +42,4 @@ class ActiveConfirmDialog extends React.Component {
   }
 }
 
-export default ActiveConfirmDialog;
+export default DeleteCategory;
