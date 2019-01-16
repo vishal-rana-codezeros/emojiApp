@@ -20,7 +20,9 @@ const KeyboardDatatable = ({ data, columns, onFetchData, page,pageSize,count})  
     page:page,
     rowsPerPage:pageSize,
     count:count,
-    // defaultPageSize:10,
+    responsive:"scroll",
+    showResponsive:true,
+    resizableColumns:false,
     onTableChange: (action, tableState) => {
       onFetchData(action, tableState)
     }

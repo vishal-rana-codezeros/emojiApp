@@ -2,17 +2,17 @@ import { isEmpty, isEmail } from 'validator';
 import lodash from 'lodash';
 
 const KeyboardValidate = (data) => {
-	
+	console.log("data",data)
 	let errors = {};
 	
-	let { keyboardName, category, cost, keyboardType } = data;
+	let { keyboardName, categoryName, cost, keyboardType } = data;
 
 	if(isEmpty(keyboardName)) {
 		errors.keyboardName = "Please enter Name";
 	}
 	
-	if(isEmpty(category)) {
-		errors.category = "Please Enter Category";
+	if(!categoryName) {
+		errors.categoryName = "Please Enter Category";
     }
     
     if(isEmpty(keyboardType)) {
