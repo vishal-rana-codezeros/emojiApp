@@ -23,7 +23,7 @@ class ViewKeyboard extends React.Component {
       image: [],
       imgSrc: []
     };
-    this.onDrop = this.onDrop.bind(this);
+    // this.onDrop = this.onDrop.bind(this);
   }
   toggle = () => {
     this.setState({ open: !this.state.open }, () => {
@@ -38,16 +38,46 @@ class ViewKeyboard extends React.Component {
         })
       }
     });
-  };
+ 
 
-  onDrop(imgSrc) {
-    this.setState({
-      imgSrc
-    });
+  setTimeout(() => {
+    var elements1  = document.getElementsByClassName('uploadPicturesWrapper');
+    console.log("child element",elements1);
+    const d = document.createElement("div",{class:'custom-preview-image'}, "dsfdsfdsdsf")
+    // elements1[0].appendChild(d);
+  }, 1000)
+};
+  // onDrop(imgSrc) {
+  //   this.setState({
+  //     imgSrc
+  //   });
+  // }
+
+  getContent() {
+    return (<div className="uploadPictureContainer">
+             
+              <img src="http://res.cloudinary.com/yunu121/image/upload/v1547115311/irpwvk0er1mf66wywlnh.jpg" className="uploadPicture" alt="preview" />
+    </div>);
   }
-
+  createImage = (image) => {
+    console.log("image",image);
+    return(<div class="uploadPictureContainer" style="">
+      <div class="deleteImage">X</div>
+      <img src={image} class="uploadPicture" alt="preview"/>
+      </div>)
+  }
+ 
   render() {
-
+    let imgPreview = [];
+    // console.log("hi",this.state.image);
+    for (let index = 0; index < this.state.image.length; index++) {
+      console.log("ahs",this.state.image[index] , index) 
+     // let image = this.createImage(this.state.image[index]);
+      imgPreview.push( <div className="uploadPictureContainer" >
+         <div class="deleteImage">X</div>
+         <img src={this.state.image[index]} className="uploadPicture" alt="preview"/>
+         </div>);
+    }
     let { errors } = this.state
     return (
       <>
@@ -110,6 +140,7 @@ class ViewKeyboard extends React.Component {
                           <Input name="cost" value={this.state.cost} />
 
                         </InputGroup>
+                        <div  className="fileContainer">
                         <InputGroup className="mb-12">
                           <InputGroup className="mb-12">
                             <InputLabel className="labelcss" className="labelcss">Stickers</InputLabel>
@@ -125,13 +156,9 @@ class ViewKeyboard extends React.Component {
                             // maxFileSize={5242880}
                             withPreview={true}
                           />
-                          {/* <ImageProcessor
-                            alt='react image sample'
-                            src='./path/to/image.jpg'
-                            effect='brighten'
-                            options={{ value: 50 }}
-                          /> */}
                         </InputGroup>
+                        {imgPreview}
+                        </div>
                       </Form>
                     </CardBody>
                     <CardFooter className="p-12">

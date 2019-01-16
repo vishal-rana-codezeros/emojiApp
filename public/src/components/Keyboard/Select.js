@@ -13,7 +13,7 @@ const Select = (props) => {
                 name={props.name}
                 value={props.value}
                 onChange={props.handlechange}
-                className="form-control dropdown"
+                className="form-control "
                 >
                 <option value="" disabled>{props.placeholder}</option>
 
@@ -22,9 +22,9 @@ const Select = (props) => {
                         <option
                             key={options.id} 
                             value={options.id}
-                            label={options.value}
+                            
                         >
-
+                            {options.value}
                         </option>
 
                     );

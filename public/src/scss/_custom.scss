@@ -281,7 +281,8 @@ table >thead>tr>th{
     margin-right: 3%;
 }
 .input-group > .form-control:focus, .input-group > .custom-select:focus, .input-group > .custom-file .custom-file-input:focus ~ .custom-file-label{
-width:100%
+width:100%;
+color:grey!important;
 }
 
 
@@ -331,3 +332,32 @@ h1, .h1{
 .sidebar .nav-link:hover .nav-icon {
     color: #fff !important;
 }
+.custom-preview-image{
+    position: relative; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    flex-wrap: wrap; 
+    width: 100%;
+}
+.fileContainer .uploadPictureContainer{
+    width:21%!important;
+    float:left !important;
+}
+.fileContainer{
+    color:grey!important
+}
+.sidebar-minimized .sidebar .nav > .nav-dropdown:hover {
+    background: transparent;
+    }
+    .sidebar-minimized .sidebar .nav-item:hover > .nav-link {
+    background: #ff1a1a;
+    color: #fff;
+    }
+    .sidebar-minimized .sidebar .nav-item:hover > .nav-link .nav-icon {
+    color: #fff !important;
+    }
+#categoryName option {
+        background: #fff !important;
+        color: #212121 !important;
+        }

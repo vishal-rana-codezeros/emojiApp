@@ -52,7 +52,7 @@ class AddKeyboard extends React.Component {
     const { page, pageSize } = this.state;
     this.props.getActiveCatList().then((res) => {
       if (res.status == 200) {
-        console.log("categories===>", res.data.data)
+        // console.log("categories===>", res.data.data)
         // return false;
         const { data } = res.data
         const { categoryOptions } = this.state
@@ -80,9 +80,12 @@ class AddKeyboard extends React.Component {
 
     if (this.isValid(this.state)) {
       this.setState({ isSubmit: false });
-
+      if(this.state.image.length>0)
+      {
+      console.log("pics length",this.state.image.length)
       var data = await axios.post('http://66.70.179.133:5001/emojiApp/v2/api/user/imageUpload', formData);
       this.state.image = data.data.data;
+      
       await this.props.addKeyboard(this.state).then((res, err) => {
         console.log("res, err", res, err);
         console.log("request in add keyboard=============image============>",this.state.image)
@@ -95,11 +98,35 @@ class AddKeyboard extends React.Component {
             keyboardName: '',
             categoryName: '',
             cost: '',
-            keyboardType: ''
+            keyboardType: '',
+            image:''
           });
           this.props.getUser();
         }
       })
+    }
+    else{
+      // console.log("pics length",this.state.image.length)
+
+      this.props.addKeyboard(this.state).then((res, err) => {
+        console.log("res, err", res, err);
+        console.log("request in add keyboard=============image============>",this.state.image)
+        if (res.data.code == 400) {
+          this.setState({ errors: { ...this.state.errors, keyboardName: res.data.message } })
+
+        } else {
+          this.setState({
+            open: !this.state.open,
+            keyboardName: '',
+            categoryName: '',
+            cost: '',
+            keyboardType: '',
+            image:''
+          });
+          this.props.getUser();
+        }
+      })
+    }
       const { onClick, editId } = this.props;
     }
   }
@@ -142,7 +169,7 @@ class AddKeyboard extends React.Component {
   render() {
 
     let { errors } = this.state
-    console.log("errors",errors)
+    // console.log("errors",errors)
     return (
       <>
         <IconButton aria-label="Edit"className="addButtonCss"  onClick={this.toggle}>
