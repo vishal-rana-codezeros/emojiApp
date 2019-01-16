@@ -37,7 +37,7 @@ class EditKeyboard extends React.Component {
      
     };
   
-    
+    this.delete=this.delete.bind(this);
     this.onDrop = this.onDrop.bind(this);
     this.onTextChange = this.onTextChange.bind(this)
     this.onClickToEdit = this.onClickToEdit.bind(this)
@@ -59,8 +59,9 @@ class EditKeyboard extends React.Component {
 
     setTimeout(() => {
       var elements1  = document.getElementsByClassName('uploadPicturesWrapper');
-      const d = document.createElement("div",{}, "dsfdsfdsdsf")
-      //elements1.appendChild(d);
+      // console.log("child element",elements1);
+      const d = document.createElement("div",{class:'custom-preview-image'}, "dsfdsfdsdsf")
+      // elements1[0].appendChild(d);
     }, 1000)
     
     //
@@ -97,7 +98,15 @@ class EditKeyboard extends React.Component {
       imgSrc
     });
   }
+  delete(e){
+    
+    var array = [...this.state.image];
+    array.splice(e.target.id, 1);
+    this.setState({image: array});
+    // console.log("image",this.state.image)
+  }
   onClickToEdit = async (e) => {
+    console.log(" OUT pics length",this.state.imgSrc.length)
     e.preventDefault();
     this.setState({ isSubmit: true });
     const { imgSrc } = this.state;
@@ -106,10 +115,11 @@ class EditKeyboard extends React.Component {
     imgSrc.map(img => {
       formData.append("img", img);
     })
-
+    //with pic changes
+    if(this.state.imgSrc.length>0){
+      console.log("pics length",this.state.imgSrc.length)
     var data = await axios.post('http://66.70.179.133:5001/emojiApp/v2/api/user/imageUpload', formData);
-console.log("data.data.data",data.data.data)
-// return false;
+    console.log("data.data.data",data.data.data)
     this.state.image.push( data.data.data[0]);
     if (this.isValid(this.state)) {
       this.setState({ isSubmit: false });
@@ -121,6 +131,11 @@ console.log("data.data.data",data.data.data)
           this.props.getUser();
         }
       })
+    }else{
+      console.log("pics length",this.state.imgSrc.length)
+      console.log("no updation in image")
+    }
+      //without pic changes
       const { onClick, editId } = this.props;
     }
   }
@@ -159,12 +174,32 @@ console.log("data.data.data",data.data.data)
 
     return isValid;
   }
+
+  createImage = (image) => {
+    console.log("image",image);
+    return(<div class="uploadPictureContainer" style="">
+      <div class="deleteImage">X</div>
+      <img src={image} class="uploadPicture" alt="preview"/>
+      </div>)
+  }
  
  
   render() {
 
     let { errors } = this.state
-    console.log("this.state", this.state);
+    // console.log("this.state", this.state);
+     let imgPreview = [];
+    //  console.log("hi",this.state.image);
+     for (let index = 0; index < this.state.image.length; index++) {
+      //  console.log("ahs",this.state.image[index] , index) 
+      // let image = this.createImage(this.state.image[index]);
+       imgPreview.push( <div className="uploadPictureContainer" >
+          {/* <div className="deleteImage" id={this.state.image[index]} onClick={this.delete}>X</div> */}
+          <div className="deleteImage" id={[index]} onClick={this.delete}>X</div> 
+          <img src={this.state.image[index]} className="uploadPicture" alt="preview"/>
+          </div>);
+    }
+    // console.log("imgPreview",imgPreview)
     return (
       <>
         <IconButton aria-label="Edit" onClick={this.toggle}>
@@ -185,9 +220,7 @@ console.log("data.data.data",data.data.data)
                             <InputLabel className="labelcss">Name</InputLabel>
                           </InputGroup>
                           <InputGroupAddon addonType="prepend">
-                            {/* <InputGroupText>
-                              <i className="icon-user"></i>
-                            </InputGroupText> */}
+                    
                           </InputGroupAddon>
                           <Input type="text" name="keyboardName" autoComplete="Name" value={this.state.keyboardName} onChange={this.onTextChange}></Input>
                           {errors.keyboardName && <em className="has-error">{errors.keyboardName}</em>}
@@ -197,9 +230,7 @@ console.log("data.data.data",data.data.data)
                             <InputLabel className="labelcss">Category</InputLabel>
                           </InputGroup>
                           <InputGroupAddon addonType="prepend">
-                            {/* <InputGroupText>
-                              <i className="icon-user"></i>
-                            </InputGroupText> */}
+                       
                           </InputGroupAddon>
                           <Select
                             name={'categoryName'}
@@ -208,7 +239,7 @@ console.log("data.data.data",data.data.data)
                             placeholder={'Select categoryName'}
                             handlechange={this.handleselect}
                           />
-                          {/* <Input type="text" name="categoryName" value={this.state.categoryName} autoComplete="categoryName" onChange={this.onTextChange} /> */}
+       
                           {errors.categoryName && <em className="has-error">{errors.categoryName}</em>}
                         </InputGroup>
                         <InputGroup className="mb-12">
@@ -216,7 +247,7 @@ console.log("data.data.data",data.data.data)
                             <InputLabel className="labelcss" className="labelcss">Type</InputLabel>
                           </InputGroup>
                           <InputGroupAddon addonType="prepend">
-                            {/* <InputGroupText>@</InputGroupText> */}
+       
                           </InputGroupAddon>
                           <SelectSimple
                             name={'keyboardType'}
@@ -241,6 +272,7 @@ console.log("data.data.data",data.data.data)
                           <Input type="number" name="cost" value={this.state.cost} autoComplete="cost" onChange={this.onTextChange} disabled={this.state.keyboardType == 'free'} />
                           {errors.cost && <em className="has-error">{errors.cost}</em>}
                         </InputGroup>
+                        <div  className="fileContainer">
                         <InputGroup className="mb-12">
                           <InputGroup className="mb-12">
                             <InputLabel className="labelcss" className="labelcss">Stickers</InputLabel>
@@ -258,6 +290,8 @@ console.log("data.data.data",data.data.data)
                                 withPreview={true}
                               />
                         </InputGroup>
+                        {imgPreview}
+                        </div>
                       </Form>
                     </CardBody>
                     <CardFooter className="p-12">
