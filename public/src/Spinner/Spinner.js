@@ -13,6 +13,7 @@ export default  class Spinner extends Component{
                 active={this.props.loading}
                 backgroundColor={'black'} // default is black
                 opacity=".4" // default is .9  
+                // zIndex='999999999'
             >
             </OverlayLoader>
         )
