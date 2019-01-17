@@ -12,7 +12,7 @@ import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import ActiveConfirmDialog from '../../../components/Categories/Activecategory'
 import Button from '@material-ui/core/Button';
 import AddCategory from '../../../components/Categories/AddCategory';
-import Spinner from '../../../Spinner/Spinner'
+import { LoaderAction } from '../../../action/loader.action';
 class Categoriesmain extends Component {
   constructor(props) {
     super(props)
@@ -32,10 +32,9 @@ class Categoriesmain extends Component {
   }
 
 
-  componentWillMount() {
-    this.setState({ loading: true })
+  componentDidMount() {
+    this.props.LoaderAction(false)
     this.getUser()
-    this.setState({ loading: false })
   }
 
   getUser = () => {
@@ -107,9 +106,7 @@ class Categoriesmain extends Component {
     })
   }
   render() {
-    if (this.state.loading) {
-      return (<Spinner loading={this.state.loading}></Spinner>)
-    }
+  
     return (
       <div >
         <Row >
@@ -122,6 +119,7 @@ class Categoriesmain extends Component {
                 </>
               </CardHeader>
               <CardBody>
+               
                 <Datatable data={this.state.tableData} onFetchData={this.onChangeToFetchTable.bind(this)} page={this.state.page} pageSize={this.state.pageSize} count={this.state.count} />
               </CardBody>
             </Card>
@@ -132,7 +130,7 @@ class Categoriesmain extends Component {
   }
 }
 
-export default connect(null, { getAllCategory, deleteCategory, getOneCategoryData, updateUser, activeCategory, getAllCategory })(Categoriesmain);
+export default connect(null, { getAllCategory, deleteCategory, getOneCategoryData, updateUser, activeCategory, getAllCategory,LoaderAction })(Categoriesmain);
 
 
 

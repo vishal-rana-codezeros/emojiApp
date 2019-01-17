@@ -9,7 +9,6 @@
 
 
 .card {
-    // background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
     background: #fff!important;
     color:#ff1a1a!important;
 }
@@ -32,7 +31,6 @@
     color:rgb(185, 3, 3)!important;
 }
 .btn-link:hover {
-    // color:  #ff1a1a;
     text-decoration: underline;
     background-color: transparent;
     border-color: transparent;
@@ -49,7 +47,6 @@ color:red!important;
 }
 
 .sidebar{
-    // background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
     background-color: #fff;
     color:red;
 }
@@ -75,7 +72,6 @@ color:red!important;
     // background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
 }
 .sidebar .nav-link{
-    // background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
     background-color: #fff;
     color: #ff1a1a
 }
@@ -116,13 +112,9 @@ color:red!important;
     background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
 }
 .tablecss{
-//   background-image: linear-gradient(to bottom right,#e44242,white, )!important;
 background: #fff!important;
 }
 .cardcss {
-    // background-image: -webkit-linear-gradient(top left, #e44242, white) !important;
-    // background-image: linear-gradient(to bottom right, #e44242, white) !important;
-    // background-image: -webkit-linear-gradient(top left, #cc3434, #ff1a1a) !important;
     background: #fff!important;
     height: 350px !important;
 }
@@ -150,7 +142,6 @@ background: #fff!important;
     justify-content: flex-start!important;
 }
 .modal-content{
-    // background-image: linear-gradient(to bottom right, #e44242, white) !important;
     background: #fff!important;
 }
 .card-footer{
@@ -172,7 +163,6 @@ background: #fff!important;
     margin-top: 14px !important;
 }
 .adminNamecss:hover{
-    // color:red!important;
     background-color: #fff!important
 }
 
@@ -185,8 +175,8 @@ background: #fff!important;
 }
 
 .card-body > div > div > div > div {
-    width: 48%;
-    float: right;
+    width: 100% !important;
+    float: right!important;
 }
 .aboutUsCss{
     background-image: linear-gradient(to bottom right, #e44242, white) !important;
@@ -263,7 +253,6 @@ table >thead>tr>th{
     background: #ff1a1a ;
 } 
 .card-header{
-    // background-image: linear-gradient(to bottom right, #e44242, white) !important;
     background: #ff1a1a !important;
     color:#fff
 }
@@ -272,8 +261,6 @@ table >thead>tr>th{
     text-align: center;
     font-size: 20px;
     font-weight: 600;
-    // margin-left: 2%;
-    // margin-right: 3%;
 }
 
 .btn-sm{
@@ -361,3 +348,31 @@ h1, .h1{
         background: #fff !important;
         color: #212121 !important;
         }
+
+.app-body {
+    // z-index: -1;
+}
+
+.gyQnsE {
+    margin-top: 0% !important;
+    z-index: 99999999;
+}
+
+.card-body>div>div>div>div{
+    background: #fff!important;
+    float:left !important;
+
+}
+.card-body>div>div{
+    flex-direction: row-reverse;
+    -ms-flex-direction: row-reverse;
+}
+.card-body>div>div>div>div>svg{
+    display: none;
+}
+.card-body>div>div>div{
+    -webkit-flex:none; /* Safari 6.1+ */
+  -ms-flex: none; /* IE 10 */ 
+    
+}
+

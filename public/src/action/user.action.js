@@ -10,6 +10,7 @@ var dataa=""
 export const getAllUser = (page, pageSize, filtered="") => {
 	// console.log("getalluser called")
     return dispatch => {
+		
     	return axios.get(`${API.URL}/admin/getAllUser?page=${page}&size=${pageSize}&filter=${filtered}`);
 	}
 	

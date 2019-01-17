@@ -134,6 +134,14 @@ class EditKeyboard extends React.Component {
     }else{
       console.log("pics length",this.state.imgSrc.length)
       console.log("no updation in image")
+       await this.props.updateKeyboardDetails(this.props.editId, this.state).then((res) => {
+        if (res.data.code == 400) {
+          this.setState({ errors: { ...this.state.errors, keyboardName: res.data.message } })
+        } else {
+          this.setState({ open: !this.state.open });
+          this.props.getUser();
+        }
+      })
     }
       //without pic changes
       const { onClick, editId } = this.props;

@@ -33,7 +33,7 @@ class ViewKeyboard extends React.Component {
           if (res.status == 200) {
             console.log("data in edit keyboard===================================>", res.data.data)
             this.setState({ keyboardName: res.data.data.keyboardName, categoryName: res.data.data.categoryName.categoryName, keyboardType: res.data.data.keyboardType, cost: res.data.data.cost, image: res.data.data.image })
-            console.log("state===================++++++++++++++++++++++++++", this.state)
+            // console.log("state===================++++++++++++++++++++++++++", this.state)
           }
         })
       }
@@ -42,7 +42,7 @@ class ViewKeyboard extends React.Component {
 
   setTimeout(() => {
     var elements1  = document.getElementsByClassName('uploadPicturesWrapper');
-    console.log("child element",elements1);
+    // console.log("child element",elements1);
     const d = document.createElement("div",{class:'custom-preview-image'}, "dsfdsfdsdsf")
     // elements1[0].appendChild(d);
   }, 1000)
@@ -62,7 +62,7 @@ class ViewKeyboard extends React.Component {
   createImage = (image) => {
     console.log("image",image);
     return(<div class="uploadPictureContainer" style="">
-      <div class="deleteImage">X</div>
+      {/* <div class="deleteImage">X</div> */}
       <img src={image} class="uploadPicture" alt="preview"/>
       </div>)
   }
@@ -74,7 +74,7 @@ class ViewKeyboard extends React.Component {
       console.log("ahs",this.state.image[index] , index) 
      // let image = this.createImage(this.state.image[index]);
       imgPreview.push( <div className="uploadPictureContainer" >
-         <div class="deleteImage">X</div>
+         {/* <div class="deleteImage">X</div> */}
          <img src={this.state.image[index]} className="uploadPicture" alt="preview"/>
          </div>);
     }
@@ -148,14 +148,12 @@ class ViewKeyboard extends React.Component {
                           <InputGroupAddon addonType="prepend">
 
                           </InputGroupAddon>
-                          <ImageUploader
+                          {/* <ImageUploader
                           value={this.state.image}
                             withIcon={false}
                             buttonText=''
-                           imgExtension={['.jpg', '.gif', '.png', '.gif','.jpeg']}
-                            // maxFileSize={5242880}
                             withPreview={true}
-                          />
+                          /> */}
                         </InputGroup>
                         {imgPreview}
                         </div>

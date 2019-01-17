@@ -12,7 +12,8 @@ import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import ActiveConfirmDialog from '../../../components/Keyboard/ActiveKeyboard'
 import Button from '@material-ui/core/Button';
 import AddKeyboard from '../../../components/Keyboard/AddKeyboard';
-import Spinner from '../../../Spinner/Spinner'
+import { LoaderAction } from '../../../action/loader.action';
+
 
 class Categories extends Component {
   constructor(props) {
@@ -33,10 +34,9 @@ class Categories extends Component {
   }
 
 
-  componentWillMount() {
-    this.setState({ loading: true })
+  componentDidMount() {
+    this.props.LoaderAction(false)
     this.getUser()
-    this.setState({ loading: false })
   }
 
   getUser = () => {
@@ -47,7 +47,7 @@ class Categories extends Component {
         const { total, details } = res.data.data[0];
 
         let tableData = [];
-        // console.log("response================>",res.data.data[0].details)
+       
         // return false;
         details.map(x => tableData.push([x.keyboardName, x.categoryName, x.keyboardType, x.cost, x.status,
         (<>
@@ -82,8 +82,7 @@ class Categories extends Component {
   }
 
   onChangeToFetchTable(action, tableState) {
-    // this.getUser()
-    console.log("in onChangeToFetchTable")
+    this.getUser()
     let { page, rowsPerPage, searchText, pageSize } = tableState
     // return false;
     this.props.getAllKeyboardDetails(page, rowsPerPage, searchText ? searchText : "").then((res) => {
@@ -109,9 +108,6 @@ class Categories extends Component {
     })
   }
   render() {
-    if (this.state.loading) {
-      return (<Spinner loading={this.state.loading}></Spinner>)
-    }
     return (
       <div >
         <Row >
@@ -135,7 +131,7 @@ class Categories extends Component {
   }
 }
 
-export default connect(null, { getAllKeyboardDetails, deleteKeyboard, getOneKeyboardDetails, updateUser, activeKeyboard, getAllCategory })(Categories);
+export default connect(null, { getAllKeyboardDetails, deleteKeyboard, getOneKeyboardDetails, updateUser, activeKeyboard, getAllCategory,LoaderAction })(Categories);
 
 
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CKEditor from "react-ckeditor-component";
 import Spinner from '../../../Spinner/Spinner'
+import { LoaderAction } from '../../../action/loader.action';
 import { connect } from 'react-redux';
 import {
   Badge,
@@ -50,7 +51,8 @@ class AboutUs extends Component {
     this.onReset = this.onReset.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    this.props.LoaderAction(false)
     this.setState({ loading: true })
     this.getAbout()
     this.setState({ loading: false })
@@ -156,7 +158,7 @@ class AboutUs extends Component {
   }
 }
 
-export default connect(null, { addAboutusPage, getAboutusPage, updateAboutusPage })(AboutUs);
+export default connect(null, { addAboutusPage, getAboutusPage, updateAboutusPage, LoaderAction })(AboutUs);
 
 
 

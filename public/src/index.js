@@ -3,11 +3,59 @@ import 'react-app-polyfill/ie11'; // For IE 11 support
 import './polyfill'
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './reducers';
+import logger from 'redux-logger';
+import { setCurrentUser } from './action/auth.action';
+
+import { connectRouter, routerMiddleware } from 'connected-react-router';
+import createHistory from 'history/createBrowserHistory'
+
+import requireAuthToken from './action/requireAuthToken';
+
 import './index.css';
 import App from './App';
 // import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+export const history = createHistory()
+
+const initialState = {}
+const enhancers = []
+const middleware = [
+  thunk,
+  logger,
+  routerMiddleware(history)
+]
+
+if (process.env.NODE_ENV === 'development') {
+  const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__
+
+  if (typeof devToolsExtension === 'function') {
+    enhancers.push(devToolsExtension())
+  }
+}
+
+const composedEnhancers = compose(
+  applyMiddleware(...middleware),
+  ...enhancers
+)
+
+const store = createStore(
+  connectRouter(history)(rootReducer),
+  initialState,
+  composedEnhancers
+)
+
+store.dispatch(setCurrentUser(localStorage.user?JSON.parse(localStorage.user):{}));
+requireAuthToken(localStorage.token);
+
+
+ReactDOM.render(
+    <Provider store={store}>
+        <App />
+    </Provider>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

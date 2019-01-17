@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {withStyles} from '@material-ui/core'
-
+import { LoaderAction } from '../../../action/loader.action';
 const styles={
   root:{
     marginLeft:'70px'
@@ -9,7 +9,9 @@ const styles={
   
 }
 class ContactUs extends Component {
-  loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
+componentDidMount(){
+  this.props.LoaderAction(false)
+}
 
   render() {
 
@@ -21,5 +23,5 @@ class ContactUs extends Component {
   }
 }
 
-export default  connect(null) (withStyles(styles)(ContactUs));
+export default  connect(null,{LoaderAction}) (withStyles(styles)(ContactUs));
 
