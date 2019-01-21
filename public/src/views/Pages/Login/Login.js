@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { LoginApi } from '../../../action/auth.action';
-import { Alert, Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import validateInput from '../../../shared/Login/login';
 import ForgotPassword from './ForgotPassword';
-
+import { Alert } from 'react-alert'
+import { withAlert } from 'react-alert'
 class Login extends Component {
   constructor(props) {
     super(props)
@@ -28,6 +29,7 @@ class Login extends Component {
   componentDidMount() {
    
     if (this.props.Auth.isAuthenticate) {
+      this.props.alert.show('Oh look, an alert!')
       this.props.history.push('/dashboard');
     }
   }
@@ -62,6 +64,7 @@ class Login extends Component {
             this.setState({ errors: { ...this.state.errors, header: "" } })
           }, 4000)
         } else {
+          
           this.props.history.push('/dashboard');
         }
       });
@@ -148,4 +151,4 @@ const mapStateToProps = (state) => ({
   Auth: state.Auth
 })
 
-export default connect(mapStateToProps, { LoginApi })(Login);
+export default connect(mapStateToProps, { LoginApi })(withAlert(Login));

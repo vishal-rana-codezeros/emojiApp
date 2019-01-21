@@ -13,6 +13,7 @@ import ActiveConfirmDialog from '../../../components/Categories/Activecategory'
 import Button from '@material-ui/core/Button';
 import AddCategory from '../../../components/Categories/AddCategory';
 import { LoaderAction } from '../../../action/loader.action';
+import{logout} from '../../../action/auth.action'
 class Categoriesmain extends Component {
   constructor(props) {
     super(props)
@@ -41,7 +42,8 @@ class Categoriesmain extends Component {
 
    const{page,pageSize}=this.state;
     this.props.getAllCategory(page, pageSize).then((res) => {
-      if (res.status == 200) {
+      
+      if (res.data.code == 200) {
         const { total, docs } = res.data.data;
 
         let tableData = [];
@@ -57,6 +59,9 @@ class Categoriesmain extends Component {
         ]))
 
         this.setState({ tableData, count: total, page: page, pageSize: pageSize })
+      }
+      else if(res.data.code==400){
+        this.props.logout();
       }
     })
   }
@@ -130,7 +135,7 @@ class Categoriesmain extends Component {
   }
 }
 
-export default connect(null, { getAllCategory, deleteCategory, getOneCategoryData, updateUser, activeCategory, getAllCategory,LoaderAction })(Categoriesmain);
+export default connect(null, { getAllCategory, deleteCategory, getOneCategoryData, updateUser, activeCategory, getAllCategory,LoaderAction, logout})(Categoriesmain);
 
 
 

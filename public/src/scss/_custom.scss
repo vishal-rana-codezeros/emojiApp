@@ -349,9 +349,7 @@ h1, .h1{
         color: #212121 !important;
         }
 
-.app-body {
-    // z-index: -1;
-}
+
 
 .gyQnsE {
     margin-top: 0% !important;
@@ -374,5 +372,13 @@ h1, .h1{
     -webkit-flex:none; /* Safari 6.1+ */
   -ms-flex: none; /* IE 10 */ 
     
+}
+.btn-primary:not(:disabled):not(.disabled):hover{
+    background: #fff!important;
+    color:red!important;
+}
+.btn-primary:not(:disabled):not(.disabled):active{
+    background: #fff!important;
+    color:red!important;
 }
 

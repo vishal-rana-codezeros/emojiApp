@@ -7,6 +7,8 @@ import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import { Login } from '../Pages/Login/Login'
 import { LoaderAction } from '../../action/loader.action';
+import { logout } from '../../action/auth.action';
+
 import {
   Badge,
   Button,
@@ -120,13 +122,10 @@ class Dashboard extends Component {
           const {totalCounts, maleCounts, femalCounts} = res.data.data
           this.setState({ userCount: totalCounts, male:maleCounts,female:femalCounts, loading: false})
         }
-        //  else
-        //  {
-        //    console.log("this.props in else",this.props);
-        //    this.props.history.push('/Login');
-        
-         
-        // }
+
+        if(res.data.code == 400) {
+          this.props.logout();
+        }
       });
 
   }
@@ -234,5 +233,5 @@ class Dashboard extends Component {
   }
 }
 
-export default connect(null, { recordCount,LoaderAction})(withStyles(styles)(Dashboard));
+export default connect(null, { recordCount, LoaderAction, logout })(withStyles(styles)(Dashboard));
 

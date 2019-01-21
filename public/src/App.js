@@ -5,9 +5,16 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import IsAuthenticate from './components/auth/Require_auth';
 import Loadable from 'react-loadable';
 import { connect } from 'react-redux';
+import {withStyles} from '@material-ui/core';
 import './App.scss';
 
-
+const styles={
+  root:{
+   
+    textAlign:'center',
+    marginTop:' 20%'
+  }
+}
 
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
@@ -57,4 +64,4 @@ class App extends Component {
     
 }
 
-export default App;
+export default  withStyles(styles)(App);

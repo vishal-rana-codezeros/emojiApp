@@ -117,12 +117,25 @@ class EditKeyboard extends React.Component {
     })
     //with pic changes
     if(this.state.imgSrc.length>0){
+      
+      var data = await axios.post('http://66.70.179.133:5001/emojiApp/v2/api/user/imageUpload', formData);
+      console.log("data.data.data",data.data.data)
+      this.state.image.push( data.data.data[0]);
+        if (this.isValid(this.state)) {
+          this.setState({ isSubmit: false });
+          await this.props.updateKeyboardDetails(this.props.editId, this.state).then((res) => {
+            if (res.data.code == 400) {
+              this.setState({ errors: { ...this.state.errors, keyboardName: res.data.message } })
+            } else {
+              this.setState({ open: !this.state.open });
+              this.props.getUser();
+            }
+          })
+        }
+      
+    } else {
       console.log("pics length",this.state.imgSrc.length)
-    var data = await axios.post('http://66.70.179.133:5001/emojiApp/v2/api/user/imageUpload', formData);
-    console.log("data.data.data",data.data.data)
-    this.state.image.push( data.data.data[0]);
-    if (this.isValid(this.state)) {
-      this.setState({ isSubmit: false });
+      console.log("no updation in image")
       await this.props.updateKeyboardDetails(this.props.editId, this.state).then((res) => {
         if (res.data.code == 400) {
           this.setState({ errors: { ...this.state.errors, keyboardName: res.data.message } })
@@ -131,21 +144,8 @@ class EditKeyboard extends React.Component {
           this.props.getUser();
         }
       })
-    }else{
-      console.log("pics length",this.state.imgSrc.length)
-      console.log("no updation in image")
-       await this.props.updateKeyboardDetails(this.props.editId, this.state).then((res) => {
-        if (res.data.code == 400) {
-          this.setState({ errors: { ...this.state.errors, keyboardName: res.data.message } })
-        } else {
-          this.setState({ open: !this.state.open });
-          this.props.getUser();
-        }
-      })
     }
-      //without pic changes
-      const { onClick, editId } = this.props;
-    }
+    const { onClick, editId } = this.props;
   }
   onTextChange(event) {
 

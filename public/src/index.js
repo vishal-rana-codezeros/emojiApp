@@ -9,18 +9,22 @@ import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 import logger from 'redux-logger';
 import { setCurrentUser } from './action/auth.action';
-
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import createHistory from 'history/createBrowserHistory'
-
 import requireAuthToken from './action/requireAuthToken';
-
 import './index.css';
 import App from './App';
+import { Provider as AlertProvider } from 'react-alert'
+import AlertTemplate from 'react-alert-template-basic'
 // import * as serviceWorker from './serviceWorker';
 
 export const history = createHistory()
-
+const options = {
+  position: 'top center', 
+  timeout: 5000,
+  offset: '30px',
+  transition: 'scale'
+}
 const initialState = {}
 const enhancers = []
 const middleware = [
@@ -54,7 +58,9 @@ requireAuthToken(localStorage.token);
 
 ReactDOM.render(
     <Provider store={store}>
+    <AlertProvider template={AlertTemplate} {...options}>
         <App />
+        </AlertProvider>
     </Provider>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

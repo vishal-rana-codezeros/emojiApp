@@ -11,7 +11,7 @@ import Select from './Select';
 import SelectSimple from './SelectSimple';
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
-
+import { logout } from '../../action/auth.action';
 // var FileInput = require('./fileInput')
 class AddKeyboard extends React.Component {
   constructor(props) {
@@ -51,12 +51,15 @@ class AddKeyboard extends React.Component {
   componentWillMount() {
     const { page, pageSize } = this.state;
     this.props.getActiveCatList().then((res) => {
-      if (res.status == 200) {
+      if (res.data.code == 200) {
         // console.log("categories===>", res.data.data)
         // return false;
         const { data } = res.data
         const { categoryOptions } = this.state
         data.map(x => categoryOptions.push({ id: x._id, value: x.categoryName }))
+      }
+      if(res.data.code == 400) {
+        this.props.logout();
       }
     })
   }
@@ -109,8 +112,8 @@ class AddKeyboard extends React.Component {
       // console.log("pics length",this.state.image.length)
 
       this.props.addKeyboard(this.state).then((res, err) => {
-        console.log("res, err", res, err);
-        console.log("request in add keyboard=============image============>",this.state.image)
+        // console.log("res, err", res, err);
+        // console.log("request in add keyboard=============image============>",this.state.image)
         if (res.data.code == 400) {
           this.setState({ errors: { ...this.state.errors, keyboardName: res.data.message } })
 
@@ -273,5 +276,5 @@ class AddKeyboard extends React.Component {
     );
   }
 }
-export default connect(null, { addKeyboard, getAllCategory,getActiveCatList })(AddKeyboard);
+export default connect(null, { addKeyboard, getAllCategory,getActiveCatList, logout})(AddKeyboard);
 

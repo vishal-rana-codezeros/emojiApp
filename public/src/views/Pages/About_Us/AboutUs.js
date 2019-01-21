@@ -30,6 +30,7 @@ import {
 } from 'reactstrap';
 import { getAboutusPage, addAboutusPage, updateAboutusPage } from '../../../action/user.action';
 import validateInput from '../../../shared/Users/AboutUsValidate';
+import {logout} from '../../../action/auth.action'
 // import {stateFromHTML} from 'draft-js-import-html';
 
 
@@ -62,12 +63,16 @@ class AboutUs extends Component {
     console.log("calling about us")
     this.props.getAboutusPage().then((res) => {
       console.log(res)
-      if (res.status == 200) {
+      if (res.data.code == 200) {
         if (res.data.data) {
           console.log(res.data)
           const { _id, title, description } = res.data.data ? res.data.data : {};
           this.setState({ id: _id, title, description })
         }
+      }
+      else if(res.data.code==400)
+      {
+        this.props.logout();
       }
     })
   }
@@ -158,7 +163,7 @@ class AboutUs extends Component {
   }
 }
 
-export default connect(null, { addAboutusPage, getAboutusPage, updateAboutusPage, LoaderAction })(AboutUs);
+export default connect(null, { addAboutusPage, getAboutusPage, updateAboutusPage, LoaderAction, logout})(AboutUs);
 
 
 

@@ -20,6 +20,7 @@ class DefaultHeader extends Component {
 
   componentWillMount() {
     const { isAuthenticate } = this.props.Auth
+    
     if (!isAuthenticate) {
       this.props.history.push('/Login');
     }

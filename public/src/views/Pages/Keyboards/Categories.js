@@ -13,7 +13,7 @@ import ActiveConfirmDialog from '../../../components/Keyboard/ActiveKeyboard'
 import Button from '@material-ui/core/Button';
 import AddKeyboard from '../../../components/Keyboard/AddKeyboard';
 import { LoaderAction } from '../../../action/loader.action';
-
+import { logout } from '../../../action/auth.action';
 
 class Categories extends Component {
   constructor(props) {
@@ -43,8 +43,8 @@ class Categories extends Component {
 
    const{page,pageSize}=this.state;
     this.props.getAllKeyboardDetails(page, pageSize).then((res) => {
-      if (res.status == 200) {
-        const { total, details } = res.data.data[0];
+      if (res.data.code == 200) {
+        const { _id, details } = res.data.data[0];
 
         let tableData = [];
        
@@ -59,7 +59,10 @@ class Categories extends Component {
         </>)
         ]))
 
-        this.setState({ tableData, count: total, page: page, pageSize: pageSize })
+        this.setState({ tableData, count: _id[0].total, page: page, pageSize: pageSize })
+      }
+      if(res.data.code == 400) {
+        this.props.logout();
       }
     })
   }
@@ -102,7 +105,11 @@ class Categories extends Component {
         </>)
         ]))
         this.setState({ tableData, count: total, page: page, pageSize: rowsPerPage })
-      } else {
+      } 
+      // else if(res.data.code == 400) {
+      //   this.props.logout();
+      // }
+      else {
         this.setState({ tableData: [] })
       }
     })
@@ -131,7 +138,7 @@ class Categories extends Component {
   }
 }
 
-export default connect(null, { getAllKeyboardDetails, deleteKeyboard, getOneKeyboardDetails, updateUser, activeKeyboard, getAllCategory,LoaderAction })(Categories);
+export default connect(null, { getAllKeyboardDetails, deleteKeyboard, getOneKeyboardDetails, updateUser, activeKeyboard, getAllCategory,LoaderAction, logout})(Categories);
 
 
 
