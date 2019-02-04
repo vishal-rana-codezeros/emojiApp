@@ -14,27 +14,27 @@ class ActiveKeyboard extends React.Component {
   };
 
   onClickToActive = () => {
-      const {onClick, activeId} = this.props;
-      
-      onClick(activeId)
-      this.setState({ open: !this.state.open });
+    const { onClick, activeId } = this.props;
+
+    onClick(activeId)
+    this.setState({ open: !this.state.open });
   }
-  
+
   render() {
     return (
       <>
-        <IconButton aria-label="Delete"  onClick={this.toggle}>
+        <IconButton aria-label="Delete" onClick={this.toggle}>
           <Cached fontSize="small" />
         </IconButton>
         <Modal isOpen={this.state.open} toggle={this.toggle} className={this.props.className}>
-            <ModalHeader toggle={this.toggle}>Active Keyboard</ModalHeader>
-            <ModalBody>
-                Are you sure you want to Active this Keyboard?
+          <ModalHeader toggle={this.toggle}>Active Keyboard</ModalHeader>
+          <ModalBody>
+            Are you sure you want to Active this Keyboard?
             </ModalBody>
-            <ModalFooter>
-                <Button color="secondary" onClick={this.toggle}>No</Button>
-                <Button color="danger" onClick={this.onClickToActive}>Yes</Button>
-            </ModalFooter>
+          <ModalFooter>
+            <Button color="secondary" onClick={this.toggle}>No</Button>
+            <Button color="danger" onClick={this.onClickToActive}>Yes</Button>
+          </ModalFooter>
         </Modal>
       </>
     );

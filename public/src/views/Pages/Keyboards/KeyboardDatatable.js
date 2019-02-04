@@ -27,13 +27,11 @@ const KeyboardDatatable = ({ data, columns, onFetchData, page,pageSize,count})  
       onFetchData(action, tableState)
     }
   };
-  // console.log("page,pageSize", page,pageSize);
-
+  
  return (
     <MUIDataTable
       data={data}
       columns={["Name ", "Category","Type","Cost","Status","Action"]}
-      // className="-striped -highlight"
       options={options}
       className="tablecss"
     />

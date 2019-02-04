@@ -18,12 +18,12 @@ export default {
       children: [
         {
           name: 'Keyboards',
-          url: '/keyboards/keyboards',
+          url: '/keyboards/Keyboards',
           icon: 'icon-puzzle',
         },
         {
           name: 'Categories',
-          url: '/keyboards/categories',
+          url: '/keyboards/Categories',
           icon: 'icon-puzzle',
         },
       ]
