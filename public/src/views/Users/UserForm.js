@@ -68,7 +68,7 @@ class UserForm extends Component {
   }
 
   render() {
-    console.log("this.state", this.state);
+  
     return (
         <Row>   
             <Col xs="12" sm="12">

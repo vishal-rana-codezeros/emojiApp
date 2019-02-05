@@ -50,7 +50,6 @@ class EditKeyboard extends React.Component {
         this.props.getOneKeyboardDetails(this.props.editId).then((res) => {
 
           if (res.status == 200) {
-            // console.log("data in edit keyboard", res.data.data)
             this.setState({ keyboardName: res.data.data.keyboardName, categoryName: res.data.data.categoryName, keyboardType: res.data.data.keyboardType, cost: res.data.data.cost,image:res.data.data.image})
           }
         })
@@ -59,9 +58,9 @@ class EditKeyboard extends React.Component {
 
     setTimeout(() => {
       var elements1  = document.getElementsByClassName('uploadPicturesWrapper');
-      // console.log("child element",elements1);
+     
       const d = document.createElement("div",{class:'custom-preview-image'}, "dsfdsfdsdsf")
-      // elements1[0].appendChild(d);
+  
     }, 1000)
     
     //
@@ -70,7 +69,7 @@ class EditKeyboard extends React.Component {
     const { page, pageSize } = this.state;
     this.props.getActiveCatList().then((res) => {
       if (res.status == 200) {
-        // console.log("categories===>", res.data.data)
+    
         // return false;
         const { data } = res.data
         const { categoryOptions } = this.state
@@ -93,7 +92,7 @@ class EditKeyboard extends React.Component {
   }
 
   onDrop(imgSrc) {
-    console.log("drop",imgSrc);
+   
     this.setState({
       imgSrc
     });
@@ -103,10 +102,10 @@ class EditKeyboard extends React.Component {
     var array = [...this.state.image];
     array.splice(e.target.id, 1);
     this.setState({image: array});
-    // console.log("image",this.state.image)
+   
   }
   onClickToEdit = async (e) => {
-    console.log(" OUT pics length",this.state.imgSrc.length)
+ 
     e.preventDefault();
     this.setState({ isSubmit: true });
     const { imgSrc } = this.state;
@@ -119,7 +118,7 @@ class EditKeyboard extends React.Component {
     if(this.state.imgSrc.length>0){
       
       var data = await axios.post('http://66.70.179.133:5001/emojiApp/v2/api/user/imageUpload', formData);
-      console.log("data.data.data",data.data.data)
+    
       this.state.image.push( data.data.data[0]);
         if (this.isValid(this.state)) {
           this.setState({ isSubmit: false });
@@ -134,8 +133,7 @@ class EditKeyboard extends React.Component {
         }
       
     } else {
-      console.log("pics length",this.state.imgSrc.length)
-      console.log("no updation in image")
+     
       await this.props.updateKeyboardDetails(this.props.editId, this.state).then((res) => {
         if (res.data.code == 400) {
           this.setState({ errors: { ...this.state.errors, keyboardName: res.data.message } })
@@ -184,7 +182,7 @@ class EditKeyboard extends React.Component {
   }
 
   createImage = (image) => {
-    console.log("image",image);
+    
     return(<div class="uploadPictureContainer" style="">
       <div class="deleteImage">X</div>
       <img src={image} class="uploadPicture" alt="preview"/>
@@ -195,11 +193,11 @@ class EditKeyboard extends React.Component {
   render() {
 
     let { errors } = this.state
-    // console.log("this.state", this.state);
+  
      let imgPreview = [];
-    //  console.log("hi",this.state.image);
+  
      for (let index = 0; index < this.state.image.length; index++) {
-      //  console.log("ahs",this.state.image[index] , index) 
+   
       // let image = this.createImage(this.state.image[index]);
        imgPreview.push( <div className="uploadPictureContainer" >
           {/* <div className="deleteImage" id={this.state.image[index]} onClick={this.delete}>X</div> */}
@@ -207,7 +205,7 @@ class EditKeyboard extends React.Component {
           <img src={this.state.image[index]} className="uploadPicture" alt="preview"/>
           </div>);
     }
-    // console.log("imgPreview",imgPreview)
+   
     return (
       <>
         <IconButton aria-label="Edit" onClick={this.toggle}>

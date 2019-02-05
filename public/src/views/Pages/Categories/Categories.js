@@ -85,7 +85,7 @@ class Categoriesmain extends Component {
 
   onChangeToFetchTable(action, tableState) {
     // this.getUser()
-    console.log("in onChangeToFetchTable")
+   
     let { page, rowsPerPage, searchText, pageSize } = tableState
     // return false;
     this.props.getAllCategory(page, rowsPerPage, searchText ? searchText : "").then((res) => {
@@ -93,7 +93,7 @@ class Categoriesmain extends Component {
       if (res.data.code == 200) {
         const { total, docs, code } = res.data.data;
 
-        console.log("data in table chang", docs)
+     
         let tableData = [];
         docs.map(x => tableData.push([ x.categoryName, x.status,
         (<>

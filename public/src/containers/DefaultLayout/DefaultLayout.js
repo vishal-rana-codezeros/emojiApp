@@ -28,7 +28,7 @@ const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
 class DefaultLayout extends Component {
 
   componentDidUpdate(prevProps) {
-    // console.log("prevProps", this.props.location, "asdasd", prevProps);
+   
     if(this.props.location.pathname!=prevProps.location.pathname) {
       this.props.LoaderAction(true);
     }
@@ -42,7 +42,7 @@ class DefaultLayout extends Component {
   }
 
   onChangeRouter = (e) => {
-    console.log("changes")
+ 
   }
 
   render() {

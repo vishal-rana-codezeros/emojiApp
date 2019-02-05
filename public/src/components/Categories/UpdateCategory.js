@@ -33,7 +33,6 @@ class UpdateCategory extends React.Component {
         this.props.getOneCategoryData(this.props.editId).then((res) => {
        
           if (res.status == 200) {
-            // console.log("data in edit keyboard", res.data.data)
             this.setState({categoryName: res.data.data.categoryName})
           }
         })
@@ -97,7 +96,6 @@ class UpdateCategory extends React.Component {
   render() {
 
     let { errors } = this.state
-    // console.log("errors", errors);
     return (
       <>
         <IconButton aria-label="Edit"  onClick={this.toggle}>

@@ -23,7 +23,6 @@ class ViewCategory extends React.Component {
         this.props.getOneCategoryData(this.props.viewId).then((res) => {
 
           if (res.status == 200) {
-            console.log("data in view category", res.data.data)
             this.setState({category: res.data.data.categoryName })
           }
         })

@@ -40,7 +40,7 @@ class UsersModal extends Component {
       
       if (res.status == 200) {
         const { total, docs } = res.data.data;
-        console.log("docs in users", docs)
+        
         let tableData = [];
         docs.map(x => tableData.push([x.fullName, x.emailId, x.userName, x.contactNumber, x.status,
         (<>

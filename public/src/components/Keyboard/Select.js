@@ -1,8 +1,6 @@
 import React from 'react';
 
 const Select = (props) => {
-    // console.log("------------------------------props.options",props.options)
-    // console.log("props=====>",props)
 
     // return false
     return (

@@ -24,9 +24,6 @@ const Datatable = ({ data, columns, onFetchData, page,pageSize,count}) => {
       onFetchData(action, tableState)
     }
   };
-
-  console.log("page,pageSize", page,pageSize);
-
   return (
     <MUIDataTable
       data={data}
