@@ -3,3 +3,8 @@ node_modules/
 img/
 public/node_modules
 Public(socket)/
+.nyc_output/
+coverage/
+package-lock.json
+public/package-lock.json
+public/dist/*
