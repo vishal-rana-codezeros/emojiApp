@@ -4,7 +4,28 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "mocha"
+    "start": "node server.js",
+    "test": "mocha --timeout 80000",
+    "_comment": "Note: --exit in the test element is to force the test program to exit after finishing in case we use done()",
+    "coverage": "nyc --reporter=lcov --reporter=text-lcov npm test"
+  },
+  "nyc": {
+    "_comment": "Purpose of this part: to do code coverage within Mocha/Chai using Istanbul",
+    "register": "babel-register",
+    "include": [
+      "**/*.js",
+      "./*.js",
+      "**/**/**.js"
+    ],
+    "exclude": [
+      "**/node_modules/**",
+      "**/test/**",
+      "**/coverage/**",
+      "**/public/**",
+      "**/Public(socket)/**",
+      "**/api/**"
+    ],
+    "all": true
   },
   "author": "prem",
   "license": "ISC",
@@ -16,6 +37,7 @@
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "generate-password": "^1.4.1",
+    "istanbul": "^0.4.5",
     "loadtest": "^3.0.4",
     "lodash": "^4.17.11",
     "method-override": "^3.0.0",
@@ -24,6 +46,7 @@
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
     "nodemailer": "^4.6.8",
+    "nyc": "^13.3.0",
     "secure-pin": "^1.0.14",
     "socket.io": "^2.2.0",
     "swagger": "^0.7.5",
@@ -34,6 +57,7 @@
     "chai-http": "^4.2.1",
     "grunt": "^1.0.3",
     "grunt-yaml": "^0.4.2",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "nyc": "^13.2.0"
   }
 }

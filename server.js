@@ -27,9 +27,13 @@ config.dbConfig(config.cfg, (err) => {
 	});
 	const io = socket.listen(server)
 	require('./lib/socket/socketHandler')(io)
-
+	
 
 });
+
+
+
+
 
 
 
