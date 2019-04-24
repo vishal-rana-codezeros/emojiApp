@@ -3,13 +3,15 @@
 //     background-color: #63c2de !important;
 // }
 .has-error {
-    color: white;
+    color: #ff1a1a;
     width: 100%;
 }
 
 
 .card {
-    background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
+    // background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
+    background: #fff!important;
+    color:#ff1a1a!important;
 }
 
 .profilecustom{
@@ -20,7 +22,6 @@
     margin-top: 10px 
 }
 .loginButtonCss{
-    // background-color:  #ff1a1a;
     background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
 
 }
@@ -36,26 +37,47 @@
     background-color: transparent;
     border-color: transparent;
 }
+.btn-link{
+    color: #ff1a1a!important
+}
 .btn-primary:hover {
     background-color:rgb(185, 3, 3)!important;
     border-color:   #ff1a1a!important;
 }
+.recoverycss {
+color:red!important;
+}
 
 .sidebar{
-    background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
+    // background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
+    background-color: #fff;
+    color:red;
 }
 .nav-link:hover{
-    background: rgb(185, 3, 3)!important;
+    background:red!important;
+    color: #000;
+}
+.nav-link:hover > i {
+    background:red!important;
+    color:white;
+}
+.nav-link > i{
+    color: #ff1a1a!important
+}
+.nav-link > i.active{
+    color:white!important
 }
 .sidebar .nav-link.active {
-    color: #fff;
-    background: rgb(185, 3, 3)!important;
+    color: #fff !important;
+    background: red!important;
 }
 .nav-dropdown{
-    background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
+    // background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
 }
 .sidebar .nav-link{
-    background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
+    // background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
+    background-color: #fff;
+    color: #ff1a1a
 }
 .usercss{
     border-color: rgb(185, 3, 3)!important;
@@ -68,6 +90,9 @@
 .button-primary{
     background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
 }
+.btn-primary{
+    background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
+}
 .logoutcss:hover{   
     background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
 }
@@ -77,7 +102,7 @@
     
     nav > ol > :not(.active) > a {
     
-    color: #ff1a1a!important;
+    color: red !important;
 }
 
 .sidebar-minimized .sidebar .sidebar-minimizer {
@@ -91,24 +116,24 @@
     background-image: linear-gradient(to bottom right, rgb(204, 52, 52), #ff1a1a)!important;
 }
 .tablecss{
-  background-image: linear-gradient(to bottom right,#e44242,white, )!important;
+//   background-image: linear-gradient(to bottom right,#e44242,white, )!important;
+background: #fff!important;
 }
 .cardcss {
-    background-image: -webkit-linear-gradient(top left, #e44242, white) !important;
-    background-image: linear-gradient(to bottom right, #e44242, white) !important;
+    // background-image: -webkit-linear-gradient(top left, #e44242, white) !important;
+    // background-image: linear-gradient(to bottom right, #e44242, white) !important;
+    // background-image: -webkit-linear-gradient(top left, #cc3434, #ff1a1a) !important;
+    background: #fff!important;
+    height: 350px !important;
 }
-.recoverycss{
-    color: white!important
-}
+
 .card.bg-info {
     border-color: #e44242!important;
 }
 .headercss{
     align-content: center!important
 }
-// .sideBarcss{
-//     color:blue!important
-// }
+
 .nav-item   {   
     padding: 10px 0 10px -0;
     font-size: 17px;
@@ -125,10 +150,11 @@
     justify-content: flex-start!important;
 }
 .modal-content{
-    background-image: linear-gradient(to bottom right, #e44242, white) !important;
+    // background-image: linear-gradient(to bottom right, #e44242, white) !important;
+    background: #fff!important;
 }
 .card-footer{
-    background-image: linear-gradient(to bottom right, #e44242, white) !important;
+    // background-image: linear-gradient(to bottom right, #e44242, white) !important;
 }
 .editbtncss{
     margin-left: 20%!important
@@ -137,18 +163,19 @@
     margin-top: 3%!important
 }
 .labelcss{
-    color: white!important;
+    color:#ff1a1a!important;
+    margin-top: -1px !important;
 }
 .adminNamecss{
     color:red!important;
+    margin-right: 49px !important;
+    margin-top: 14px !important;
 }
 .adminNamecss:hover{
     // color:red!important;
     background-color: #fff!important
 }
-// .card-body > div >div > div > div > svg {
-//     display: none !important;
-// }
+
 .MUIDataTableToolbar-left-33{
     position: relative;
     left: 46%;
@@ -168,5 +195,192 @@ background-color:white !important
     width: 48%;
     float: right;
 }
+   
+
+.aboutUsCss{
+    background-image: linear-gradient(to bottom right, #e44242, white) !important;
+}
+.editorCss{
+    border-color: #fff!important;
+    border:1px solid!important
+}
+.rdw-editor-toolbar{
+    background-image: linear-gradient(to bottom right, #e44242, white) !important;
+}
+
+
+
+.gyQnsE{
+    margin-top: 18% !important;
+}
+.MuiIconButton-label-10{
+    margin-left: 3800% !important;
+}
+form-group > .form-group dropdown{
+    width:100% !important;
+}
+
+
+
+
+table >thead>tr>th{
+    font-weight: bold !important;
+    font-size: medium !important;
     
+}
+.dropdown{
+    margin-top: -16px !important
+}
+.nav-item > .nav-link > .nav-icon{
+    font-size: 20px !important;
+    margin-right: 15px !important;
+}
+
+.adminNamecss{
+    background: #fff!important;
+}
+
+.card-body{
+    color:red !important
+}
+.text-muted{
+    color: #fff !important;
+}
+
+
+.sidebar .nav-dropdown-items .nav-item > a{
+    font-size: 15px;
+    padding-left: 40px !important;
+}
+.addButtonCss{
+    color:white!important;
+    float:right;
+    margin-top: -11px!important;
+}
+.sidebar .nav-dropdown.open {
+    background: white;
+}
+.sidebar .nav-dropdown.open .nav-link{
+    color:red ;
+    background:white ;
+ }
+
+ .sidebar .nav-dropdown.open .nav-link:active{
+    color: white ;
+    background: #ff1a1a ;
+     }
+.sidebar .nav-dropdown.open .nav-link:hover {
+    color: white  ;
+    background: #ff1a1a ;
+} 
+.sidebar .nav-dropdown.open .nav-link:hover > i {
+    color: white !important ;
+    background: #ff1a1a ;
+} 
+.card-header{
+    // background-image: linear-gradient(to bottom right, #e44242, white) !important;
+    background: #ff1a1a !important;
+    color:#fff
+}
+
+.aboutUsCss{
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    // margin-left: 2%;
+    // margin-right: 3%;
+}
+
+.btn-sm{
+    margin-left: 2%;
+    margin-right: 3%;
+}
+.input-group > .form-control:focus, .input-group > .custom-select:focus, .input-group > .custom-file .custom-file-input:focus ~ .custom-file-label{
+width:100%;
+color:grey!important;
+}
+
+
+.modal-header{
+    background: #ff1a1a!important;
+    color:#fff
+}
+.close:not(:disabled):not(.disabled){
+    color:#fff;
+}
+.btn-secondary{
+    background: #fff;
+    color:red;
+}
+.btn-secondary:hover{
+    background:#ff1a1a;
+    color:#fff;
+}
+.btn-danger{
+    background:#ff1a1a;
+    color:#fff;
+}
+.btn-danger:hover{
+    background: #fff;
+    color:red;
+}
+h1, .h1{
+    color: #ff1a1a!important;
+}
+
+.sidebar .sidebar-minimizer{
+    background: #fff!important;
+    color:red!important;
+} 
+.sidebar .sidebar-minimizer:hover{
+    background:red!important;
+} 
+.sidebar-minimized .sidebar .sidebar-minimizer {
+ background: #ff1a1a!important;
+}
+.sidebar .nav-link.active .nav-icon {
+    color:white!important;
+}
+.sidebar .nav-link.hover .nav-icon {
+    color:white!important;
+}
+.sidebar .nav-link:hover .nav-icon {
+    color: #fff !important;
+}
+
+
+
+
+
+
+.custom-preview-image{
+    position: relative; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    flex-wrap: wrap; 
+    width: 100%;
+}
+.fileContainer .uploadPictureContainer{
+    width:21%!important;
+    float:left !important;
+}
+.fileContainer{
+    color:grey!important
+}
+.sidebar-minimized .sidebar .nav > .nav-dropdown:hover {
+    background: transparent;
+    }
+    .sidebar-minimized .sidebar .nav-item:hover > .nav-link {
+    background: #ff1a1a;
+    color: #fff;
+    }
+    .sidebar-minimized .sidebar .nav-item:hover > .nav-link .nav-icon {
+    color: #fff !important;
+    }
+#categoryName option {
+        background: #fff !important;
+        color: #212121 !important;
+        }
+
 

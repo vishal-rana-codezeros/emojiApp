@@ -9,14 +9,15 @@ import ForgotPassword from './ForgotPassword';
 class Login extends Component {
   constructor(props) {
     super(props)
-    
+
     this.state = {
       emailId: "",
       password: "",
       errors: {},
-      isValid: false, 
+      isValid: false,
       isSubmit: false,
-      isLogin: true
+      isLogin: true,
+      loading: true
     }
 
     this.onChangeValue = this.onChangeValue.bind(this);
@@ -24,72 +25,77 @@ class Login extends Component {
     this.onChangeToForgotPassword = this.onChangeToForgotPassword.bind(this);
   }
 
-  componentDidMount() {    
-    if(this.props.Auth.isAuthenticate) {
+  componentDidMount() {
+    if (this.props.Auth.isAuthenticate) {
       this.props.history.push('/dashboard');
     }
   }
 
   onChangeValue = (e) => {
-    
-    this.setState({ [e.target.name] : e.target.value }, () => {
-      if(this.state.isSubmit) {
+
+    this.setState({ [e.target.name]: e.target.value }, () => {
+      if (this.state.isSubmit) {
         this.isValid(this.state);
-      }    
+      }
     });
 
   }
 
   isValid = (data) => {
     let { isValid, errors } = validateInput(data);
-    
-    this.setState({isValid, errors});
+
+    this.setState({ isValid, errors });
 
     return isValid;
   }
 
-  onClickLogin = (e) => {    
-    e.preventDefault();    
-    this.setState({isSubmit: true});
+  onClickLogin = (e) => {
+    e.preventDefault();
+    this.setState({ isSubmit: true });
 
-    if(this.isValid(this.state)) {
-      this.props.LoginApi(this.state).then(res => {        
-        if(res.data.code) {
-          this.setState({errors: {...this.state.errors, header: res.data.message}})
+    if (this.isValid(this.state)) {
+      this.props.LoginApi(this.state).then(res => {
+        if (res.data.code) {
+          this.setState({ errors: { ...this.state.errors, header: res.data.message } })
           setTimeout(() => {
-            this.setState({errors: {...this.state.errors, header: ""}})
+            this.setState({ errors: { ...this.state.errors, header: "" } })
           }, 4000)
         } else {
           this.props.history.push('/dashboard');
         }
-      }) ;
-      this.setState({isSubmit: false});
-      
+      });
+      this.setState({ isSubmit: false });
+
     }
   }
-  
+
   onChangeToForgotPassword = (status) => {
     this.setState({
-      isLogin: status, 
+      isLogin: status,
       emailId: "",
       password: "",
       errors: {},
-      isValid: false, 
+      isValid: false,
       isSubmit: false,
     })
   }
 
   render() {
-    const {errors} = this.state;
+    const { errors } = this.state;
     const inlineStyle = {
-      color:"white"
+      color: "white"
     }
+    const { loading } = this.state;
+
+   
     return (
+
       <div className="app flex-row align-items-center">
         <Container>
           <Row className="justify-content-center">
             <Col md="6">
               <CardGroup>
+              
                 {this.state.isLogin && <Card className="p-4">
                   <CardBody>
                     <Form onSubmit={this.onClickLogin}>
@@ -127,19 +133,7 @@ class Login extends Component {
                     </Form>
                   </CardBody>
                 </Card>}
-                {!this.state.isLogin && <ForgotPassword onChange={this.onChangeToForgotPassword}/>}
-                {/* <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
-                  <CardBody className="text-center">
-                    <div>
-                      <h2>Sign up</h2>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.</p>
-                      <Link to="/register">
-                        <Button color="primary" className="mt-3" active tabIndex={-1}>Register Now!</Button>
-                      </Link>
-                    </div>
-                  </CardBody>
-                </Card> */}
+                {!this.state.isLogin && <ForgotPassword onChange={this.onChangeToForgotPassword} />}
               </CardGroup>
             </Col>
           </Row>
@@ -153,4 +147,4 @@ const mapStateToProps = (state) => ({
   Auth: state.Auth
 })
 
-export default connect(mapStateToProps, {LoginApi})(Login);
+export default connect(mapStateToProps, { LoginApi })(Login);

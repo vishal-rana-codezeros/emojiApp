@@ -3,7 +3,7 @@ info:
   title: "emojiApp"
   version: "0.0.1"
  
-host: "66.70.179.133:5001"
+host: "3.18.139.243:5001"
 basePath: "/emojiApp/v2/api"
 consumes:
 - "application/json"
@@ -22,7 +22,7 @@ paths:
       post:
         tags:
         - "user"
-        summary: Authenticating user
+        summary: Authenticating user(Login Request)
         parameters: 
           - in: body
             name: user
@@ -30,15 +30,16 @@ paths:
             required: true
             schema:
               type: object
-              required:
-                - emailId
-                - password
+           
                
               properties:
                 emailId:
                     type: string
                 
-                password:
+                contactNumber:
+                    type: string
+                  
+                isdCode:
                     type: string
               
                  
@@ -59,7 +60,7 @@ paths:
       post:
         tags:
         - "user"
-        summary: New users registation request
+        summary: New users registration request
         parameters: 
           - in: body
             name: user
@@ -70,11 +71,13 @@ paths:
               required:
                 - userName
                 - fullName
-                - contactNumber
                 - emailId
-                - password
-                - deviceToken
+                - contactNumber
+                - isdCode
                 - deviceType
+                - deviceId
+                - fcmToken
+             
                
               properties:
                 userName:
@@ -85,17 +88,19 @@ paths:
                     type: string
                 emailId:
                     type: string
-                password:
+                isdCode:
                     type: string
                 gender:
-                    type: string
-                deviceToken:
                     type: string
                 deviceType:
                     type: string 
                     enum:
                     - "IOS"
                     - "ANDROID"
+                deviceId:
+                    type: string
+                fcmToken:
+                    type: string
                
         responses:
           "200":
@@ -106,7 +111,64 @@ paths:
             description: "Please provide all the required fields."
             schema:
               $ref: "#/definitions/UserExist"
-    
+              
+  "/user/checkEmailExist":
+      post:
+        tags:
+        - "user"
+        summary: Api should check if the email exist in database and respond accordingly.
+        parameters: 
+          - in: body
+            name: user
+            description: Check emialId exits or not api.
+            required: true
+            schema:
+              type: object
+              required:
+                - emailId
+              properties:
+                emailId:
+                    type: string   
+        responses:
+          "200":
+            description: "Emailid Exist"
+            schema:
+              $ref: "#/definitions/UserNotFound"
+          "400":
+            description: "User not exist."
+            schema:
+              $ref: "#/definitions/UserNotFound"
+              
+  "/user/checkNumberExist":
+      post:
+        tags:
+        - "user"
+        summary: Api should check if the contactNumber exist in database and respond accordingly.
+        parameters: 
+          - in: body
+            name: user
+            description: Check contactNumber exits or not api.
+            required: true
+            schema:
+              type: object
+              required:
+                - contactNumber
+                - isdCode
+                
+              properties:
+                contactNumber:
+                    type: string   
+                isdCode:
+                    type: string
+        responses:
+          "200":
+            description: "contactNumber Exist"
+            schema:
+              $ref: "#/definitions/UserNotFound"
+          "400":
+            description: "User not exist."
+            schema:
+              $ref: "#/definitions/UserNotFound"
   "/user/socialLogin":
       post:
         tags:
@@ -160,7 +222,7 @@ paths:
       post:
         tags:
         - "user"
-        summary: Sending new password to user registered mail.
+        summary: Sending new password to user on registered emailid.
         parameters: 
           - in: body
             name: user
@@ -258,7 +320,7 @@ paths:
       get:
         tags:
         - "user"
-        summary: Verify account request
+        summary: resendPin number request
         parameters: 
           - in: path
             name: id
