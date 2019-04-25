@@ -1626,6 +1626,9 @@
                 "token": {
                     "type": "string"
                 },
+                "pin": {
+                    "type": "string"
+                },
                 "user": {
                     "$ref": "#/definitions/loginResponse"
                 }
@@ -1638,6 +1641,12 @@
                     "type": "integer"
                 },
                 "responseMessage": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "pin": {
                     "type": "string"
                 },
                 "user": {
