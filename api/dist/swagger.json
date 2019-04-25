@@ -7,8 +7,8 @@
     "host": "3.18.139.243:5001",
     "basePath": "/emojiApp/v2/api",
     "consumes": [
-        "application/json",
-        "application/x-www-form-urlencoded"
+        "application/x-www-form-urlencoded",
+        "application/json"
     ],
     "produces": [
         "application/json"
@@ -33,26 +33,31 @@
                     "user"
                 ],
                 "summary": "Authenticating user(Login Request)",
+                "description": "Either emailid or number need to be provided.",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
                 "parameters": [
                     {
-                        "in": "body",
-                        "name": "user",
-                        "description": "For simple login request.",
-                        "required": true,
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "emailId": {
-                                    "type": "string"
-                                },
-                                "contactNumber": {
-                                    "type": "string"
-                                },
-                                "isdCode": {
-                                    "type": "string"
-                                }
-                            }
-                        }
+                        "name": "emailId",
+                        "in": "formData",
+                        "description": "Email id of user",
+                        "type": "string"
+                    },
+                    {
+                        "name": "contactNumber",
+                        "in": "formData",
+                        "description": "phone number of user",
+                        "type": "string"
+                    },
+                    {
+                        "name": "isdCode",
+                        "in": "formData",
+                        "description": "isd code  of user country",
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -83,58 +88,72 @@
                     "user"
                 ],
                 "summary": "New users registration request",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
                 "parameters": [
                     {
-                        "in": "body",
-                        "name": "user",
-                        "description": "For simple registration request.",
-                        "required": true,
-                        "schema": {
-                            "type": "object",
-                            "required": [
-                                "userName",
-                                "fullName",
-                                "emailId",
-                                "contactNumber",
-                                "isdCode",
-                                "deviceType",
-                                "deviceId",
-                                "fcmToken"
-                            ],
-                            "properties": {
-                                "userName": {
-                                    "type": "string"
-                                },
-                                "fullName": {
-                                    "type": "string"
-                                },
-                                "contactNumber": {
-                                    "type": "string"
-                                },
-                                "emailId": {
-                                    "type": "string"
-                                },
-                                "isdCode": {
-                                    "type": "string"
-                                },
-                                "gender": {
-                                    "type": "string"
-                                },
-                                "deviceType": {
-                                    "type": "string",
-                                    "enum": [
-                                        "IOS",
-                                        "ANDROID"
-                                    ]
-                                },
-                                "deviceId": {
-                                    "type": "string"
-                                },
-                                "fcmToken": {
-                                    "type": "string"
-                                }
-                            }
-                        }
+                        "name": "userName",
+                        "in": "formData",
+                        "description": "User name of the user.It needs to be unique for every user",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "fullName",
+                        "in": "formData",
+                        "description": "User full name.",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "emailId",
+                        "in": "formData",
+                        "description": "Email id of user.",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "contactNumber",
+                        "in": "formData",
+                        "description": "phone number of user.",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "isdCode",
+                        "in": "formData",
+                        "description": "isd code  of user country.",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "deviceType",
+                        "in": "formData",
+                        "description": "The type of device user is using.",
+                        "type": "string",
+                        "enum": [
+                            "IOS",
+                            "ANDROID"
+                        ],
+                        "required": true
+                    },
+                    {
+                        "name": "deviceId",
+                        "in": "formData",
+                        "description": "User device id.",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "fcmToken",
+                        "in": "formData",
+                        "description": "Fcm token.",
+                        "type": "string",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -159,23 +178,19 @@
                     "user"
                 ],
                 "summary": "Api should check if the email exist in database and respond accordingly.",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
                 "parameters": [
                     {
-                        "in": "body",
-                        "name": "user",
-                        "description": "Check emialId exits or not api.",
-                        "required": true,
-                        "schema": {
-                            "type": "object",
-                            "required": [
-                                "emailId"
-                            ],
-                            "properties": {
-                                "emailId": {
-                                    "type": "string"
-                                }
-                            }
-                        }
+                        "name": "emailId",
+                        "in": "formData",
+                        "description": "Email id of user to check if it already been used or not.",
+                        "type": "string",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -200,27 +215,26 @@
                     "user"
                 ],
                 "summary": "Api should check if the contactNumber exist in database and respond accordingly.",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
                 "parameters": [
                     {
-                        "in": "body",
-                        "name": "user",
-                        "description": "Check contactNumber exits or not api.",
-                        "required": true,
-                        "schema": {
-                            "type": "object",
-                            "required": [
-                                "contactNumber",
-                                "isdCode"
-                            ],
-                            "properties": {
-                                "contactNumber": {
-                                    "type": "string"
-                                },
-                                "isdCode": {
-                                    "type": "string"
-                                }
-                            }
-                        }
+                        "name": "contactNumber",
+                        "in": "formData",
+                        "description": "phone number of user.",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "isdCode",
+                        "in": "formData",
+                        "description": "isd code  of user country.",
+                        "type": "string",
+                        "required": true
                     }
                 ],
                 "responses": {
