@@ -379,7 +379,7 @@ paths:
             description: "Invalid user"
             schema:
               $ref: "#/definitions/UserNotFound"  
-  "/user/imageUpload":
+  "/user/imageUpload/{id}":
     post:
       tags:
       - "user"
@@ -397,6 +397,12 @@ paths:
         required: false
         type: "file"
        
+      - in: path
+        name: id
+        description: Id of particular user
+        required: true
+        type: string
+        
       responses:
           "200":
             description: "Sucess"

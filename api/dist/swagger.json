@@ -563,7 +563,7 @@
                 }
             }
         },
-        "/user/imageUpload": {
+        "/user/imageUpload/{id}": {
             "post": {
                 "tags": [
                     "user"
@@ -584,6 +584,13 @@
                         "description": "file to upload",
                         "required": false,
                         "type": "file"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Id of particular user",
+                        "required": true,
+                        "type": "string"
                     }
                 ],
                 "responses": {
