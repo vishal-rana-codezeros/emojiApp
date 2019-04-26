@@ -54,6 +54,7 @@ paths:
             description: "User not found."
             schema:
               $ref: "#/definitions/UserNotFound"
+ 
   "/user/register":
       post:
         tags:
@@ -223,6 +224,42 @@ paths:
             description: "Sucessfully register."
             schema:
               $ref: "#/definitions/fbMap"
+              
+  "/user/syncContacts":
+      post:
+        tags:
+        - "user"
+        summary: Sync req.
+        parameters: 
+          - in: body
+            name: user
+            description: syncContacts  api.
+            required: true
+            schema:
+              type: object
+              required:
+                - contacts
+              properties: 
+                contacts:
+                  type: array 
+                  items:
+                    type: object
+                    properties:
+                      contactNumber:
+                        type: string
+                      userName:
+                        type: string
+  
+        responses:
+          "200":
+            description: "Success"
+            schema:
+              $ref: "#/definitions/UserNotFound"
+          "400":
+            description: "User not exist."
+            schema:
+              $ref: "#/definitions/UserNotFound"
+
   "/user/forgotPassword":
       post:
         tags:
