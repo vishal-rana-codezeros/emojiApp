@@ -4,27 +4,61 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "test": "mocha --timeout 80000",
+    "_comment": "Note: --exit in the test element is to force the test program to exit after finishing in case we use done()",
+    "coverage": "nyc --reporter=lcov --reporter=text-lcov npm test"
+  },
+  "nyc": {
+    "_comment": "Purpose of this part: to do code coverage within Mocha/Chai using Istanbul",
+    "register": "babel-register",
+    "include": [
+      "**/*.js",
+      "./*.js",
+      "**/**/**.js"
+    ],
+    "exclude": [
+      "**/node_modules/**",
+      "**/test/**",
+      "**/coverage/**",
+      "**/public/**",
+      "**/Public(socket)/**",
+      "**/api/**"
+    ],
+    "all": true
   },
   "author": "prem",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
     "cloudinary": "^1.13.2",
-    "dotenv": "^6.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "draftjs-to-markdown": "^0.5.1",
     "express": "^4.16.4",
     "generate-password": "^1.4.1",
+    "istanbul": "^0.4.5",
+    "loadtest": "^3.0.4",
     "lodash": "^4.17.11",
+    "method-override": "^3.0.0",
     "mongoose": "^5.3.11",
+    "mongoose-paginate": "^5.0.3",
+    "morgan": "^1.9.1",
     "multer": "^1.4.1",
     "nodemailer": "^4.6.8",
+    "react-draft-wysiwyg": "^1.12.15",
     "secure-pin": "^1.0.14",
+    "socket.io": "^2.2.0",
     "swagger": "^0.7.5",
     "twilio": "^3.23.2"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
     "grunt": "^1.0.3",
-    "grunt-yaml": "^0.4.2"
+    "grunt-yaml": "^0.4.2",
+    "mocha": "^5.2.0",
+    "nyc": "^13.2.0"
   }
 }

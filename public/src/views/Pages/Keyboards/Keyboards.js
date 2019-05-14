@@ -1,0 +1,26 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import {withStyles} from '@material-ui/core'
+import Categories from './Categories'
+import DeleteKeyboard from '../../../components/Keyboard/DeleteKeyboard';
+const styles={
+  root:{
+    marginLeft:'70px'
+  }
+  
+}
+class Keyboards extends Component {
+  loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
+
+  render() {
+
+    return (
+      <div className="animated fadeIn ">
+      <Categories></Categories>
+      </div>
+    );
+  }
+}
+
+export default  connect(null) (withStyles(styles)(Keyboards));
+
