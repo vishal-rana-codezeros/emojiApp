@@ -1856,17 +1856,31 @@
                 }
             }
         },
-        "/admin/getAboutusPage": {
+        "/admin/getcmsPage": {
             "get": {
                 "tags": [
                     "admin"
                 ],
-                "summary": "Get list of about us pages.",
+                "summary": "Get CMS Data",
+                "description": "",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
                 "parameters": [
                     {
                         "in": "header",
                         "name": "authorization",
-                        "description": "Token of particular admin",
+                        "description": "Token of particular user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "page_title",
+                        "in": "query",
+                        "description": "Get the cms data from: 'privacy_policy', 'terms_conditions', 'about_us'",
                         "required": true,
                         "type": "string"
                     }
@@ -1875,73 +1889,17 @@
                     "200": {
                         "description": "Sucess",
                         "schema": {
-                            "$ref": "#/definitions/UserNotFound"
+                            "$ref": "#/definitions/imageUpload"
                         }
                     },
                     "400": {
-                        "description": "User not found.",
-                        "schema": {
-                            "$ref": "#/definitions/UserNotFound"
-                        }
-                    }
-                }
-            }
-        },
-        "/admin/getprivacy_policy": {
-            "get": {
-                "tags": [
-                    "admin"
-                ],
-                "summary": "Get list of terms_conditions pages.",
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "authorization",
-                        "description": "Token of particular admin",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Sucess",
+                        "description": "page not found",
                         "schema": {
                             "$ref": "#/definitions/UserNotFound"
                         }
                     },
-                    "400": {
-                        "description": "User not found.",
-                        "schema": {
-                            "$ref": "#/definitions/UserNotFound"
-                        }
-                    }
-                }
-            }
-        },
-        "/admin/get_terms_conditions": {
-            "get": {
-                "tags": [
-                    "admin"
-                ],
-                "summary": "Get list of terms_conditions pages.",
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "authorization",
-                        "description": "Token of particular admin",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Sucess",
-                        "schema": {
-                            "$ref": "#/definitions/UserNotFound"
-                        }
-                    },
-                    "400": {
-                        "description": "User not found.",
+                    "404": {
+                        "description": "No data found",
                         "schema": {
                             "$ref": "#/definitions/UserNotFound"
                         }
