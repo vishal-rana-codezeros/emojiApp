@@ -400,18 +400,6 @@ paths:
             description: Id of particular user
             required: true
             type: string
-          - name: "contactNumber"
-            in: "formData"
-            description: "phone number of user."
-            type: "string"
-          - name: "isdCode"
-            in: "formData"
-            description: "countryCode of user."
-            type: "string"
-          - name: "emailId"
-            in: "formData"
-            description: "emailId  of  the user."
-            type: "string"
           - name: "userName"
             in: "formData"
             description: "userName of the user."
@@ -497,12 +485,37 @@ paths:
             description: "internal server error"
             schema:
               $ref: "#/definitions/UserNotFound" 
-              
-              
+  "/user/getCMSPage":
+    get:
+      tags:
+      - "user"
+      summary: "Get CMS Data"
+      description: ""
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "page_title"
+        in: "query"
+        description: "Get the cms data from: 'privacy_policy', 'terms_conditions', 'about_us'"
+        required: true
+        type: "string"
+     
+      responses:
+          "200":
+            description: "Sucess"
+            schema:
+              $ref: "#/definitions/imageUpload"           
+          "400":
+            description: "page not found"
+            schema:
+              $ref: "#/definitions/UserNotFound"
+          "404":
+            description: "No data found"
+            schema:
+              $ref: "#/definitions/UserNotFound"
  
-        
-               
-      
   "/user/addcontactUs/{id}":
       post:
         tags:
