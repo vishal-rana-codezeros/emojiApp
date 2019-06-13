@@ -58,7 +58,14 @@
                         "in": "formData",
                         "description": "isd code  of user country",
                         "type": "string"
+                    }, 
+		    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "password for the account,This field is required for admin login only,ignore if login for user account.",
+                        "type": "string"
                     }
+
                 ],
                 "responses": {
                     "200": {
