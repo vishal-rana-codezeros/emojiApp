@@ -4,7 +4,7 @@
         "title": "emojiApp",
         "version": "0.0.1"
     },
-    "host": "localhost:5001",
+    "host": "3.18.139.243:5001",
     "basePath": "/emojiApp/v2/api",
     "consumes": [
         "application/x-www-form-urlencoded",
@@ -57,6 +57,12 @@
                         "name": "isdCode",
                         "in": "formData",
                         "description": "isd code  of user country",
+                        "type": "string"
+			},
+		    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "password for the account,This field is required for admin login only,ignore if login for user account.",
                         "type": "string"
                     }
                 ],
