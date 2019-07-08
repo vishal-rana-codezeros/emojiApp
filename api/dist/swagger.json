@@ -4,7 +4,7 @@
         "title": "emojiApp",
         "version": "0.0.1"
     },
-    "host": "3.18.139.243:5001",
+    "host": "localhost:5001",
     "basePath": "/emojiApp/v2/api",
     "consumes": [
         "application/x-www-form-urlencoded",
@@ -58,14 +58,7 @@
                         "in": "formData",
                         "description": "isd code  of user country",
                         "type": "string"
-                    }, 
-		    {
-                        "name": "password",
-                        "in": "formData",
-                        "description": "password for the account,This field is required for admin login only,ignore if login for user account.",
-                        "type": "string"
                     }
-
                 ],
                 "responses": {
                     "200": {
@@ -807,6 +800,189 @@
                     },
                     "400": {
                         "description": "Invalid user",
+                        "schema": {
+                            "$ref": "#/definitions/UserNotFound"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/purchaseKeyboard/{id}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "purchase keyboard api",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "Token of particular user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Id of particular user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "keyboardName",
+                        "description": "Id of particular keyboard",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucess",
+                        "schema": {
+                            "$ref": "#/definitions/Success"
+                        }
+                    },
+                    "400": {
+                        "description": "data not found.",
+                        "schema": {
+                            "$ref": "#/definitions/UserNotFound"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/getImages/{id}/{id1}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get images of keyboard(subCategory)",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "Token of particular user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Id of particular category",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id1",
+                        "description": "Id of particular keyboard",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucess",
+                        "schema": {
+                            "$ref": "#/definitions/Success"
+                        }
+                    },
+                    "400": {
+                        "description": "data not found.",
+                        "schema": {
+                            "$ref": "#/definitions/UserNotFound"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/getAllCategory": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get images of keyboard(subCategory)",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "Token of particular user",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucess",
+                        "schema": {
+                            "$ref": "#/definitions/Success"
+                        }
+                    },
+                    "400": {
+                        "description": "data not found.",
+                        "schema": {
+                            "$ref": "#/definitions/UserNotFound"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/fetchKeyboardSubImages/{id}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "get subimages of keyboard api",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "Token of particular user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Id of particular keyboard",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucess",
+                        "schema": {
+                            "$ref": "#/definitions/Success"
+                        }
+                    },
+                    "400": {
+                        "description": "data not found.",
                         "schema": {
                             "$ref": "#/definitions/UserNotFound"
                         }
