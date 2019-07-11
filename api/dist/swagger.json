@@ -4,7 +4,7 @@
         "title": "emojiApp",
         "version": "0.0.1"
     },
-    "host": "3.18.139.243:5001",
+    "host": "localhost:5001",
     "basePath": "/emojiApp/v2/api",
     "consumes": [
         "application/x-www-form-urlencoded",
@@ -889,6 +889,43 @@
                         "in": "path",
                         "name": "id1",
                         "description": "Id of particular keyboard",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucess",
+                        "schema": {
+                            "$ref": "#/definitions/Success"
+                        }
+                    },
+                    "400": {
+                        "description": "data not found.",
+                        "schema": {
+                            "$ref": "#/definitions/UserNotFound"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/getAllCategory": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get images of keyboard(subCategory)",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "Token of particular user",
                         "required": true,
                         "type": "string"
                     }
