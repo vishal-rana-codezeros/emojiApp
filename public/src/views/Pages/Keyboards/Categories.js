@@ -43,8 +43,9 @@ class Categories extends Component {
 
    const{page,pageSize}=this.state;
     this.props.getAllKeyboardDetails(page, pageSize).then((res) => {
-      if (res.status == 200) {
-        const { total, details } = res.data.data[0];
+      if (res.data.code == 200) {
+        console.log("res", res)
+        const { total, details } = res.data.data;
 
         let tableData = [];
         // console.log("response================>",res.data.data[0].details)
@@ -83,14 +84,13 @@ class Categories extends Component {
 
   onChangeToFetchTable(action, tableState) {
     // this.getUser()
-    console.log("in onChangeToFetchTable")
     let { page, rowsPerPage, searchText, pageSize } = tableState
     // return false;
     this.props.getAllKeyboardDetails(page, rowsPerPage, searchText ? searchText : "").then((res) => {
-
-      if (res.data.code == 200) {
+      
+      if (res.data.code == 200) {  
         const { _id, details } = res.data.data[0];
-        const { total, page } = _id[0];        
+        const { total, page } = _id[0];
         let tableData = [];
         
         details.map(x => tableData.push([x.keyboardName, x.categoryName, x.keyboardType, x.cost, x.status,

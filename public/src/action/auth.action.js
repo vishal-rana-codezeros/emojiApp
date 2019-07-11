@@ -13,8 +13,8 @@ export const LoginApi = data => {
 	return dispatch => {
 		
 		return axios.post(`${Config.URL}/user/login`, data).then(res => {			
-			if(res.data.resp!=undefined) {
-				const {token, userObj} = res.data.resp;
+			if(res.data!=undefined) {
+				const {token, userObj} = res.data;
 				localStorage.setItem("token", token);
 				localStorage.setItem("user", JSON.stringify(userObj));
 				requireAuthToken(token)
