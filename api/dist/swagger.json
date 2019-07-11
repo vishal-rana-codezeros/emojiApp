@@ -58,12 +58,6 @@
                         "in": "formData",
                         "description": "isd code  of user country",
                         "type": "string"
-			},
-		    {
-                        "name": "password",
-                        "in": "formData",
-                        "description": "password for the account,This field is required for admin login only,ignore if login for user account.",
-                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -952,6 +946,68 @@
                     },
                     "400": {
                         "description": "data not found.",
+                        "schema": {
+                            "$ref": "#/definitions/UserNotFound"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/getAllCategory": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get list of all Category",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "Token of particular user",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucess",
+                        "schema": {
+                            "$ref": "#/definitions/Success"
+                        }
+                    },
+                    "400": {
+                        "description": "No records.",
+                        "schema": {
+                            "$ref": "#/definitions/UserNotFound"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/getAllKeyboard": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get list of all keyboards",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "Token of particular user",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucess",
+                        "schema": {
+                            "$ref": "#/definitions/Success"
+                        }
+                    },
+                    "400": {
+                        "description": "No records.",
                         "schema": {
                             "$ref": "#/definitions/UserNotFound"
                         }

@@ -658,6 +658,46 @@ paths:
             schema:
               $ref: "#/definitions/UserNotFound"  
   
+  "/user/getAllCategory":
+      get:
+        tags:
+        - "user"
+        summary: Get list of all Category
+        parameters: 
+          - in: header
+            name: authorization
+            description: Token of particular user
+            required: true
+            type: string
+        responses:
+          "200":
+            description: "Sucess"
+            schema:
+              $ref: "#/definitions/Success"           
+          "400":
+            description: "No records."
+            schema:
+              $ref: "#/definitions/UserNotFound"  
+  "/user/getAllKeyboard":
+      get:
+        tags:
+        - "user"
+        summary: Get list of all keyboards
+        parameters: 
+          - in: header
+            name: authorization
+            description: Token of particular user
+            required: true
+            type: string
+        responses:
+          "200":
+            description: "Sucess"
+            schema:
+              $ref: "#/definitions/Success"           
+          "400":
+            description: "No records."
+            schema:
+              $ref: "#/definitions/UserNotFound"              
   # "/user/imageUpload":
   #     post:
   #       tags:
