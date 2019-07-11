@@ -4,7 +4,7 @@
         "title": "emojiApp",
         "version": "0.0.1"
     },
-    "host": "3.18.139.243:5001",
+    "host": "localhost:5001",
     "basePath": "/emojiApp/v2/api",
     "consumes": [
         "application/x-www-form-urlencoded",
@@ -915,43 +915,6 @@
                 }
             }
         },
-        "/user/getAllCategory": {
-            "get": {
-                "tags": [
-                    "user"
-                ],
-                "summary": "Get images of keyboard(subCategory)",
-                "consumes": [
-                    "multipart/form-data"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "authorization",
-                        "description": "Token of particular user",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Sucess",
-                        "schema": {
-                            "$ref": "#/definitions/Success"
-                        }
-                    },
-                    "400": {
-                        "description": "data not found.",
-                        "schema": {
-                            "$ref": "#/definitions/UserNotFound"
-                        }
-                    }
-                }
-            }
-        },
         "/user/fetchKeyboardSubImages/{id}": {
             "get": {
                 "tags": [
@@ -1032,12 +995,50 @@
                 "tags": [
                     "user"
                 ],
+                "summary": "Get list of all keyboards under the category",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "Token of particular user",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucess",
+                        "schema": {
+                            "$ref": "#/definitions/Success"
+                        }
+                    },
+                    "400": {
+                        "description": "No records.",
+                        "schema": {
+                            "$ref": "#/definitions/UserNotFound"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/getKeyboardFromCategory/{id}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
                 "summary": "Get list of all keyboards",
                 "parameters": [
                     {
                         "in": "header",
                         "name": "authorization",
                         "description": "Token of particular user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "id of the category",
                         "required": true,
                         "type": "string"
                     }
