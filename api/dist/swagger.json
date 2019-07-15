@@ -4,7 +4,7 @@
         "title": "emojiApp",
         "version": "0.0.1"
     },
-    "host": "3.18.139.243:5001",
+    "host": "localhost:5001",
     "basePath": "/emojiApp/v2/api",
     "consumes": [
         "application/x-www-form-urlencoded",
@@ -1032,50 +1032,12 @@
                 "tags": [
                     "user"
                 ],
-                "summary": "Get list of all keyboards under the category",
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "authorization",
-                        "description": "Token of particular user",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Sucess",
-                        "schema": {
-                            "$ref": "#/definitions/Success"
-                        }
-                    },
-                    "400": {
-                        "description": "No records.",
-                        "schema": {
-                            "$ref": "#/definitions/UserNotFound"
-                        }
-                    }
-                }
-            }
-        },
-        "/user/getKeyboardFromCategory/{id}": {
-            "get": {
-                "tags": [
-                    "user"
-                ],
                 "summary": "Get list of all keyboards",
                 "parameters": [
                     {
                         "in": "header",
                         "name": "authorization",
                         "description": "Token of particular user",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "description": "id of the category",
                         "required": true,
                         "type": "string"
                     }
@@ -1726,6 +1688,15 @@
                                 },
                                 "KeyboardType": {
                                     "type": "string"
+                                },
+                                "description": {
+                                    "type": "string"
+                                },
+                                "displayImage": {
+                                    "type": "array"
+                                },
+                                "subImages": {
+                                    "type": "array"
                                 },
                                 "cost": {
                                     "type": "number"

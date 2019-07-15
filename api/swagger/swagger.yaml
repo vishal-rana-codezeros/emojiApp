@@ -57,7 +57,7 @@ paths:
           "400":
             description: "User not found."
             schema:
-              $ref: "#/definitions/UserNotFound"
+            $ref: "#/definitions/UserNotFound"
  
   "/user/register":
       post:
@@ -1278,6 +1278,12 @@ paths:
                     type: string
                 KeyboardType:
                     type: string
+                description:
+                    type: string
+                displayImage:
+                    type: array
+                subImages:
+                    type: array
                 cost:
                     type: number
                 status:
