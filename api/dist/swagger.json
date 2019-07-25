@@ -1686,7 +1686,7 @@
                                 "categoryName": {
                                     "type": "string"
                                 },
-                                "KeyboardType": {
+                                "keyboardType": {
                                     "type": "string"
                                 },
                                 "description": {
