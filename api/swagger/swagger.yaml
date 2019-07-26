@@ -57,7 +57,7 @@ paths:
           "400":
             description: "User not found."
             schema:
-            $ref: "#/definitions/UserNotFound"
+              $ref: "#/definitions/UserNotFound"
  
   "/user/register":
       post:
@@ -731,6 +731,81 @@ paths:
           "400":
             description: "No records."
             schema:
+              $ref: "#/definitions/UserNotFound"     
+              
+  "/user/getTransactionToken/{userId}/{keyboardId}":
+      get:
+        tags:
+        - "user"
+        summary: Get a token for client to initiate the payment flow
+        consumes:
+        - "multipart/form-data"
+        produces:
+        - "application/json"
+        parameters: 
+          - in: header
+            name: authorization
+            description: Token of particular user
+            required: true
+            type: string
+          - in: path
+            name: keyboardId
+            description: Id of particular keyboard that the user wants to buy
+            type: string
+            required: true
+          - in: path
+            name: userId
+            description: Id of particular user that want to buy that keyboard
+            type: string
+            required: true
+        responses:
+          "200":
+            description: "Sucess"
+            schema:
+              $ref: "#/definitions/clientokenResponse"           
+          "400":
+            description: "No records."
+            schema:
+              $ref: "#/definitions/UserNotFound"          
+              
+  "/user/completeTransaction/{userId}/{transactionId}":
+      post:
+        tags:
+        - "user"
+        summary: Get a token for client to initiate the payment flow
+        consumes:
+        - "multipart/form-data"
+        produces:
+        - "application/json"
+        parameters: 
+          - in: header
+            name: authorization
+            description: Token of particular user
+            required: true
+            type: string
+          - in: path
+            name: transactionId
+            description: Id of ongoing transaction
+            type: string
+            required: true
+          - in: path
+            name: userId
+            description: Id of particular user.
+            type: string
+            required: true
+          - name: "nonce"
+            in: "formData"
+            description: "nonce of the ongoing transaction to process the same."
+            type: "string"
+            required: true
+        responses:
+          "200":
+            description: "Sucess"
+            schema:
+              $ref: "#/definitions/PassNotMatch"           
+          "400":
+            description: "No records."
+            schema:
               $ref: "#/definitions/UserNotFound"              
   # "/user/imageUpload":
   #     post:
@@ -1282,8 +1357,12 @@ paths:
                     type: string
                 displayImage:
                     type: array
+                    items:
+                      type: string
                 subImages:
                     type: array
+                    items:
+                      type: string
                 cost:
                     type: number
                 status:
@@ -1328,7 +1407,9 @@ paths:
                 categoryName:
                     type: string
                 image:
-                    type: array 
+                    type: array
+                    items:
+                      type: string
                 description:
                     type: string       
               
@@ -1807,7 +1888,22 @@ definitions:
   #       type: 'string'
   
   
-  
+  clientokenResponse:
+    type: object
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+      data:
+        type: object
+        properties:
+          token:
+            type: string
+            description: this is the client token that will be used to initiate the transaction o nfront side
+          transactionId:
+            type: string
+            description: unique id for that transaction to track the status of that particular transaction
   
         
   
