@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
 import ActiveConfirmDialog from '../../components/common/ActiveConfirmDialog'
-import Spinner from '../../Spinner/Spinner'
+import { LoaderAction } from '../../../src/action/loader.action';
 
 class UsersModal extends Component {
   constructor(props) {
@@ -20,7 +20,6 @@ class UsersModal extends Component {
       page: 0,
       pageSize: 10,
       count: '',
-      loading: false,
       filter: ''
     }
 
@@ -29,19 +28,19 @@ class UsersModal extends Component {
   }
 
 
-  componentWillMount() {
-    this.setState({ loading:true})
+  componentDidMount() {
+    
+    this.props.LoaderAction(false)
     this.getUser()
-    this.setState({ loading:false})
   }
 
   getUser = () => {
-
     const { page, pageSize } = this.state;
     this.props.getAllUser(page, pageSize).then((res) => {
+      
       if (res.status == 200) {
         const { total, docs } = res.data.data;
-        console.log("docs in users", docs)
+        
         let tableData = [];
         docs.map(x => tableData.push([x.fullName, x.emailId, x.userName, x.contactNumber, x.status,
         (<>
@@ -49,15 +48,19 @@ class UsersModal extends Component {
 
           {x.status == 'ACTIVE' && <DeleteConfirmDialog deleteId={x._id} onClick={this.onClickToDelete} />}
           {x.status == 'INACTIVE' && < ActiveConfirmDialog activeId={x._id} onClick={(e) => { this.onClickToActive(x._id) }} />}
+       
         </>)
         ]))
-
-        this.setState({ tableData, count: total, page: page, pageSize: pageSize })
+        this.setState({ tableData, count: total, page: page, pageSize: pageSize})
+      }
+      else if(res.data.code==400){
+        this.props.logout();
       }
     })
   }
 
   onClickToDelete = (id) => {
+    this.props.LoaderAction(true)
     this.props.deleteUser(id).then((res) => {
       if (res.status == 200) {
         this.getUser()
@@ -97,12 +100,8 @@ class UsersModal extends Component {
     })
   }
   render() {
-    if (this.state.loading) {
-      return(<Spinner loading={this.state.loading}></Spinner>)
-    }
+
     return (
-     
-    
       <div >
         <Row >
           <Col xs="12" lg="12">
@@ -122,4 +121,4 @@ class UsersModal extends Component {
   }
 }
 
-export default connect(null, { getAllUser, deleteUser, getOneUser, updateUser, activeUser })(UsersModal);
+export default connect(null, { getAllUser, deleteUser, getOneUser, updateUser, activeUser,LoaderAction })(UsersModal);

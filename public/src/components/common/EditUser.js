@@ -34,7 +34,6 @@ class EditUser extends React.Component {
         this.props.getOneUser(this.props.editId).then((res) => {
 
           if (res.status == 200) {
-            console.log("data in edit user", res)
             this.setState({ fullName: res.data.data.fullName })
             this.setState({ userName: res.data.data.userName })
             this.setState({ contactNumber: res.data.data.contactNumber })

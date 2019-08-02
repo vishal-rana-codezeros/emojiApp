@@ -23,7 +23,7 @@ class ViewKeyboard extends React.Component {
       image: [],
       imgSrc: []
     };
-    // this.onDrop = this.onDrop.bind(this);
+  
   }
   toggle = () => {
     this.setState({ open: !this.state.open }, () => {
@@ -31,9 +31,9 @@ class ViewKeyboard extends React.Component {
         this.props.getOneKeyboardDetails(this.props.viewId).then((res) => {
 
           if (res.status == 200) {
-            console.log("data in edit keyboard===================================>", res.data.data)
+            
             this.setState({ keyboardName: res.data.data.keyboardName, categoryName: res.data.data.categoryName.categoryName, keyboardType: res.data.data.keyboardType, cost: res.data.data.cost, image: res.data.data.image })
-            console.log("state===================++++++++++++++++++++++++++", this.state)
+          
           }
         })
       }
@@ -42,16 +42,12 @@ class ViewKeyboard extends React.Component {
 
   setTimeout(() => {
     var elements1  = document.getElementsByClassName('uploadPicturesWrapper');
-    console.log("child element",elements1);
+   
     const d = document.createElement("div",{class:'custom-preview-image'}, "dsfdsfdsdsf")
-    // elements1[0].appendChild(d);
+   
   }, 1000)
 };
-  // onDrop(imgSrc) {
-  //   this.setState({
-  //     imgSrc
-  //   });
-  // }
+ 
 
   getContent() {
     return (<div className="uploadPictureContainer">
@@ -60,21 +56,20 @@ class ViewKeyboard extends React.Component {
     </div>);
   }
   createImage = (image) => {
-    console.log("image",image);
+   
     return(<div class="uploadPictureContainer" style="">
-      <div class="deleteImage">X</div>
+      
       <img src={image} class="uploadPicture" alt="preview"/>
       </div>)
   }
  
   render() {
     let imgPreview = [];
-    // console.log("hi",this.state.image);
+  
     for (let index = 0; index < this.state.image.length; index++) {
-      console.log("ahs",this.state.image[index] , index) 
-     // let image = this.createImage(this.state.image[index]);
+      
       imgPreview.push( <div className="uploadPictureContainer" >
-         <div class="deleteImage">X</div>
+       
          <img src={this.state.image[index]} className="uploadPicture" alt="preview"/>
          </div>);
     }
@@ -99,11 +94,9 @@ class ViewKeyboard extends React.Component {
                             <InputLabel className="labelcss">Name</InputLabel>
                           </InputGroup>
                           <InputGroupAddon addonType="prepend">
-                            {/* <InputGroupText>
-                              <i className="icon-user"></i>
-                            </InputGroupText> */}
+                           
                           </InputGroupAddon>
-                          <Input type="text" name="keyboardName" autoComplete="Name" value={this.state.keyboardName} onChange={this.onTextChange}></Input>
+                          <Input type="text" name="keyboardName" autoComplete="Name" value={this.state.keyboardName} disabled={true}></Input>
 
                         </InputGroup>
                         <InputGroup className="mb-12">
@@ -111,11 +104,9 @@ class ViewKeyboard extends React.Component {
                             <InputLabel className="labelcss">Category</InputLabel>
                           </InputGroup>
                           <InputGroupAddon addonType="prepend">
-                            {/* <InputGroupText>
-                              <i className="icon-user"></i>
-                            </InputGroupText> */}
+                          
                           </InputGroupAddon>
-                          <Input type="text" name="categoryName" value={this.state.categoryName} autoComplete="categoryName" onChange={this.onTextChange} />
+                          <Input type="text" name="categoryName" value={this.state.categoryName} autoComplete="categoryName" disabled={true}/>
 
                         </InputGroup>
                         <InputGroup className="mb-12">
@@ -123,9 +114,9 @@ class ViewKeyboard extends React.Component {
                             <InputLabel className="labelcss" className="labelcss">Type</InputLabel>
                           </InputGroup>
                           <InputGroupAddon addonType="prepend">
-                            {/* <InputGroupText>@</InputGroupText> */}
+                          
                           </InputGroupAddon>
-                          <Input type="text" name="keyboardType" value={this.state.keyboardType} autoComplete="keyboardType" onChange={this.onTextChange} />
+                          <Input type="text" name="keyboardType" value={this.state.keyboardType} autoComplete="keyboardType" disabled={true} />
 
                         </InputGroup>
                         <InputGroup className="mb-12">
@@ -133,29 +124,20 @@ class ViewKeyboard extends React.Component {
                             <InputLabel className="labelcss">Cost</InputLabel>
                           </InputGroup>
                           <InputGroupAddon addonType="prepend">
-                            {/* <InputGroupText>
-                              <i className="fa fa-volume-control-phone"></i>
-                            </InputGroupText> */}
+                           
                           </InputGroupAddon>
-                          <Input name="cost" value={this.state.cost} />
+                          <Input name="cost" value={this.state.cost} disabled={true}/>
 
                         </InputGroup>
                         <div  className="fileContainer">
                         <InputGroup className="mb-12">
                           <InputGroup className="mb-12">
-                            <InputLabel className="labelcss" className="labelcss">Stickers</InputLabel>
+                            <InputLabel className="labelcss">Stickers</InputLabel>
                           </InputGroup>
                           <InputGroupAddon addonType="prepend">
 
                           </InputGroupAddon>
-                          <ImageUploader
-                          value={this.state.image}
-                            withIcon={false}
-                            buttonText=''
-                           imgExtension={['.jpg', '.gif', '.png', '.gif','.jpeg']}
-                            // maxFileSize={5242880}
-                            withPreview={true}
-                          />
+                         
                         </InputGroup>
                         {imgPreview}
                         </div>

@@ -12,7 +12,8 @@ import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import ActiveConfirmDialog from '../../../components/Categories/Activecategory'
 import Button from '@material-ui/core/Button';
 import AddCategory from '../../../components/Categories/AddCategory';
-import Spinner from '../../../Spinner/Spinner'
+import { LoaderAction } from '../../../action/loader.action';
+import{logout} from '../../../action/auth.action'
 class Categoriesmain extends Component {
   constructor(props) {
     super(props)
@@ -32,17 +33,17 @@ class Categoriesmain extends Component {
   }
 
 
-  componentWillMount() {
-    this.setState({ loading: true })
+  componentDidMount() {
+    this.props.LoaderAction(false)
     this.getUser()
-    this.setState({ loading: false })
   }
 
   getUser = () => {
 
    const{page,pageSize}=this.state;
     this.props.getAllCategory(page, pageSize).then((res) => {
-      if (res.status == 200) {
+      
+      if (res.data.code == 200) {
         const { total, docs } = res.data.data;
 
         let tableData = [];
@@ -58,6 +59,9 @@ class Categoriesmain extends Component {
         ]))
 
         this.setState({ tableData, count: total, page: page, pageSize: pageSize })
+      }
+      else if(res.data.code==400){
+        this.props.logout();
       }
     })
   }
@@ -81,7 +85,7 @@ class Categoriesmain extends Component {
 
   onChangeToFetchTable(action, tableState) {
     // this.getUser()
-    console.log("in onChangeToFetchTable")
+   
     let { page, rowsPerPage, searchText, pageSize } = tableState
     // return false;
     this.props.getAllCategory(page, rowsPerPage, searchText ? searchText : "").then((res) => {
@@ -89,7 +93,7 @@ class Categoriesmain extends Component {
       if (res.data.code == 200) {
         const { total, docs, code } = res.data.data;
 
-        console.log("data in table chang", docs)
+     
         let tableData = [];
         docs.map(x => tableData.push([ x.categoryName, x.status,
         (<>
@@ -107,9 +111,7 @@ class Categoriesmain extends Component {
     })
   }
   render() {
-    if (this.state.loading) {
-      return (<Spinner loading={this.state.loading}></Spinner>)
-    }
+  
     return (
       <div >
         <Row >
@@ -122,6 +124,7 @@ class Categoriesmain extends Component {
                 </>
               </CardHeader>
               <CardBody>
+               
                 <Datatable data={this.state.tableData} onFetchData={this.onChangeToFetchTable.bind(this)} page={this.state.page} pageSize={this.state.pageSize} count={this.state.count} />
               </CardBody>
             </Card>
@@ -132,7 +135,9 @@ class Categoriesmain extends Component {
   }
 }
 
-export default connect(null, { getAllCategory, deleteCategory, getOneCategoryData, updateUser, activeCategory, getAllCategory })(Categoriesmain);
+export default connect(null, { getAllCategory, deleteCategory, getOneCategoryData, updateUser, activeCategory, getAllCategory,LoaderAction, logout})(Categoriesmain);
+
+
 
 
 

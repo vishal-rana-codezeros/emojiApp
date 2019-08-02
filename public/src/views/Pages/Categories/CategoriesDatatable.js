@@ -26,13 +26,11 @@ const CategoriesDatatable = ({ data, columns, onFetchData, page,pageSize,count})
       onFetchData(action, tableState)
     }
   };
-  // console.log("page,pageSize", page,pageSize);
-
+  
  return (
     <MUIDataTable
       data={data}
       columns={["Category","Status","Action"]}
-      // className="-striped -highlight"
       options={options}
       className="tablecss"
     />

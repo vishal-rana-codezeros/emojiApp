@@ -10,7 +10,7 @@ export default  class Spinner extends Component{
                 color={'red'} // default is white
                 loader="ScaleLoader" // check below for more loaders
                 text="Loading... Please wait!"
-                active={this.props.loading}
+                active={false}
                 backgroundColor={'black'} // default is black
                 opacity=".4" // default is .9  
                 // zIndex='999999999'

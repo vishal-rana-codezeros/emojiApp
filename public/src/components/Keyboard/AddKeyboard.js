@@ -11,7 +11,7 @@ import Select from './Select';
 import SelectSimple from './SelectSimple';
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
-
+import { logout } from '../../action/auth.action';
 // var FileInput = require('./fileInput')
 class AddKeyboard extends React.Component {
   constructor(props) {
@@ -51,12 +51,14 @@ class AddKeyboard extends React.Component {
   componentWillMount() {
     const { page, pageSize } = this.state;
     this.props.getActiveCatList().then((res) => {
-      if (res.status == 200) {
-        // console.log("categories===>", res.data.data)
+      if (res.data.code == 200) {
         // return false;
         const { data } = res.data
         const { categoryOptions } = this.state
         data.map(x => categoryOptions.push({ id: x._id, value: x.categoryName }))
+      }
+      if(res.data.code == 400) {
+        this.props.logout();
       }
     })
   }
@@ -82,13 +84,10 @@ class AddKeyboard extends React.Component {
       this.setState({ isSubmit: false });
       if(this.state.image.length>0)
       {
-      console.log("pics length",this.state.image.length)
       var data = await axios.post('http://66.70.179.133:5001/emojiApp/v2/api/user/imageUpload', formData);
       this.state.image = data.data.data;
       
       await this.props.addKeyboard(this.state).then((res, err) => {
-        console.log("res, err", res, err);
-        console.log("request in add keyboard=============image============>",this.state.image)
         if (res.data.code == 400) {
           this.setState({ errors: { ...this.state.errors, keyboardName: res.data.message } })
 
@@ -106,11 +105,9 @@ class AddKeyboard extends React.Component {
       })
     }
     else{
-      // console.log("pics length",this.state.image.length)
 
       this.props.addKeyboard(this.state).then((res, err) => {
-        console.log("res, err", res, err);
-        console.log("request in add keyboard=============image============>",this.state.image)
+       
         if (res.data.code == 400) {
           this.setState({ errors: { ...this.state.errors, keyboardName: res.data.message } })
 
@@ -169,7 +166,6 @@ class AddKeyboard extends React.Component {
   render() {
 
     let { errors } = this.state
-    // console.log("errors",errors)
     return (
       <>
         <IconButton aria-label="Edit"className="addButtonCss"  onClick={this.toggle}>
@@ -273,5 +269,5 @@ class AddKeyboard extends React.Component {
     );
   }
 }
-export default connect(null, { addKeyboard, getAllCategory,getActiveCatList })(AddKeyboard);
+export default connect(null, { addKeyboard, getAllCategory,getActiveCatList, logout})(AddKeyboard);
 

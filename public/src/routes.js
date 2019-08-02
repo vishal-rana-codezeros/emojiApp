@@ -7,8 +7,8 @@ const UserForm = React.lazy(() => import('./views/Users/UserForm'));
 const Keyboards = React.lazy(() => import('./views/Pages/Keyboards/Keyboards')); 
 const AboutUs=React.lazy(() => import('./views/Pages/About_Us/AboutUs')); 
 const ContactUs=React.lazy(() => import('./views/Pages/Contact_Us/ContactUs')); 
-const Categories = React.lazy(() => import('./views/Pages/Keyboards/Categories')); 
-const KeyCategories = React.lazy(() => import('./views/Pages/KeyboardCategories/KeyCategories')); 
+// const Keyboards = React.lazy(() => import('./views/Pages/Keyboards/Keyboards')); 
+const Categories = React.lazy(() => import('./views/Pages/Categories/Categories')); 
 const routes = [
   { path: '/', exact: true, name: 'Home', component: DefaultLayout },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
@@ -17,8 +17,8 @@ const routes = [
   {path:'/keyboards', exact:true, name: 'Keyboards', component:Keyboards},
   {path:'/AboutUs', name: 'AboutUs', component:AboutUs},
   {path:'/ContactUs', name: 'ContactUs', component:ContactUs },
-  {path:'/keyboards/categories', name: 'categories', component:KeyCategories },
-  {path:'/keyboards/keyboards', name: 'keyboard', component:Categories }
+  {path:'/keyboards/Categories', name: 'Categories', component:Categories },
+  {path:'/keyboards/Keyboards', name: 'Keyboards', component:Keyboards }
 ];
 
 export default routes;
