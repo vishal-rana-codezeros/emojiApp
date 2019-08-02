@@ -2,8 +2,9 @@ swagger: "2.0"
 info:
   title: "emojiApp"
   version: "0.0.1"
+  #192.168.0.194
   # 66.70.179.133
-host: "192.168.0.194:8092"
+host: "66.70.179.133:8092"
 basePath: "/emojiApp/v2/api"
 consumes:
 - "application/json"

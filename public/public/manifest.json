@@ -1,0 +1,15 @@
+{
+  "short_name": "Emoji App",
+  "name": "Emoji App",
+  "icons": [
+    {
+      "src": "/assets/img/avatars/8.jpg",
+      "sizes": "100x100",
+      "type": "image/jpg"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

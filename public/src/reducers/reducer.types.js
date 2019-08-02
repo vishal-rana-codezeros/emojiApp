@@ -1,0 +1,4 @@
+export const ACTION_TYPE = 'ACTION_TYPE';
+export const AUTHENTICATION_TYPE = 'AUTHENTICATION_TYPE';
+export const SPINNER = 'SPINNER';
+
