@@ -106,6 +106,7 @@ const cardChartOpts1 = {
 
 class Dashboard extends Component {
   constructor(props) {
+    console.log("in dashboard cons")
     super(props);
     this.state = {
       userCount: 0,

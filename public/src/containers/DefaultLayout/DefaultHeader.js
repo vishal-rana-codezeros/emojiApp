@@ -4,8 +4,8 @@ import { Badge, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLin
 import PropTypes from 'prop-types';
 import { Login } from '../../views/Pages/Login/Login'
 import { AppAsideToggler, AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
-import logo from '../../assets/img/brand/logo.svg'
-import sygnet from '../../assets/img/brand/sygnet.svg'
+// import logo from '../../assets/img/avatars/1.jpg'; //'../../assets/img/brand/logo.svg'
+// import sygnet from '../../assets/img/avatars/2.jpg';//(/../assets/img/brand/sygnet.svg'
 import { logout } from '../../action/auth.action';
 import { connect } from 'react-redux';
 import {withRouter} from "react-router"
@@ -38,7 +38,7 @@ class DefaultHeader extends Component {
       this.props.history.push('/Login');
     }
 
-    
+
 
     var { image, fullName } = localStorage.getItem('user')?JSON.parse(localStorage.getItem('user')):{};
 

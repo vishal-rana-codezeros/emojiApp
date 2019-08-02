@@ -1,4 +1,4 @@
-// Here you can add other styles
+﻿// Here you can add other styles
 // .primaryButton {
 //     background-color: #63c2de !important;
 // }
@@ -174,10 +174,19 @@ background: #fff!important;
    
 }
 
+.adminNamecss{
+color:red !important
+}
+.adminNamecss:hover{
+background-color:white !important
+}
+
 .card-body > div > div > div > div {
     width: 100% !important;
     float: right!important;
 }
+   
+
 .aboutUsCss{
     background-image: linear-gradient(to bottom right, #e44242, white) !important;
 }
@@ -188,6 +197,9 @@ background: #fff!important;
 .rdw-editor-toolbar{
     background-image: linear-gradient(to bottom right, #e44242, white) !important;
 }
+
+
+
 .gyQnsE{
     margin-top: 18% !important;
 }
@@ -197,6 +209,9 @@ background: #fff!important;
 form-group > .form-group dropdown{
     width:100% !important;
 }
+
+
+
 
 table >thead>tr>th{
     font-weight: bold !important;
@@ -319,6 +334,12 @@ h1, .h1{
 .sidebar .nav-link:hover .nav-icon {
     color: #fff !important;
 }
+
+
+
+
+
+
 .custom-preview-image{
     position: relative; 
     display: flex; 
