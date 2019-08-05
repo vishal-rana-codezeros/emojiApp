@@ -123,10 +123,6 @@ class Dashboard extends Component {
           const {totalCounts, maleCounts, femalCounts} = res.data.data
           this.setState({ userCount: totalCounts, male:maleCounts,female:femalCounts, loading: false})
         }
-
-        if(res.data.code == 400) {
-          this.props.logout();
-        }
       });
 
   }

@@ -61,9 +61,6 @@ class Keyboards extends Component {
 
         this.setState({ tableData, count: _id[0].total, page: page, pageSize: pageSize })
       }
-      if(res.data.code == 400) {
-        this.props.logout();
-      }
     })
   }
 
@@ -106,9 +103,6 @@ class Keyboards extends Component {
         ]))
         this.setState({ tableData, count: total, page: page, pageSize: rowsPerPage })
       } 
-      else if(res.data.code == 400) {
-        this.props.logout();
-      }
       else {
         this.setState({ tableData: [] })
       }

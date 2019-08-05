@@ -60,9 +60,6 @@ class Categoriesmain extends Component {
 
         this.setState({ tableData, count: total, page: page, pageSize: pageSize })
       }
-      else if(res.data.code==400){
-        this.props.logout();
-      }
     })
   }
 
