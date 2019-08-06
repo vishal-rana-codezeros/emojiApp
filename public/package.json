@@ -28,7 +28,7 @@
     "jqwidgets-framework": "^6.2.0",
     "lodash": "^4.17.11",
     "mui-datatables": "^2.0.0-beta-42",
-    "node-sass": "^4.10.0",
+    "node-sass": "^4.12.0",
     "promise": "^8.0.2",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
