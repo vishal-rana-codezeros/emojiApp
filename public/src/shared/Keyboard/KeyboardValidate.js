@@ -2,7 +2,6 @@ import { isEmpty, isEmail } from 'validator';
 import lodash from 'lodash';
 
 const KeyboardValidate = (data) => {
-	console.log("data",data)
 	let errors = {};
 	
 	let { keyboardName, categoryName, cost, keyboardType } = data;

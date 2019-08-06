@@ -25,7 +25,7 @@ export const LoginApi = data => {
 				return res;
 			},
 			err => {
-				console.log('err', err);
+				
 			}
 		);
 	};

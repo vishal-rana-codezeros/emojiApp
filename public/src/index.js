@@ -29,7 +29,6 @@ const initialState = {}
 const enhancers = []
 const middleware = [
   thunk,
-  logger,
   routerMiddleware(history)
 ]
 

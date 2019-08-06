@@ -85,7 +85,7 @@ class AddKeyboard extends React.Component {
 		let displayImg = [];
 		if (imageName === 'displayImg') {
 			file.map((res, i) => {
-				if(i <= 4) {
+				if (i <= 4) {
 					displayImg.push(res);
 				}
 			});
@@ -117,7 +117,7 @@ class AddKeyboard extends React.Component {
 			this.setState({ isSubmit: false });
 
 			const { _id } = localStorage.user ? JSON.parse(localStorage.user) : {};
-
+			
 			let disImg = await this.imageUpload('displayImg');
 			let subImg = await this.imageUpload('imgSrc');
 			this.state.subImages = subImg;
@@ -136,7 +136,7 @@ class AddKeyboard extends React.Component {
 						image: [],
 						displayImg: [],
 						imgSrc: [],
-						displayImage: []
+						displayImage: [],
 					});
 					this.props.getUser();
 				}
