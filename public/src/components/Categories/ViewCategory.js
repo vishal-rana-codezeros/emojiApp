@@ -14,7 +14,8 @@ class ViewCategory extends React.Component {
 
     this.state = {
       open: false,
-      category: ''
+      category: '',
+      image: []
     };
   }
   toggle = () => {
@@ -23,7 +24,7 @@ class ViewCategory extends React.Component {
         this.props.getOneCategoryData(this.props.viewId).then((res) => {
 
           if (res.status == 200) {
-            this.setState({category: res.data.data.categoryName })
+            this.setState({category: res.data.data.categoryName, image:  res.data.data.image})
           }
         })
       }
@@ -35,6 +36,14 @@ class ViewCategory extends React.Component {
   render() {
   
     let { errors } = this.state
+    let displayImagePreview = [];
+		for (let index = 0; index < this.state.image.length; index++) {
+			displayImagePreview.push(
+				<div className="uploadPictureContainer">
+					<img src={this.state.image[index]} className="uploadPicture" alt="preview" />
+				</div>
+			);
+		}
     return (
       <>
         <IconButton aria-label="Edit"  onClick={this.toggle}>
@@ -57,6 +66,15 @@ class ViewCategory extends React.Component {
                           </InputGroupAddon>
                           <Input type="text" name="category" value={this.state.category} autoComplete="category" onChange={this.onTextChange} disabled/>
                         </InputGroup>
+                        <div className="fileContainer">
+													<InputGroup className="mb-12">
+														<InputGroup className="mb-12">
+															<InputLabel className="labelcss">Display Image</InputLabel>
+														</InputGroup>
+														<InputGroupAddon addonType="prepend" />
+													</InputGroup>
+													{displayImagePreview}
+												</div>
                       </Form>
                     </CardBody>
                     <CardFooter className="p-12">

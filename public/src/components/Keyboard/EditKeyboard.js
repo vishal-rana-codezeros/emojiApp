@@ -119,12 +119,17 @@ class EditKeyboard extends React.Component {
 			</div>
 		);
 	}
-
+	
 	componentDidMount() {}
 
 	onDrop(imageName, file) {
 		let displayImg = [];
 		if (imageName === 'displayImg') {
+			if((file.length + this.state.displayImage) > 5) {
+				this.setState({errors : {...this.state.errors, image: "You cant add more than 5 image"}})
+			} else {
+				this.setState({errors : {...this.state.errors, image: ""}})
+			}
 			file.map((res, i) => {
 				if (i <= 4) {
 					displayImg.push(res);
@@ -357,6 +362,9 @@ class EditKeyboard extends React.Component {
 															max={5}
 															withPreview={true}
 														/>
+														{errors.image && (
+														<em className="has-error">{errors.image}</em>
+													)}
 													</InputGroup>
 													{displayImagesPreview}
 												</div>
