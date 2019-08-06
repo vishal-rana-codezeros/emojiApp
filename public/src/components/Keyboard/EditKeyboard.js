@@ -119,16 +119,16 @@ class EditKeyboard extends React.Component {
 			</div>
 		);
 	}
-	
+
 	componentDidMount() {}
 
 	onDrop(imageName, file) {
 		let displayImg = [];
 		if (imageName === 'displayImg') {
-			if((file.length + this.state.displayImage) > 5) {
-				this.setState({errors : {...this.state.errors, image: "You cant add more than 5 image"}})
+			if (file.length + this.state.displayImage > 5) {
+				this.setState({ errors: { ...this.state.errors, image: 'You cant add more than 5 image' } });
 			} else {
-				this.setState({errors : {...this.state.errors, image: ""}})
+				this.setState({ errors: { ...this.state.errors, image: '' } });
 			}
 			file.map((res, i) => {
 				if (i <= 4) {
@@ -168,10 +168,22 @@ class EditKeyboard extends React.Component {
 			this.setState({ isSubmit: false });
 			let disImg = this.state.displayImg.length > 0 ? await this.imageUpload('displayImg') : [];
 			let subImg = this.state.imgSrc.length > 0 ? await this.imageUpload('imgSrc') : [];
-			
+
 			this.state.subImages = [...this.state.subImages, ...subImg];
 			this.state.displayImage = [...this.state.displayImage, ...disImg];
-			await this.props.updateKeyboardDetails(this.props.editId, this.state).then(res => {
+
+			const { keyboardName, categoryName, keyboardType, displayImage, subImages, cost } = this.state;
+
+			let obj = {
+				keyboardName,
+				categoryName,
+				keyboardType,
+				displayImage,
+				subImages,
+				cost,
+			};
+
+			await this.props.updateKeyboardDetails(this.props.editId, obj).then(res => {
 				if (res.data.code == 400) {
 					this.setState({ errors: { ...this.state.errors, keyboardName: res.data.message } });
 				} else {
@@ -182,7 +194,7 @@ class EditKeyboard extends React.Component {
 					image: [],
 					displayImg: [],
 					imgSrc: [],
-					displayImage: []
+					displayImage: [],
 				});
 			});
 		}
@@ -362,9 +374,7 @@ class EditKeyboard extends React.Component {
 															max={5}
 															withPreview={true}
 														/>
-														{errors.image && (
-														<em className="has-error">{errors.image}</em>
-													)}
+														{errors.image && <em className="has-error">{errors.image}</em>}
 													</InputGroup>
 													{displayImagesPreview}
 												</div>

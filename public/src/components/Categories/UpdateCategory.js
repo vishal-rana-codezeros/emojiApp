@@ -47,6 +47,7 @@ class UpdateCategory extends React.Component {
 		this.onClickToEdit = this.onClickToEdit.bind(this);
 		this.handleselect = this.handleselect.bind(this);
 	}
+
 	toggle = () => {
 		this.setState({ open: !this.state.open }, () => {
 			if (this.state.open) {
@@ -76,7 +77,7 @@ class UpdateCategory extends React.Component {
 
 			let imgSrc = this.state.imgSrc.length > 0 ? await this.imageUpload() : [];
 			let obj = {
-				...this.state,
+				categoryName: this.state.categoryName,
 				image: [...this.state.image, ...imgSrc],
 			};
 			this.props.updateCategory(this.props.editId, obj).then(res => {

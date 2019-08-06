@@ -84,10 +84,10 @@ class AddKeyboard extends React.Component {
 	onDrop(imageName, file) {
 		let displayImg = [];
 		if (imageName === 'displayImg') {
-			if(file.length > 5) {
-				this.setState({ errors: {...this.state.errors, image: "You cant add more than 5 image"} })
+			if (file.length > 5) {
+				this.setState({ errors: { ...this.state.errors, image: 'You cant add more than 5 image' } });
 			} else {
-				this.setState({ errors: {...this.state.errors, image: ""} })
+				this.setState({ errors: { ...this.state.errors, image: '' } });
 			}
 
 			file.map((res, i) => {
@@ -123,13 +123,24 @@ class AddKeyboard extends React.Component {
 			this.setState({ isSubmit: false });
 
 			const { _id } = localStorage.user ? JSON.parse(localStorage.user) : {};
-			
+
 			let disImg = await this.imageUpload('displayImg');
 			let subImg = await this.imageUpload('imgSrc');
 			this.state.subImages = subImg;
 			this.state.displayImage = disImg;
 
-			await this.props.addKeyboard(this.state).then((res, err) => {
+			const { keyboardName, categoryName, keyboardType, displayImage, subImages, cost } = this.state;
+
+			let obj = {
+				keyboardName,
+				categoryName,
+				keyboardType,
+				displayImage,
+				subImages,
+				cost,
+			};
+
+			await this.props.addKeyboard(obj).then((res, err) => {
 				if (res.data.code == 400) {
 					this.setState({ errors: { ...this.state.errors, keyboardName: res.data.message } });
 				} else {

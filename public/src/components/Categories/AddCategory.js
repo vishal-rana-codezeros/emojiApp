@@ -72,7 +72,11 @@ class AddCategory extends React.Component {
 		if (this.isValid(this.state)) {
 			this.setState({ isSubmit: false });
 			this.state.image = await this.imageUpload();
-			this.props.addCategory(this.state).then(res => {
+			let obj = {
+				categoryName: this.state.categoryName,
+				image: this.state.image,
+			};
+			this.props.addCategory(obj).then(res => {
 				this.setState({
 					open: !this.state.open,
 					categoryName: '',
