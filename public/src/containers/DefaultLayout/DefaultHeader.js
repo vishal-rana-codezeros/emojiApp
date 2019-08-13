@@ -45,7 +45,7 @@ class DefaultHeader extends Component {
     // if(image==""){
     //   return "";
     // }
-
+    
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
@@ -60,11 +60,11 @@ class DefaultHeader extends Component {
         <label className="logoLabelEffect"><b>Emoji Admin</b></label>
         <Nav className="ml-auto" navbar>
           <AppHeaderDropdown direction="down">
-            <DropdownToggle nav  className="adminNamecss">
+            <DropdownToggle nav className="adminNamecss">
               <h5 ><label >{fullName}</label></h5>
             </DropdownToggle>
             <DropdownMenu right style={{ right: 'auto' }}>
-              <DropdownItem><img src={image? image : `../../assets/img/avatars/default.png`} className="img-avatar profilecustom" alt={fullName ? fullName : ''} /></DropdownItem>
+              <DropdownItem><img src={image? image : `../../assets/img/efault.png`} className="img-avatar profilecustom" alt={fullName ? fullName : ''} /></DropdownItem>
               <DropdownItem className="logoutcss" onClick={this.onClickToLogout}><i className="fa fa-lock "></i> Logout</DropdownItem>
             </DropdownMenu>
           </AppHeaderDropdown>
