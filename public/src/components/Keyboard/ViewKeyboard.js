@@ -28,9 +28,9 @@ import validateInput from '../../shared/Keyboard/KeyboardValidate';
 import ImageUploader from 'react-images-upload';
 // import ImageProcessor from 'react-image-processor';
 class ViewKeyboard extends React.Component {
+	
 	constructor(props) {
 		super(props);
-
 		this.state = {
 			open: false,
 			keyboardName: '',
@@ -44,8 +44,9 @@ class ViewKeyboard extends React.Component {
 			subImages: [],
 		};
 	}
+	
 	toggle = () => {
-		this.setState({ open: !this.state.open }, () => {
+		this.setState({ open: !this.state.open }, () => {			
 			if (this.state.open) {
 				this.props.getOneKeyboardDetails(this.props.viewId).then(res => {
 					if (res.status == 200) {
@@ -64,7 +65,6 @@ class ViewKeyboard extends React.Component {
 
 		setTimeout(() => {
 			var elements1 = document.getElementsByClassName('uploadPicturesWrapper');
-
 			const d = document.createElement('div', { class: 'custom-preview-image' }, 'dsfdsfdsdsf');
 		}, 1000);
 	};
@@ -80,6 +80,7 @@ class ViewKeyboard extends React.Component {
 			</div>
 		);
 	}
+	
 	createImage = image => {
 		return (
 			<div class="uploadPictureContainer" style="">
@@ -89,7 +90,6 @@ class ViewKeyboard extends React.Component {
 	};
 
 	render() {
-
 		let imgPreview = [];
 		for (let index = 0; index < this.state.subImages.length; index++) {
 			imgPreview.push(
@@ -98,7 +98,7 @@ class ViewKeyboard extends React.Component {
 				</div>
 			);
 		}
-
+		
 		let displayImagePreview = [];
 		for (let index = 0; index < this.state.displayImage.length; index++) {
 			displayImagePreview.push(

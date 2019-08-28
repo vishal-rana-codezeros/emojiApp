@@ -15,7 +15,7 @@ export const LoginApi = data => {
 			res => {
 				if (res.status === 200) {
 					if (res.data.statusCode || res.data.responseCode === 200) {
-						const { token, userObj } = res.data;	
+						const { token, userObj } = res.data;
 						localStorage.setItem('token', token);
 						localStorage.setItem('user', JSON.stringify(userObj));
 						requireAuthToken(token);
@@ -24,9 +24,7 @@ export const LoginApi = data => {
 				}
 				return res;
 			},
-			err => {
-				
-			}
+			err => {}
 		);
 	};
 };

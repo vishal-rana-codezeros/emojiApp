@@ -37,6 +37,7 @@ import ImageUploader from 'react-images-upload';
 import { componentWillAppendToBody } from 'react-append-to-body';
 import axios from 'axios';
 import { LoaderAction } from '../../action/loader.action';
+import { toast } from 'react-toastify';
 
 class EditKeyboard extends React.Component {
 	constructor(props) {
@@ -74,15 +75,17 @@ class EditKeyboard extends React.Component {
 		this.setState({ open: !this.state.open }, () => {
 			if (this.state.open) {
 				this.props.getOneKeyboardDetails(this.props.editId).then(res => {
-					if (res.status == 200) {
-						this.setState({
-							keyboardName: res.data.data.keyboardName,
-							categoryName: res.data.data.categoryName,
-							keyboardType: res.data.data.keyboardType,
-							cost: res.data.data.cost,
-							displayImage: res.data.data.displayImage ? res.data.data.displayImage : [],
-							subImages: res.data.data.subImages ? res.data.data.subImages : [],
-						});
+					if (res.status === 200) {
+						if (res.data.code === 200) {
+							this.setState({
+								keyboardName: res.data.data.keyboardName,
+								categoryName: res.data.data.categoryName,
+								keyboardType: res.data.data.keyboardType,
+								cost: res.data.data.cost,
+								displayImage: res.data.data.displayImage ? res.data.data.displayImage : [],
+								subImages: res.data.data.subImages ? res.data.data.subImages : [],
+							});
+						}
 					}
 				});
 			}
@@ -99,10 +102,11 @@ class EditKeyboard extends React.Component {
 		const { page, pageSize } = this.state;
 		this.props.getActiveCatList().then(res => {
 			if (res.status == 200) {
-				// return false;
-				const { data } = res.data;
-				const { categoryOptions } = this.state;
-				data.map(x => categoryOptions.push({ id: x._id, value: x.categoryName }));
+				if (res.data.code === 200) {
+					const { data } = res.data;
+					const { categoryOptions } = this.state;
+					data.map(x => categoryOptions.push({ id: x._id, value: x.categoryName }));
+				}
 			}
 		});
 	}
@@ -119,16 +123,16 @@ class EditKeyboard extends React.Component {
 			</div>
 		);
 	}
-	
+
 	componentDidMount() {}
 
 	onDrop(imageName, file) {
 		let displayImg = [];
 		if (imageName === 'displayImg') {
-			if((file.length + this.state.displayImage) > 5) {
-				this.setState({errors : {...this.state.errors, image: "You cant add more than 5 image"}})
+			if (file.length + this.state.displayImage > 5) {
+				this.setState({ errors: { ...this.state.errors, image: 'You cant add more than 5 image' } });
 			} else {
-				this.setState({errors : {...this.state.errors, image: ""}})
+				this.setState({ errors: { ...this.state.errors, image: '' } });
 			}
 			file.map((res, i) => {
 				if (i <= 4) {
@@ -157,34 +161,91 @@ class EditKeyboard extends React.Component {
 			formData.append('file', img);
 		});
 		var data = await axios.post(`http://3.18.139.243:8808/codezeros/uploadMultipleFile/common`, formData);
-		return data.data.data;
+
+		return { code: data.data.code, message: data.data.message, data: data.data.data };
 	};
 
 	onClickToEdit = async e => {
 		e.preventDefault();
 		this.setState({ isSubmit: true });
-		const { imgSrc } = this.state;
+		const { imgSrc, displayImg } = this.state;
 		if (this.isValid(this.state)) {
 			this.setState({ isSubmit: false });
 			let disImg = this.state.displayImg.length > 0 ? await this.imageUpload('displayImg') : [];
 			let subImg = this.state.imgSrc.length > 0 ? await this.imageUpload('imgSrc') : [];
-			
-			this.state.subImages = [...this.state.subImages, ...subImg];
-			this.state.displayImage = [...this.state.displayImage, ...disImg];
-			await this.props.updateKeyboardDetails(this.props.editId, this.state).then(res => {
-				if (res.data.code == 400) {
-					this.setState({ errors: { ...this.state.errors, keyboardName: res.data.message } });
+
+			if (imgSrc.length > 0 || displayImg.length > 0) {
+				if (
+					(subImg.code !== 500 && disImg.code !== 500) ||
+					(subImg.code !== 500 && disImg.length === 0) ||
+					(subImg.length === 0 && disImg.code !== 500) ||
+					(subImg.length === 0 && disImg.length === 0)
+				) {
+					this.state.subImages =
+						subImg.data && subImg.data.length > 0
+							? [...this.state.subImages, ...subImg.data]
+							: this.state.subImages;
+					this.state.displayImage =
+						disImg.data && disImg.data.lenght > 0
+							? [...this.state.displayImage, ...disImg.data]
+							: this.state.displayImage;
+
+					const { keyboardName, categoryName, keyboardType, displayImage, subImages, cost } = this.state;
+
+					let obj = {
+						keyboardName,
+						categoryName,
+						keyboardType,
+						displayImage,
+						subImages,
+						cost,
+					};
+
+					await this.props.updateKeyboardDetails(this.props.editId, obj).then(res => {
+						if (res.data.code == 400) {
+							this.setState({ errors: { ...this.state.errors, keyboardName: res.data.message } });
+						} else {
+							this.setState({ open: !this.state.open });
+							this.props.getUser();
+						}
+						this.setState({
+							image: [],
+							displayImg: [],
+							imgSrc: [],
+							displayImage: [],
+						});
+					});
 				} else {
-					this.setState({ open: !this.state.open });
-					this.props.getUser();
+					this.setState({ errors: { ...this.state.errors, imageError: 'Internal server error !' } });
+					setTimeout(() => this.setState({ errors: { ...this.state.errors, imageError: '' } }), 3000);
 				}
-				this.setState({
-					image: [],
-					displayImg: [],
-					imgSrc: [],
-					displayImage: []
+			} else {
+				const { keyboardName, categoryName, keyboardType, displayImage, subImages, cost } = this.state;
+
+				let obj = {
+					keyboardName,
+					categoryName,
+					keyboardType,
+					displayImage,
+					subImages,
+					cost,
+				};
+
+				await this.props.updateKeyboardDetails(this.props.editId, obj).then(res => {
+					if (res.data.code == 400) {
+						this.setState({ errors: { ...this.state.errors, keyboardName: res.data.message } });
+					} else {
+						this.setState({ open: !this.state.open });
+						this.props.getUser();
+					}
+					this.setState({
+						image: [],
+						displayImg: [],
+						imgSrc: [],
+						displayImage: [],
+					});
 				});
-			});
+			}
 		}
 		const { onClick, editId } = this.props;
 	};
@@ -362,9 +423,7 @@ class EditKeyboard extends React.Component {
 															max={5}
 															withPreview={true}
 														/>
-														{errors.image && (
-														<em className="has-error">{errors.image}</em>
-													)}
+														{errors.image && <em className="has-error">{errors.image}</em>}
 													</InputGroup>
 													{displayImagesPreview}
 												</div>
@@ -389,6 +448,7 @@ class EditKeyboard extends React.Component {
 													{subImagesPreview}
 												</div>
 											</Form>
+											{errors.imageError && <em className="has-error">{errors.imageError}</em>}
 										</CardBody>
 										<CardFooter className="p-12">
 											<Row>

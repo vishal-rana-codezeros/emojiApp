@@ -36,9 +36,7 @@ export const activeUser = id => {
 	};
 };
 export const Login = data => {
-	return dispatch => {
-		
-	};
+	return dispatch => {};
 };
 export const getAboutusPage = data => {
 	return dispatch => {

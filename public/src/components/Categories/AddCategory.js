@@ -63,7 +63,7 @@ class AddCategory extends React.Component {
 			formData.append('file', img);
 		});
 		var data = await axios.post(`http://3.18.139.243:8808/codezeros/uploadMultipleFile/common`, formData);
-		return data.data.data;
+		return { code: data.data.code, message: data.data.message, data: data.data.data };
 	};
 
 	onClickToAdd = async e => {
@@ -72,16 +72,44 @@ class AddCategory extends React.Component {
 		if (this.isValid(this.state)) {
 			this.setState({ isSubmit: false });
 			this.state.image = await this.imageUpload();
-			this.props.addCategory(this.state).then(res => {
-				this.setState({
-					open: !this.state.open,
-					categoryName: '',
-					imgSrc: [],
-					image: [],
+			if (this.state.imgSrc.length > 0) {
+				if (this.state.image && this.state.image.code !== 500) {
+					let obj = {
+						categoryName: this.state.categoryName,
+						image: this.state.image.code,
+					};
+
+					this.props.addCategory(obj).then(res => {
+						this.setState({
+							open: !this.state.open,
+							categoryName: '',
+							imgSrc: [],
+							image: [],
+						});
+						this.props.getUser();
+					});
+
+					const { onClick, editId } = this.props;
+				} else {
+					this.setState({ errors: { ...this.state.errors, imageError: 'Internal server error !' } });
+					setTimeout(() => this.setState({ errors: { ...this.state.errors, imageError: '' } }), 3000);
+				}
+			} else {
+				let obj = {
+					categoryName: this.state.categoryName,
+					image: this.state.image,
+				};
+				this.props.addCategory(obj).then(res => {
+					this.setState({
+						open: !this.state.open,
+						categoryName: '',
+						imgSrc: [],
+						image: [],
+					});
+					this.props.getUser();
 				});
-				this.props.getUser();
-			});
-			const { onClick, editId } = this.props;
+				const { onClick, editId } = this.props;
+			}
 		}
 	};
 
@@ -103,9 +131,7 @@ class AddCategory extends React.Component {
 
 	isValid = data => {
 		let { isValid, errors } = validateInput(data);
-
 		this.setState({ isValid, errors });
-
 		return isValid;
 	};
 
@@ -155,11 +181,19 @@ class AddCategory extends React.Component {
 														withIcon={true}
 														buttonText="Choose images"
 														onChange={file => {
-                              if(file.length > 5) {
-                                this.setState({errors: {...this.state.errors, image: "You cant add more than 5 iamge"}})
-                              } else {
-                                this.setState({ imgSrc: file,  errors: {...this.state.errors, image: ''}});
-                              }
+															if (file.length > 5) {
+																this.setState({
+																	errors: {
+																		...this.state.errors,
+																		image: 'You cant add more than 5 iamge',
+																	},
+																});
+															} else {
+																this.setState({
+																	imgSrc: file,
+																	errors: { ...this.state.errors, image: '' },
+																});
+															}
 														}}
 														imgExtension={['.jpg', '.gif', '.png', '.gif', '.jpeg']}
 														maxFileSize={5242880}
@@ -169,6 +203,7 @@ class AddCategory extends React.Component {
 													{errors.image && <em className="has-error">{errors.image}</em>}
 												</InputGroup>
 											</Form>
+											{errors.imageError && <em className="has-error">{errors.imageError}</em>}
 										</CardBody>
 										<CardFooter className="p-12">
 											<Row>

@@ -47,6 +47,7 @@ class UpdateCategory extends React.Component {
 		this.onClickToEdit = this.onClickToEdit.bind(this);
 		this.handleselect = this.handleselect.bind(this);
 	}
+
 	toggle = () => {
 		this.setState({ open: !this.state.open }, () => {
 			if (this.state.open) {
@@ -65,7 +66,7 @@ class UpdateCategory extends React.Component {
 			formData.append('file', img);
 		});
 		var data = await axios.post(`http://3.18.139.243:8808/codezeros/uploadMultipleFile/common`, formData);
-		return data.data.data;
+		return { code: data.data.code, message: data.data.message, data: data.data.data };
 	};
 
 	onClickToEdit = async e => {
@@ -75,26 +76,55 @@ class UpdateCategory extends React.Component {
 			this.setState({ isSubmit: false });
 
 			let imgSrc = this.state.imgSrc.length > 0 ? await this.imageUpload() : [];
-			let obj = {
-				...this.state,
-				image: [...this.state.image, ...imgSrc],
-			};
-			this.props.updateCategory(this.props.editId, obj).then(res => {
-				if (res.data.code == 400) {
-					this.setState({
-						errors: { ...this.state.errors, categoryName: res.data.message },
-						imgSrc: imgSrc,
-						image: this.state.image,
+			if (this.state.imgSrc.length > 0) {
+				if (imgSrc && imgSrc.code !== 500) {
+					let obj = {
+						categoryName: this.state.categoryName,
+						image: [...this.state.image, ...imgSrc.data],
+					};
+
+					this.props.updateCategory(this.props.editId, obj).then(res => {
+						if (res.data.code == 400) {
+							this.setState({
+								errors: { ...this.state.errors, categoryName: res.data.message },
+								imgSrc: imgSrc,
+								image: this.state.image,
+							});
+							this.props.getUser();
+						} else {
+							this.setState({ open: !this.state.open, imgSrc: [], image: [] });
+							this.props.getUser();
+						}
 					});
-					this.props.getUser();
 				} else {
-					this.setState({ open: !this.state.open, imgSrc: [], image: [] });
-					this.props.getUser();
+					this.setState({ errors: { ...this.state.errors, imageError: 'Internal server error !' } });
+					setTimeout(() => this.setState({ errors: { ...this.state.errors, imageError: '' } }), 3000);
 				}
-			});
+			} else {
+				let obj = {
+					categoryName: this.state.categoryName,
+					image: this.state.image,
+				};
+
+				this.props.updateCategory(this.props.editId, obj).then(res => {
+					if (res.data.code == 400) {
+						this.setState({
+							errors: { ...this.state.errors, categoryName: res.data.message },
+							imgSrc: imgSrc,
+							image: this.state.image,
+						});
+						this.props.getUser();
+					} else {
+						this.setState({ open: !this.state.open, imgSrc: [], image: [] });
+						this.props.getUser();
+					}
+				});
+			}
+
 			const { onClick, editId } = this.props;
 		}
 	};
+
 	onTextChange(event) {
 		if (event.target.value === '') {
 			this.setState({ [event.target.name]: event.target.value }, () => {
@@ -110,6 +140,7 @@ class UpdateCategory extends React.Component {
 			});
 		}
 	}
+
 	handleselect = event => {
 		let value = event.target.value;
 		let name = event.target.name;
@@ -122,11 +153,15 @@ class UpdateCategory extends React.Component {
 
 	isValid = data => {
 		let { isValid, errors } = validateInput(data);
-
 		this.setState({ isValid, errors });
-
 		return isValid;
 	};
+
+	delete(e, imageName) {
+		var array = [...this.state[imageName]];
+		array.splice(e.target.id, 1);
+		this.setState({ [imageName]: array });
+	}
 
 	render() {
 		let { errors } = this.state;
@@ -135,7 +170,7 @@ class UpdateCategory extends React.Component {
 		for (let index = 0; index < this.state.image.length; index++) {
 			displayImagesPreview.push(
 				<div className="uploadPictureContainer" key={index}>
-					<div className="deleteImage" id={[index]} onClick={e => this.delete(e, 'displayImage')}>
+					<div className="deleteImage" id={[index]} onClick={e => this.delete(e, 'image')}>
 						X
 					</div>
 					<img src={this.state.image[index]} className="uploadPicture" alt="preview" />
@@ -163,10 +198,9 @@ class UpdateCategory extends React.Component {
 													</InputGroup>
 													<InputGroupAddon addonType="prepend">
 														{/* <InputGroupText>
-                              <i className="icon-user"></i>
-                            </InputGroupText> */}
+															 	<i className="icon-user"></i>
+															</InputGroupText> */}
 													</InputGroupAddon>
-
 													<Input
 														type="text"
 														name="categoryName"
@@ -191,12 +225,20 @@ class UpdateCategory extends React.Component {
 															withIcon={true}
 															buttonText="Choose images"
 															onChange={file => {
-                                let length = file.length + this.state.image.length
-                                if(length > 5) {
-                                  this.setState({errors: {...this.state.errors, image: 'You cant add more than 5 image'}}) 
-                                } else {
-                                  this.setState({ imgSrc: file,  errors: {...this.state.errors, image: ''}});
-                                }
+																let length = file.length + this.state.image.length;
+																if (length > 5) {
+																	this.setState({
+																		errors: {
+																			...this.state.errors,
+																			image: 'You cant add more than 5 image',
+																		},
+																	});
+																} else {
+																	this.setState({
+																		imgSrc: file,
+																		errors: { ...this.state.errors, image: '' },
+																	});
+																}
 															}}
 															imgExtension={['.jpg', '.gif', '.png', '.gif', '.jpeg']}
 															maxFileSize={5242880}
@@ -208,6 +250,7 @@ class UpdateCategory extends React.Component {
 													{displayImagesPreview}
 												</div>
 											</Form>
+											{errors.imageError && <em className="has-error">{errors.imageError}</em>}
 										</CardBody>
 										<CardFooter className="p-12">
 											<Row>
