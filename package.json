@@ -40,7 +40,7 @@
     "generate-password": "^1.4.1",
     "istanbul": "^0.4.5",
     "loadtest": "^3.0.4",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "method-override": "^3.0.0",
     "mongoose": "^5.3.11",
     "mongoose-paginate": "^5.0.3",
