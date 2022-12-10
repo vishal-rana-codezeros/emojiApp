@@ -36,7 +36,7 @@
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "draftjs-to-markdown": "^0.5.1",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "generate-password": "^1.4.1",
     "istanbul": "^0.4.5",
     "loadtest": "^3.0.4",
